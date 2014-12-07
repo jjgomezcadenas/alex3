@@ -1,0 +1,67 @@
+Installing ALEX3
+-----------------
+
+Information updated on Dec-07-2014 by JJGC
+
+ALEX3 needs the following libraries:
+Irene: -- MC "true" information from NEXUS, the MC generator of NEXT
+URL: svn://next.ific.uv.es/svn/next/irene/trunk
+
+Paolina: A library that allows voxelisation of tracks.
+
+URL: svn://next.ific.uv.es/svn/next/paolina/branches/paolina.2.0
+
+Log4CPP: A library for simple logging
+
+http://log4cpp.sourceforge.net
+
+RecPack: A library for Kalman Filter analysis
+URL: svn://next.ific.uv.es/svn/sw/recpack/trunk
+
+CLHEP: Vector and matrix clases, system of units (used mainly by RecPack)
+TinyXML2: A simple XML parser
+http://www.grinninglizard.com/tinyxml2docs/
+
+ROOT: The uber-library for HEP or the mother of all evil
+http://root.cern.ch/drupal/
+
+At the moment, ALEX3 is using version 5.34/18
+
+The CMakeLists.txt specifies the command
+
+find_package(Irene REQUIRED)
+find_package(Paolina REQUIRED)
+find_package(Log4CPP REQUIRED)
+find_package(RecPack REQUIRED)
+find_package(CLHEP REQUIRED)
+find_package(TinyXML2 REQUIRED)
+find_package(ROOT REQUIRED)
+
+Which implies that you should have in your alex3 source directory a subdirectory call cmake and inside cmake a directory called Modules. Inside Modules:
+
+FindCLHEP.cmake    FindLog4CPP.cmake  FindROOT.cmake     FindTinyXML2.cmake
+FindIrene.cmake    FindPaolina.cmake  FindRecPack.cmake
+
+All the modules except the one used to find ROOT, are pretty trivial. The ROOT module requires that you have installed ROOT and can run the command root-config. If you have defined properly the variable ROOTSYS pointing to your ROOT installation everything should be OK. 
+
+For the rest of the libraries we don't use the xxx-config command. Rather, you need to define a few environment variables in your profile.
+
+As an example, my profile contains the following definitions:
+
+export DEVELOPMENT=/Users/jjgomezcadenas/Development
+export NEXT=$DEVELOPMENT/NEXT
+export IRENE=$NEXT/irene
+export IRENE_DIR=$IRENE
+export PAOLINA=$NEXT/paolina
+export PAOLINA_DIR=$PAOLINA
+
+export LOG4CPP_DIR=/usr/local
+export RECPACK_DIR=/usr/local
+export TINYXML2_DIR=/usr/local
+export CLHEP_DIR=/usr/local
+export CLHEP_VERSION=2.1.4.1
+export TINYXML2_VERSION=2.2.1.0
+
+Notice that the environment variables simply point to your installation. The system assumes that Irene, Paolina and Log4CPP libraries are simply called libirene.dylib (or .so) libapaolina.dylib and liblog4cpp.dylib. Instead, since tinyxml and CLHEP are versioned, we define two extra variables to allow for the version to be used. 
+
+
