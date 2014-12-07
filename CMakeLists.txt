@@ -31,7 +31,7 @@ set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/"
 MESSAGE("CMAKE_MODULE_PATH source dir: ${CMAKE_MODULE_PATH}")
 
 
-# Look for the Irene Log4cpp and ROOT libraries
+# Look for the needed libraries
 find_package(Irene REQUIRED)
 find_package(Paolina REQUIRED)
 find_package(Log4CPP REQUIRED)
@@ -59,44 +59,46 @@ MESSAGE("TinyXML2 libraries: ${TINYXML2_LIBRARIES}")
 MESSAGE("ROOT libraries: ${ROOT_LIBRARIES}")
 
 
-# SET(ALEX_WDIR 
-#   $ENV{AWDIR}
-# ) 
-# #Make symbolic links in karen/ to all header files
-# EXECUTE_PROCESS(
-#   COMMAND mkdir -p alex)
+SET(ALEX_WDIR 
+  $ENV{AWDIR}
+) 
+#Make symbolic links in alex/ to all header files
+EXECUTE_PROCESS(
+  COMMAND mkdir -p alex)
 
 
-# FILE(GLOB alex_headers . util/*.h config/*.h base/*.h toy/*.h isvc/*.h ksvc/*.h)
+FILE(GLOB alex_headers . util/*.h config/*.h base/*.h isvc/*.h)
+#FILE(GLOB alex_headers . util/*.h config/*.h base/*.h toy/*.h isvc/*.h ksvc/*.h)
 
-# FOREACH(file ${alex_headers})
-#   EXECUTE_PROCESS(
-#     COMMAND ln -s -f ${file} alex)
-# ENDFOREACH(file)
-
-
-# # Directories that will be searched for headers during compilation
-# INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR} ${ALEX_WDIR} 
-# 					${IRENE_INCLUDE_DIR} ${PAOLINA_INCLUDE_DIR} 
-# 					${ROOT_INCLUDE_DIR} ${TINYXML2_INCLUDE_DIR} 
-# 					${LOG4CPP_INCLUDE_DIR} ${RECPACK_INCLUDES_DIR} ${CLHEP_INCLUDE_DIR})
+FOREACH(file ${alex_headers})
+  EXECUTE_PROCESS(
+    COMMAND ln -s -f ${file} alex)
+ENDFOREACH(file)
 
 
+# Directories that will be searched for headers during compilation
+INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR} ${ALEX_WDIR} 
+					${IRENE_INCLUDE_DIR} ${PAOLINA_INCLUDE_DIR} 
+					${ROOT_INCLUDE_DIR} ${TINYXML2_INCLUDE_DIR} 
+					${LOG4CPP_INCLUDE_DIR} ${RECPACK_INCLUDES_DIR} ${CLHEP_INCLUDE_DIR})
+
+
+FILE(GLOB alex_src . util/*.cpp config/*.cpp base/*.cpp isvc/*.cpp )
 # FILE(GLOB alex_src . util/*.cpp config/*.cpp base/*.cpp isvc/*.cpp ksvc/*.cpp)
 
 # # # Finally, create it!
 
-# MESSAGE("Creating Alex library")
+MESSAGE("Creating Alex library")
 
-# ADD_LIBRARY(alex SHARED ${alex_src})
-# SET_TARGET_PROPERTIES(alex PROPERTIES VERSION 1.1.0 SOVERSION 1)
-# TARGET_LINK_LIBRARIES(alex ${LOG4CPP_LIBRARIES} ${IRENE_LIBRARIES} ${PAOLINA_LIBRARIES} 
-# 	${RECPACK_LIBRARIES} ${ROOT_LIBRARIES} ${CLHEP_LIBRARIES} ${TINYXML2_LIBRARIES})
+ADD_LIBRARY(alex SHARED ${alex_src})
+SET_TARGET_PROPERTIES(alex PROPERTIES VERSION 1.1.0 SOVERSION 1)
+TARGET_LINK_LIBRARIES(alex ${LOG4CPP_LIBRARIES} ${IRENE_LIBRARIES} ${PAOLINA_LIBRARIES} 
+	${RECPACK_LIBRARIES} ${ROOT_LIBRARIES} ${CLHEP_LIBRARIES} ${TINYXML2_LIBRARIES})
 
 
-# MESSAGE("Creating xConfigure")
-# add_executable (xConfigure config/xConfigure.cxx)
-# target_link_libraries (xConfigure alex)
+MESSAGE("Creating xConfigure")
+add_executable (xConfigure config/xConfigure.cxx)
+target_link_libraries (xConfigure alex)
 
 
 # MESSAGE("Executing xConfigure")
@@ -105,8 +107,8 @@ MESSAGE("ROOT libraries: ${ROOT_LIBRARIES}")
 #         #OUTPUT_VARIABLE CLHEP_PREFIX)
 
   
-# ADD_SUBDIRECTORY(${ALEX_WDIR})
-# ADD_SUBDIRECTORY(alexMain)
+ADD_SUBDIRECTORY(${ALEX_WDIR})
+ADD_SUBDIRECTORY(alexMain)
 # #ADD_SUBDIRECTORY(test)
 # #ADD_SUBDIRECTORY(exampleConf)
 # #ADD_SUBDIRECTORY(example)

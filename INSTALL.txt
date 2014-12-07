@@ -64,4 +64,11 @@ export TINYXML2_VERSION=2.2.1.0
 
 Notice that the environment variables simply point to your installation. The system assumes that Irene, Paolina and Log4CPP libraries are simply called libirene.dylib (or .so) libapaolina.dylib and liblog4cpp.dylib. Instead, since tinyxml and CLHEP are versioned, we define two extra variables to allow for the version to be used. 
 
+---
+In your profile you also need to define your "alex workind directory" (the place where you place your algorithms)
+The environment variable to set is AWDIR. As an example:
 
+export DEVELOPMENT=/Users/jjgomezcadenas/Development
+export DEVNEXT=$DEVELOPMENT/devnext
+export ALEX=$DEVNEXT/alex3
+export AWDIR=$ALEX/jjalgos
