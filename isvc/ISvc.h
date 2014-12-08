@@ -57,7 +57,7 @@ class IreneManager {
     int evtNum;
 
     TRandom2* fRandom;
-	  TFile* fIfile;
+	TFile* fIfile;
   	TTree* fEvtTree;
         
   	const irene::Event* fIevt;

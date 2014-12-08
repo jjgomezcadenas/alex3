@@ -111,7 +111,7 @@ IF (ROOT_FOUND)
   # ask root-config for the library varaibles
   EXEC_PROGRAM( ${ROOT_CONFIG_EXECUTABLE}
 #    ARGS "--noldflags --noauxlibs --libs" 
-    ARGS "--glibs" 
+    ARGS "--glibs --evelibs" 
     OUTPUT_VARIABLE root_flags )
 
 #  STRING(REGEX MATCHALL "([^ ])+"  root_libs_all ${root_flags})
@@ -135,11 +135,12 @@ IF (ROOT_FOUND)
   #
   #######################################
 
-  FIND_PROGRAM(ROOT_CINT_EXECUTABLE
-    NAMES rootcint
-    PATHS ${ROOT_BINARY_DIR}
-    NO_DEFAULT_PATH
-    )
+
+  find_program(ROOTCINT_EXECUTABLE rootcint)
+  if(NOT ROOTCINT_EXECUTABLE)
+    set(ROOT_FOUND FALSE)
+    set(ROOT_ERROR_REASON "${ROOT_ERROR_REASON} Cannot find rootcint.")
+  endif()
 
 ENDIF (ROOT_FOUND)
 
@@ -266,3 +267,43 @@ MACRO (GENERATE_ROOT_TEST_SCRIPT SCRIPT_FULL_NAME)
   EXEC_PROGRAM(/bin/chmod ARGS "u+x  ${new_path}/${shell_script_name}")
 
 ENDMACRO (GENERATE_ROOT_TEST_SCRIPT)
+
+# macro that generates ROOT dictionary
+function(root_generate_dictionary DICT_FILE INCLUDE_DIRS HEADER_FILES LINKDEF_FILE)
+
+  if(NOT ROOT_FOUND)
+    message(FATAL_ERROR "Impossible to generate dictionary ${DICT_FILE}, because no ROOT installation was found.")
+  endif()
+ 
+  # prepare command line argument for compiler definitions (put -D in front)
+  set(_DEFINITIONS)
+  get_property(_DEFS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY COMPILE_DEFINITIONS)
+  foreach(_DEF ${_DEFS})
+    set(_DEFINITIONS "${_DEFINITIONS} -D${_DEF}")
+  endforeach()
+  separate_arguments(_DEFINITIONS)
+
+  # prepare command line argument for include directories (put -I in front)
+  set(_INCLUDES)
+  foreach(_FILE ${INCLUDE_DIRS})
+    set(_INCLUDES ${_INCLUDES} -I${_FILE})
+  endforeach()
+ 
+  # strip paths from header file names
+  set(_HEADERS)
+  foreach(_FILE ${HEADER_FILES})
+    get_filename_component(_NAME ${_FILE} NAME)
+    set(_HEADERS ${_HEADERS} ${_NAME})
+  endforeach()
+
+  # add dictionary header file to output files
+  string(REGEX REPLACE "^(.*)\\.(.*)$" "\\1.h" _DICT_HEADER "${DICT_FILE}")
+  set(OUTPUT_FILES ${DICT_FILE} ${_DICT_HEADER})
+
+  add_custom_command(OUTPUT ${OUTPUT_FILES}
+    COMMAND ${ROOTCINT_EXECUTABLE}
+    ARGS -f ${DICT_FILE} -c -DHAVE_CONFIG_H ${_DEFINITIONS} ${_INCLUDES} ${_HEADERS} ${LINKDEF_FILE}
+    DEPENDS ${HEADER_FILES} ${LINKDEF_FILE}
+  )
+
+endfunction(root_generate_dictionary)

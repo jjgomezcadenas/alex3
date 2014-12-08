@@ -62,6 +62,9 @@ MESSAGE("ROOT libraries: ${ROOT_LIBRARIES}")
 SET(ALEX_WDIR 
   $ENV{AWDIR}
 ) 
+
+SET(GALEX galex) # Define the galex directory
+
 #Make symbolic links in alex/ to all header files
 EXECUTE_PROCESS(
   COMMAND mkdir -p alex)
@@ -77,7 +80,7 @@ ENDFOREACH(file)
 
 
 # Directories that will be searched for headers during compilation
-INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR} ${ALEX_WDIR} 
+INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR} ${ALEX_WDIR} ${GALEX}
 					${IRENE_INCLUDE_DIR} ${PAOLINA_INCLUDE_DIR} 
 					${ROOT_INCLUDE_DIR} ${TINYXML2_INCLUDE_DIR} 
 					${LOG4CPP_INCLUDE_DIR} ${RECPACK_INCLUDES_DIR} ${CLHEP_INCLUDE_DIR})
@@ -109,6 +112,7 @@ target_link_libraries (xConfigure alex)
   
 ADD_SUBDIRECTORY(${ALEX_WDIR})
 ADD_SUBDIRECTORY(alexMain)
+ADD_SUBDIRECTORY(galex)
 # #ADD_SUBDIRECTORY(test)
 # #ADD_SUBDIRECTORY(exampleConf)
 # #ADD_SUBDIRECTORY(example)
