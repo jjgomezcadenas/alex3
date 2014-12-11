@@ -103,6 +103,10 @@ MESSAGE("Creating xConfigure")
 add_executable (xConfigure config/xConfigure.cxx)
 target_link_libraries (xConfigure alex)
 
+MESSAGE("Creating gConfigure")
+add_executable (gConfigure galex/gConfigure.cxx)
+target_link_libraries (gConfigure alex)
+
 
 # MESSAGE("Executing xConfigure")
 # EXEC_PROGRAM(${CMAKE_BINARY_DIR}/xConfigure

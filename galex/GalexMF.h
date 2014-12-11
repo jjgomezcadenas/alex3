@@ -112,7 +112,7 @@ class GalexMF
 
     bool fFSet; // set to true once you init Karen
 
-    
+    std::string fCdirName;
     double fRmin, fRmax, fZl; //dimensions of Toy detector
     double fRTPC,fZTPC; // params for Toy Detector
 

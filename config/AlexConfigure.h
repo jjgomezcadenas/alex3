@@ -28,10 +28,14 @@ class AlexConf {
 		virtual ~AlexConf(){};
 		void Init(std::string debugLevel, std::string rootName);
 		void ParseConfiguration(std::string configFile);
+		void ParseGalexConfiguration(std::string configFile);
 		
 		std::string WriteAConfHeader() const;
 		std::string WriteAConfCPP() const;
 		std::string WriteAlgoHeader();
+
+		std::string WriteGalexHeader() const; 
+
 		std::vector<std::string> WriteAlgoHeaders();
 		std::string WriteAlgoCPP();
 		std::string WriteRegisterAlgos() const;
@@ -73,6 +77,8 @@ class AlexConf {
 
 		std::vector<std::string> fAlgoNames;
     std::vector<std::string> fAlgoPath;
+
+    std::vector<alex::DParam> fGalexParam;
 
     std::map<std::string, std::vector<alex::DParam> > fAlgoParam;
     std::map<std::string, std::vector<alex::DArray> > fAlgoArray;
