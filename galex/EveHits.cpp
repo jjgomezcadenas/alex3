@@ -22,15 +22,15 @@ EveHits::EveHits() :
   //InitLogger();  Commented for now, but one could have an independent logger (not root)
 }
 
-void EveHits::InitLogger()
-{
-  log4cpp::Appender *appender1 = new log4cpp::OstreamAppender("console", &std::cout);
-  appender1->setLayout(new log4cpp::BasicLayout());
+// void EveHits::InitLogger()
+// {
+//   log4cpp::Appender *appender1 = new log4cpp::OstreamAppender("console", &std::cout);
+//   appender1->setLayout(new log4cpp::BasicLayout());
 
-  log4cpp::Category& klog = log4cpp::Category::getRoot();
-  klog.setPriority(log4cpp::Priority::DEBUG);
-  klog.addAppender(appender1);
-}
+//   log4cpp::Category& klog = log4cpp::Category::getRoot();
+//   klog.setPriority(log4cpp::Priority::DEBUG);
+//   klog.addAppender(appender1);
+// }
 
 void EveHits::SetMarkers(int marker_color, int marker_style, double marker_size)
 {
