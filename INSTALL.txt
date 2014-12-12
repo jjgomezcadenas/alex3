@@ -62,7 +62,18 @@ export CLHEP_DIR=/usr/local
 export CLHEP_VERSION=2.1.4.1
 export TINYXML2_VERSION=2.2.1.0
 
-Notice that the environment variables simply point to your installation. The system assumes that Irene, Paolina and Log4CPP libraries are simply called libirene.dylib (or .so) libapaolina.dylib and liblog4cpp.dylib. Instead, since tinyxml and CLHEP are versioned, we define two extra variables to allow for the version to be used. 
+Notice that the environment variables simply point to your
+installation. The system assumes that Irene, Paolina and Log4CPP
+libraries are simply called libirene.dylib (or .so) libapaolina.dylib
+and liblog4cpp.dylib. Instead, since tinyxml and CLHEP are versioned,
+we define two extra variables to allow for the version to be used.
+
+Notice also that it is assumed that the base to which you point (eg,
+the _DIR) has below a /lib and and /include directory. For example:
+
+LOG4CPP_DIR=/usr/local
+then the library for log4cpp is assumed to be in /usr/local/lib
+and the includes in /usr/local/includes
 
 ---
 In your profile you also need to define your "alex workind directory" (the place where you place your algorithms)
