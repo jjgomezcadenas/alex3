@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Galex>
+  <Param>
+    <name>fDebug</name>
+    <dataType>string</dataType>
+    <value>INFO</value>
+  </Param>
+  <Param>
+    <name>fCdirName</name>
+    <dataType>string</dataType>
+    <value>/Users/Javi/Development/alex3/data</value>
+  </Param>
+  <Param>
+    <name>fDeDx</name>
+    <dataType>double</dataType>
+    <value>10.</value>
+  </Param>
+  <Param>
+    <name>fRmin</name>
+    <dataType>double</dataType>
+    <value>200.</value>
+  </Param>
+  <Param>
+    <name>fRmax</name>
+    <dataType>double</dataType>
+    <value>201.</value>
+  </Param>
+<Param>
+    <name>fZl</name>
+    <dataType>double</dataType>
+    <value>200.</value>
+  </Param>
+</Galex>
