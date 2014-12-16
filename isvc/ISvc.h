@@ -33,6 +33,8 @@ class IreneManager {
 		int DstGetEntry(int ivt);
 		void LoadEvent(const irene::Event* ievt);
 		const irene::Event& GetEvent();
+
+		TLorentzVector TrueVertex(){return fVertex;}
 		
 		IParticles GetElectrons() const {return fElectrons;}
 		int GetNumberOfElectrons() const {return fElectrons.size();}
@@ -52,6 +54,7 @@ class IreneManager {
 	private:
 		void FetchElectrons();
 		void FetchPMaxElectrons();
+		void GetTrueVertex();
     
     int startEvt;
     int evtNum;
@@ -64,6 +67,7 @@ class IreneManager {
   	IParticles fElectrons;
   	IParticles fBetas; //beta = primary electron
   	IHits fTrueHits;
+  	TLorentzVector fVertex;
   	
     std::vector<const irene::Track*> fIreneTracks ; 
   	std::pair<IParticle, IParticle> fBetasMax;

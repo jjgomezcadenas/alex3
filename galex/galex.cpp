@@ -323,44 +323,45 @@ void GalexMF::TrueTracks()
   // if (strncmp (fDebug,"DEBUG",4)  ==0) 
   //   fIrene->PrintTrueTracks();
   
-  // klog.debug("cleaning previous graphics objects\n");
-  // CleanGraphics();
+  klog.debug("cleaning previous graphics objects\n");
+  CleanGraphics();
 
-  // int marker_color=2;
-  // int marker_style=4;
-  // double marker_size=0.5;
+  int marker_color=2;
+  int marker_style=4;
+  double marker_size=0.5;
 
-  // klog.debug("--Loop over tracks and get the hits of each track  \n");
+  klog.debug("--Loop over tracks and get the hits of each track  \n");
 
-  // std::vector<const irene::Track*> trueTracks = fIrene->TrueTracks();
-  // for (size_t i=0; i < trueTracks.size(); i++)
-  // {
-  //   const irene::Track* itrk = trueTracks.at(i);
-  //   const std::vector<std::pair<TLorentzVector,double> > ihits = itrk->GetHits();
-  //   std::vector<TLorentzVector> trkPoints;
+  std::vector<const irene::Track*> trueTracks = fIevt->Tracks();
+  for (size_t i=0; i < trueTracks.size(); i++)
+  {
+    const irene::Track* itrk = trueTracks.at(i);
+    const std::vector<std::pair<TLorentzVector,double> > ihits = itrk->GetHits();
+    std::vector<TLorentzVector> trkPoints;
 
-  //   for(size_t i=0; i<ihits.size(); i++)
-  //   {
-  //     trkPoints.push_back(ihits.at(i).first);
-  //   }
+    for(size_t i=0; i<ihits.size(); i++)
+    {
+      trkPoints.push_back(ihits.at(i).first);
+    }
 
-  //   klog.debug("--Create a graphic object per each track and store into vector  \n");
+    klog.debug("--Create a graphic object per each track and store into vector  \n");
     
-  //   marker_color++;
+    marker_color++;
     
-  //   fEveTT->SetMarkers(marker_color, marker_style, marker_size);
+    fEveTT->SetMarkers(marker_color, marker_style, marker_size);
 
-  //   //allocate a new graphic object of type gtpcHits
-  //   TEvePointSet* trkHits = fEveTT->TrackHits(trkPoints);
+    //allocate a new graphic object of type gtpcHits
+    TEvePointSet* trkHits = fEveTT->TrackHits(trkPoints);
 
-  //   gTrueTracks.push_back(trkHits);
+    gTrueTracks.push_back(trkHits);
 
-  //   klog.debug("Adding trkHits from track %d to the manager and drawing scene\n",i);
+    klog.debug("Adding trkHits from track %d to the manager and drawing scene\n",i);
 
-  //   gEve->AddElement(trkHits);
+    gEve->AddElement(trkHits);
 
-  // }
-  // DrawScene();
+  }
+  DrawScene();
+  fEveTT->SetStatus(true);
 }
 
 void GalexMF::TrueVertex()
@@ -371,38 +372,37 @@ void GalexMF::TrueVertex()
   // if (strncmp (fDebug,"DEBUG",4)  ==0) 
   //   fIrene->PrintTrueVertex();
   
-  // klog.debug("--Clear previous true vertex \n");
+  klog.debug("--Clear previous true vertex \n");
 
-  // if (fEveTV->Status())
-  // {
-  //   klog.debug("Destroy gTrueVertex from previous event\n");
+  if (fEveTV->Status())
+  {
+    klog.debug("Destroy gTrueVertex from previous event\n");
 
-  //   gTrueVertex->DestroyElements();
-  //   delete gTrueVertex;
-  //   fEveTV->SetStatus(false);
-  // }
+    gTrueVertex->DestroyElements();
+    delete gTrueVertex;
+    fEveTV->SetStatus(false);
+  }
 
-  // klog.debug("--Create graphic object (gTrueHits) for true hits \n");
+  klog.debug("--Create graphic object (gTrueHits) for true hits \n");
 
-  // int marker_color=46;
-  // int marker_style=20;
-  // double marker_size=2.0;
+  int marker_color=46;
+  int marker_style=20;
+  double marker_size=2.0;
   
-  // fEveTV->SetMarkers(marker_color, marker_style, marker_size);
+  fEveTV->SetMarkers(marker_color, marker_style, marker_size);
 
-  // std::vector<TLorentzVector> vertex;
-  // vertex.push_back(fIrene->TrueVertex());
+  std::vector<TLorentzVector> vertex;
+  vertex.push_back(alex::ISvc::Instance().TrueVertex());
 
-  // gTrueVertex = fEveTV->TrackHits(vertex);
+  gTrueVertex = fEveTV->TrackHits(vertex);
 
-  // klog.debug("Adding gTrueVertex to the manager and drawing scene\n");
+  klog.debug("Adding gTrueVertex to the manager and drawing scene\n");
 
-  // gEve->AddElement(gTrueVertex);
-  // DrawScene(); 
+  gEve->AddElement(gTrueVertex);
+  DrawScene(); 
+  fEveTV->SetStatus(true);
         
 }
-
-
 
 void GalexMF::DrawScene()
 {

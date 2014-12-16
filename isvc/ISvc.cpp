@@ -82,6 +82,8 @@ namespace alex {
         fBetasMaxHits.second = track->GetHits();
       }
     }
+
+    GetTrueVertex();
   }
 //--------------------------------------------------------------------
   const irene::Event& IreneManager::GetEvent()
@@ -153,5 +155,33 @@ namespace alex {
       klog << log4cpp::Priority::DEBUG << " imax2 =" << imax2 << " pmax = " << pmax;
       fBetasMax.second =fBetas.at(imax2);
     }
+  }
+
+//--------------------------------------------------------------------
+  void IreneManager::GetTrueVertex()
+//--------------------------------------------------------------------
+{
+    log4cpp::Category& klog = log4cpp::Category::getRoot();
+    klog.debug("In IreneManager::GetTrueVertex(): Fill true vertex");
+
+  bool found=false;
+  
+  for (size_t it = 0; it < fIreneTracks.size(); it++)
+  { 
+    const irene::Track* itrk = fIreneTracks.at(it) ; 
+    const irene::Particle* ipart= itrk->GetParticle();
+
+    klog.debug("++++Irene particle associated to track number %lu\n",it);
+    
+    if (ipart->IsPrimary()) 
+    {
+      fVertex = ipart->GetInitialVertex();
+      found = true;
+      break;
+    } 
+  } 
+  if (found==false)
+    klog.error("Error! vertex not found!");
+
   }
 }

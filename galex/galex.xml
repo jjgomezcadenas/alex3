@@ -18,16 +18,16 @@
   <Param>
     <name>fRmin</name>
     <dataType>double</dataType>
-    <value>200.</value>
+    <value>100.</value>
   </Param>
   <Param>
     <name>fRmax</name>
     <dataType>double</dataType>
-    <value>201.</value>
+    <value>101.</value>
   </Param>
 <Param>
     <name>fZl</name>
     <dataType>double</dataType>
-    <value>200.</value>
+    <value>100.</value>
   </Param>
 </Galex>
