@@ -28,6 +28,8 @@ class IreneManager {
 		IreneManager(){};
 		virtual ~IreneManager(){};
 		void Init(std::string debugLevel);
+		void Init(std::string debugLevel,std::vector<double> voxel_size,
+    std::vector<double> left_range,std::vector<double> right_range, double rblob);
 		void InitDst(std::string fileName,const irene::Event* ievt);
 		int DstEntries();
 		int DstGetEntry(int ivt);
@@ -55,12 +57,13 @@ class IreneManager {
 		void FetchElectrons();
 		void FetchPMaxElectrons();
 		void GetTrueVertex();
+		void GetPaolinaVoxels();
     
     int startEvt;
     int evtNum;
 
-    TRandom2* fRandom;
-	TFile* fIfile;
+    //TRandom2* fRandom;
+		TFile* fIfile;
   	TTree* fEvtTree;
         
   	const irene::Event* fIevt;
@@ -72,6 +75,24 @@ class IreneManager {
     std::vector<const irene::Track*> fIreneTracks ; 
   	std::pair<IParticle, IParticle> fBetasMax;
   	std::pair<IHits, IHits> fBetasMaxHits;
+
+  	//paolina Voxels
+
+		std::vector<paolina::Voxel*> fPvoxels;	
+  	//Voxel builder
+  	paolina::VoxelBuilder* fPVB;
+
+  	//paolina tracks
+  	std::vector<paolina::Track*> fPtracks;
+
+  	//paolina track builder
+  	paolina::TrackBuilder* fPTB;
+
+  	//paolina blobs
+  	std::pair<paolina::Blob*, paolina::Blob*> fPblobs;
+
+  	//paolina Blob builder
+  	paolina::BlobBuilder* fPBB;
 			
 	};
 

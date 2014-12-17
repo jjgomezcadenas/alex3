@@ -19,6 +19,13 @@
 #include <irene/Track.h>
 #include <irene/Particle.h>
 
+#include <paolina/Voxel.h>
+#include <paolina/VoxelBuilder.h>
+#include <paolina/Track.h>
+#include <paolina/TrackBuilder.h>
+#include <paolina/BlobBuilder.h>
+#include <paolina/Blob.h>
+
 
 namespace alex {
 typedef std::pair<TLorentzVector,double> IHit;
