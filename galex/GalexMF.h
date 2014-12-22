@@ -64,7 +64,9 @@ class GalexMF
     TGTextButton*      fBTrueTracks;
     TGTextButton*      fBTrueHits;
     TGTextButton*      fBTrueVertex;
-    TGTextButton*      fBSetParam;
+    TGTextButton*      fBPVoxels;
+    TGTextButton*      fBPTracks;
+    TGTextButton*      fBPBlobs;
     TGTextButton*      fBExit;
 
     TGLayoutHints      *fMenuBarLayout, *fMenuBarItemLayout;
@@ -83,13 +85,19 @@ class GalexMF
     TStopwatch*                                     fTimer;
    
     irene::Event*                                   fIevt; //i for irene objects
+
+    std::vector<double> fVoxelSize;
+    double fXVoxel,fYVoxel,fZVoxel,fRBlob,fVoxelDeDx;
+    double fMinDetX,fMaxDetX,fMinDetY,fMaxDetY,fMinDetZ,fMaxDetZ;
     
     EveHits*                                        fEveTH;  //TH = TrueHits
     EveHits*                                        fEveTV;  //TV = TrueVertex
     EveHits*                                        fEveTT;  //TT = TrueTrack
     
-    
-    TEvePointSetArray*                              gTrueHits; 
+    EveHits*                                        fEvePV; // PV= Paolina Voxels
+
+    TEvePointSetArray*                              gTrueHits;
+    TEvePointSetArray*                              gPaolinaVoxels; 
     TEvePointSet*                                   gTrueVertex; 
     std::vector<TEvePointSet*>                      gTrueTracks; 
 
@@ -128,6 +136,8 @@ class GalexMF
     void SetLogger();
     void InitData();
     void InitGalex();
+    void InitPSvc();
+    void InitEve();
     void CleanGraphics();
     
 	void OpenFile();
@@ -137,6 +147,10 @@ class GalexMF
     void TrueHits();
     void TrueTracks();
     void TrueVertex();
+
+    void PaolinaVoxels();
+    void PaolinaTracks();
+    void PaolinaBlobs();
     
     void DrawScene();
     void InitGui();

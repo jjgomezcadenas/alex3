@@ -36,7 +36,7 @@ public:
 	EveHits();
 	
 	virtual ~EveHits(){};
-	void InitLogger();
+	//void InitLogger();
 	void SetMarkers(int marker_color, int marker_style, double marker_size);
 	void SetEnergyBins(int n_ebin, double emin, double emax);
 	inline bool Status(){return fStatus;}
@@ -45,6 +45,7 @@ public:
 	inline std::string GetType(){return fType;}
 
    TEvePointSetArray* Hits(std::vector<std::pair<TLorentzVector,double> > hits);
+   TEvePointSetArray* Hits(std::vector<std::pair<TVector3,double> > hits);
    TEvePointSet* TrackHits(std::vector<TLorentzVector> track);
  
    ClassDef(EveHits, 0)

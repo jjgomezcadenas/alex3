@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- 
+    Copy this configuration file to your own local version (eg MyGalex.xml)
+    And run gGallex <path to galex> <local name> to generate GalexInit.hh
+  
+    Notice that you can change the value of the parameters but not the names
+    The parameters names are defined as local variables in gallex
+> -->
 <Galex>
   <Param>
     <name>fDebug</name>
     <dataType>string</dataType>
-    <value>INFO</value>
+    <value>DEBUG</value>
   </Param>
   <Param>
     <name>fCdirName</name>
@@ -29,5 +36,57 @@
     <name>fZl</name>
     <dataType>double</dataType>
     <value>100.</value>
+  </Param>
+
+<!-- Detector size -->
+  <Param>
+    <name>fMinDetX</name>
+    <dataType>double</dataType>
+    <value>-500.</value>
+  </Param>
+  <Param>
+    <name>fMaxDetX</name>
+    <dataType>double</dataType>
+    <value>500.</value>
+  </Param>
+  <Param>
+    <name>fMinDetY</name>
+    <dataType>double</dataType>
+    <value>-500.</value>
+  </Param>
+  <Param>
+    <name>fMaxDetY</name>
+    <dataType>double</dataType>
+    <value>500.</value>
+  </Param>
+  <Param>
+    <name>fMinDetZ</name>
+    <dataType>double</dataType>
+    <value>-500.</value>
+  </Param>
+  <Param>
+    <name>fMaxDetZ</name>
+    <dataType>double</dataType>
+    <value>500.</value>
+  </Param>
+<Param>
+    <name>fXVoxel</name>
+    <dataType>double</dataType>
+    <value>5.</value>
+  </Param>
+<Param>
+    <name>fYVoxel</name>
+    <dataType>double</dataType>
+    <value>5.</value>
+  </Param>
+<Param>
+    <name>fZVoxel</name>
+    <dataType>double</dataType>
+    <value>5.</value>
+  </Param>
+<Param>
+    <name>fRBlob</name>
+    <dataType>double</dataType>
+    <value>10.</value>
   </Param>
 </Galex>

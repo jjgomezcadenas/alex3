@@ -703,7 +703,7 @@ namespace alex {
 
     s<<"#include <string>" << endl;
     s<<"#include <vector>" << endl;
-
+    
     s << "  void GalexMF::InitGalex() {" << endl;
 
     for (auto param : fGalexParam)

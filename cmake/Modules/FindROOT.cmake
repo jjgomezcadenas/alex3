@@ -136,7 +136,7 @@ IF (ROOT_FOUND)
   #######################################
 
 
-  find_program(ROOTCINT_EXECUTABLE rootcint)
+  find_program(ROOTCINT_EXECUTABLE ${ROOT_CONFIG_SEARCHPATH}/rootcint)
   if(NOT ROOTCINT_EXECUTABLE)
     set(ROOT_FOUND FALSE)
     set(ROOT_ERROR_REASON "${ROOT_ERROR_REASON} Cannot find rootcint.")

@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------
-//  $Id: Alex.cpp 
+//  $Id: ISvc.cpp 
 //
 //  Author:  <gomez@mail.cern.ch>
 //  Created: July 2014
@@ -29,22 +29,13 @@ namespace alex {
 void IreneManager::Init(std::string debugLevel)
 //--------------------------------------------------------------------
   {
+    fDebugLevel = debugLevel;
     SetDebugLevel(debugLevel);
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << " IreneManager::Init" ;
     //fRandom = new TRandom2();
   }
-//--------------------------------------------------------------------
-  void IreneManager::Init(string debugLevel,std::vector<double> voxel_size,
-    std::vector<double> left_range,std::vector<double> right_range, double rblob)
-//--------------------------------------------------------------------
-  {
-    this->Init(debugLevel);
 
-    fPTB = new paolina::TrackBuilder();
-    fPVB =new paolina::VoxelBuilder(voxel_size, left_range, right_range);
-    fPBB = new paolina::BlobBuilder(rblob);
-  }
 //--------------------------------------------------------------------
   void IreneManager::InitDst(std::string fileName, const irene::Event* ievt)
 //--------------------------------------------------------------------
@@ -100,8 +91,8 @@ void IreneManager::Init(std::string debugLevel)
 
     klog << log4cpp::Priority::DEBUG << " IreneManager::Compute True Vertex" ;
     GetTrueVertex();
-    GetPaolinaVoxels();
-    
+
+
   }
 
 //--------------------------------------------------------------------
@@ -205,36 +196,20 @@ void IreneManager::Init(std::string debugLevel)
   }
 
 //--------------------------------------------------------------------
-  void IreneManager::GetPaolinaVoxels()
-//--------------------------------------------------------------------  
+  void IreneManager::PrintHits()
+//--------------------------------------------------------------------
   {
-    log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << " IreneManager::GetPaolinaVoxels()" ;
-  
-    for (size_t i=0; i < fPvoxels.size(); i++)
-      delete fPvoxels.at(i);
-    
-    fPvoxels.clear();
-  
-    klog << log4cpp::Priority::INFO << " IreneManager::Compute Paolina Voxels";
-    TStopwatch*  timer = new TStopwatch();
-    timer->Start();
-    fPvoxels = fPVB->FillVoxels(fTrueHits);
-    fPtracks = fPTB->IdentifyTracks(fPvoxels);
-    fPblobs = fPBB->MakeBlobs(fPtracks.at(0));
-    timer->Stop(); 
+    std::cout << " Irene Hits: " << std::endl;
 
-    double rtime = timer->RealTime();
-    double cctime = timer->CpuTime();
-
-    delete timer;
-
-    klog << log4cpp::Priority::INFO << "Fill Voxels finds" << fPvoxels.size()
-         << "voxels" << " and  " << fPtracks.size() << " paolina tracks";
-
-    klog << log4cpp::Priority::INFO << "RealTime =" << rtime << " seconds"
-         << " CpuTime = " << cctime << "seconds";
-   
+    for(auto ihit : fTrueHits)
+    {
+      TLorentzVector vl = ihit.first;
+      double e = ihit.second;
+      std::cout 
+           << " x (mm) = " << vl[0]
+           << " y (mm) = " << vl[1]
+           << " z (mm) = " << vl[2]
+           << " edep (MeV) = " << e << std::endl;    
+    }
   }
-
 }

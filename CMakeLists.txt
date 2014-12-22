@@ -70,7 +70,7 @@ EXECUTE_PROCESS(
   COMMAND mkdir -p alex)
 
 
-FILE(GLOB alex_headers . util/*.h config/*.h base/*.h isvc/*.h)
+FILE(GLOB alex_headers . util/*.h config/*.h base/*.h isvc/*.h psvc/*.h)
 #FILE(GLOB alex_headers . util/*.h config/*.h base/*.h toy/*.h isvc/*.h ksvc/*.h)
 
 FOREACH(file ${alex_headers})
@@ -86,7 +86,7 @@ INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR} ${ALEX_WDIR} ${GALEX
 					${LOG4CPP_INCLUDE_DIR} ${RECPACK_INCLUDES_DIR} ${CLHEP_INCLUDE_DIR})
 
 
-FILE(GLOB alex_src . util/*.cpp config/*.cpp base/*.cpp isvc/*.cpp )
+FILE(GLOB alex_src . util/*.cpp config/*.cpp base/*.cpp isvc/*.cpp psvc/*.cpp )
 # FILE(GLOB alex_src . util/*.cpp config/*.cpp base/*.cpp isvc/*.cpp ksvc/*.cpp)
 
 # # # Finally, create it!

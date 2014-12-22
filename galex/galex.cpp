@@ -8,8 +8,8 @@
 #include "RootUtil.h"
 
 #include <alex/LogUtil.h>
-#include <alex/IDefs.h>
 #include <alex/ISvc.h>
+#include <alex/PSvc.h>
 
 #include "GalexMF.h"
 #include "EveHits.h"
@@ -35,11 +35,6 @@ GalexMF::GalexMF(const TGWindow *p, UInt_t w, UInt_t h)
 
   fGalex= new TGMainFrame(p, w, h);
   fGalex -> SetWindowName("Galex GUI");
-  
-  //InitLogger();
-  //InitData();
-  //InitGui();  
-  //InitGeometry();
 
 }
 
@@ -65,6 +60,7 @@ void GalexMF::InitLogger()
   
 }
 
+
 void GalexMF::InitData()
 {
   log4cpp::Category& klog = log4cpp::Category::getRoot();
@@ -73,7 +69,7 @@ void GalexMF::InitData()
 
   //fDirName = new TString(fCdirName);
   //fDirName = new TString("/Users/jjgomezcadenas/Development/NEXT/DATA");
-  string ff = "/Users/jjgomezcadenas/Development/NEXT/DATA";
+  //string ff = "/Users/jjgomezcadenas/Development/NEXT/DATA";
 
   fDirName = new TString(fCdirName);
   fDeDx = fDeDx*keV;
@@ -81,11 +77,11 @@ void GalexMF::InitData()
   fRmin = fRmin*mm;
   fRmax = fRmax*mm;
   fZl = fZl*mm;
-  
-  klog.debug("fDeDex (keV) = %7.2f: \n", fDeDx/keV);
-  klog.debug("fRmin (mm) = %7.2f fRmax (mm) = %7.2f fZl (mm) = %7.2f: \n", 
-    fRmin/mm,fRmax/mm,fZl/mm);
 
+  klog.info("fDeDex (keV) = %7.2f: \n", fDeDx/keV);
+  klog.info("fRmin (mm) = %7.2f fRmax (mm) = %7.2f fZl (mm) = %7.2f: \n", 
+    fRmin/mm,fRmax/mm,fZl/mm);
+  
   fTimer = new TStopwatch();
   fEvent=0;
   fFSet = false;
@@ -95,16 +91,98 @@ void GalexMF::InitData()
 
   sEvtTree = "EVENT";
   sEvtBranch = "EventBranch";
+
+  //Init ISvc
+  alex::ISvc::Instance().Init(fDebug);
+  //Init PSvc
+  InitPSvc();
+  // Init Eve
+  InitEve();
   
   
+}
+
+void GalexMF::InitPSvc()
+{
+  log4cpp::Category& klog = log4cpp::Category::getRoot();
+  klog.debug("In GalexMF::InitPaolina(): \n");
+
+  fMinDetX = fMinDetX*mm;
+  fMaxDetX = fMaxDetX*mm;
+  
+  fMinDetY = fMinDetY*mm;
+  fMaxDetY = fMaxDetY*mm;
+  
+  fMinDetZ = fMinDetZ*mm;
+  fMaxDetZ = fMaxDetZ*mm;
+
+  fXVoxel = fXVoxel*mm;
+  fYVoxel = fYVoxel*mm;
+  fZVoxel = fZVoxel*mm;
+
+  fRBlob = fRBlob*mm;
+  fVoxelDeDx = fDeDx* fZVoxel;
+
+  klog << log4cpp::Priority::INFO << " Paolina::Detector X Size (mm) = " 
+       << fMinDetX/mm << " , " << fMaxDetX/mm;
+  klog << log4cpp::Priority::INFO << " Paolina::Detector Y Size (mm) = " 
+       << fMinDetY/mm << " , " << fMaxDetY/mm;
+  klog << log4cpp::Priority::INFO << " Paolina::Detector Z Size (mm) = " 
+       << fMinDetZ/mm << " , " << fMaxDetZ/mm;
+
+  klog << log4cpp::Priority::INFO << " Paolina::Voxel Size (mm) = " << 
+          fXVoxel/mm << " , " << fYVoxel/mm << " , " << fZVoxel/mm;
+  klog << log4cpp::Priority::INFO << " Paolina::Blob Radius (mm) = " << fRBlob/mm ;
+
+  fVoxelSize.push_back(fXVoxel*mm);
+  fVoxelSize.push_back(fYVoxel*mm);
+  fVoxelSize.push_back(fZVoxel*mm); 
+  
+  std::pair<double,double> xRange;
+  std::pair<double,double> yRange;
+  std::pair<double,double> zRange;
+  std::vector<std::pair<double,double> > detSize;
+
+  xRange.first  = fMinDetX;
+  xRange.second = fMaxDetX;
+  yRange.first  = fMinDetY;
+  yRange.second = fMaxDetY;
+  zRange.first  = fMinDetZ;
+  zRange.second = fMaxDetZ;
+
+  detSize.push_back(xRange);
+  detSize.push_back(yRange);
+  detSize.push_back(zRange);
+
+  std::vector<double> left_range(3);
+  std::vector<double> right_range(3);
+
+  left_range[0]= fMinDetX;
+  left_range[1]= fMinDetY;
+  left_range[2]= fMinDetZ;
+
+  right_range[0]= fMaxDetX;
+  right_range[1]= fMaxDetY;
+  right_range[2]= fMaxDetZ;
+
+  // Init Svc
+  PSvc::Instance().Init(fDebug,fVoxelSize, detSize, fRBlob);
+
+}
+void GalexMF::InitEve()
+{
   fEveTH = new EveHits(); //TH or TrueHits Eve Object
   fEveTV = new EveHits(); //TV or TrueVertex Eve Object
   fEveTT = new EveHits(); //TT or TrueTracks Eve Object
+
+  fEvePV = new EveHits(); //PV Paolina Voxel Eve Object
   
 
   fEveTH->SetType("True hits");
   fEveTV->SetType("True vertex");
   fEveTT->SetType("True tracks");
+
+  fEvePV->SetType("Paolina Voxels");
 
   int marker_color=3;
   int marker_style=4;
@@ -114,8 +192,8 @@ void GalexMF::InitData()
   fEveTH->SetStatus(false);
   fEveTV->SetStatus(false);
   fEveTT->SetStatus(false);
+  fEvePV->SetStatus(false);
 }
-
 void GalexMF::SetLogger()
 {
   log4cpp::Category& klog = log4cpp::Category::getRoot();
@@ -171,6 +249,15 @@ void GalexMF::CleanGraphics()
       delete gTrueTracks.at(i);
     }
     gTrueTracks.clear();
+  }
+
+  if (fEvePV->Status())
+  {
+    klog.debug("Destroy gPaolinaVoxels from previous event\n");
+
+    gPaolinaVoxels->DestroyElements();
+    delete gPaolinaVoxels;
+    fEvePV->SetStatus(false);
   }
 }
 
@@ -253,8 +340,6 @@ void GalexMF::OpenFile()
   fBTrueHits-> SetEnabled(kFALSE);
   fBTrueVertex-> SetEnabled(kFALSE);
   fBOpenFile-> SetEnabled(kFALSE);
-  
- 
 
 }
 
@@ -268,6 +353,7 @@ void GalexMF::LoadEvent()
   fBTrueTracks-> SetEnabled(kTRUE);
   fBTrueHits-> SetEnabled(kTRUE);
   fBTrueVertex-> SetEnabled(kTRUE);
+  fBPVoxels-> SetEnabled(kTRUE);
   
   klog.debug("reading topo event = %d \n",fEvent);
   klog.debug("Adding event = %d \to graphics manager\n",fEvent);
@@ -296,7 +382,7 @@ void GalexMF::TrueHits()
 
   klog.debug("--Create graphic object (gTrueHits) for true hits \n");
 
-  int n_ebin = 15;
+  int n_ebin = 10;
   double emin = 0; // in keV
   double emax = fDeDx; // in keV
 
@@ -404,6 +490,52 @@ void GalexMF::TrueVertex()
         
 }
 
+void GalexMF::PaolinaVoxels()
+{
+  log4cpp::Category& klog = log4cpp::Category::getRoot();
+  klog.debug("In GalexMF::PaolinaVoxels() event = %d\n",fEvent-1);
+
+  klog.debug("cleaning previous graphics objects\n");
+  CleanGraphics();  
+
+  klog.debug("--Create graphic object (gPaolinaVoxels) for voxels d \n");
+
+  int marker_color=3;
+  int marker_style=21;
+  double marker_size=2.5;
+  int n_ebin = 10;
+  double emin = 0; // in keV
+  double emax = fVoxelDeDx; // in keV
+
+  klog.debug(" n_ebin = %d emin = %7.1f (keV) emax = %7.1f (keV)\n",
+    fEvent-1,emin/keV, emax/keV);
+
+  fEvePV->SetEnergyBins(n_ebin, emin, emax);
+  fEvePV->SetMarkers(marker_color, marker_style, marker_size);
+
+  alex::PSvc::Instance().ComputePaolinaVoxels();
+  gPaolinaVoxels = fEvePV->Hits(alex::PSvc::Instance().GetVoxels());
+
+  klog.debug("Adding gPaolinaVoxels to the manager and drawing scene\n");
+
+  gEve->AddElement(gPaolinaVoxels);
+  DrawScene(); 
+  fEvePV->SetStatus(true);
+  fBPTracks-> SetEnabled(kTRUE);
+
+}
+void GalexMF::PaolinaTracks()
+{
+  log4cpp::Category& klog = log4cpp::Category::getRoot();
+  klog.debug("In GalexMF::PaolinaTracks() event = %d\n",fEvent-1);
+}
+
+void GalexMF::PaolinaBlobs()
+{
+  log4cpp::Category& klog = log4cpp::Category::getRoot();
+  klog.debug("In GalexMF::PaolinaBlobs() event = %d\n",fEvent-1);
+}
+
 void GalexMF::DrawScene()
 {
   log4cpp::Category& klog = log4cpp::Category::getRoot();
@@ -428,23 +560,6 @@ void GalexMF::DrawScene()
   gEve->Redraw3D();
 }
 
-// void GalexMF::InitGalex()
-// {
-//  log4cpp::Category& klog = log4cpp::Category::getRoot();
-//   klog.debug("in GalexMF::InitGalex(): Instantiate GalexParam\n");
-
-//   fDebug="DEBUG";
-//   fDeDx = 20.*keV;
-
-//   fDirName = new TString("/Users/jjgomezcadenas/Development/NEXT/DATA");
-//   fFileName= new TString();
-
-//   fRmin = 150*mm;
-//   fRmax = 151*mm;
-//   fZl = 150*mm;
-
-// }
-
 
 void GalexMF::InitGui()
 {
@@ -455,12 +570,6 @@ void GalexMF::InitGui()
 
   TGCompositeFrame *cframe = new TGCompositeFrame(fGalex, 170, 20, 
                                              kHorizontalFrame | kFixedWidth);
-
-  // fBSetParam = new TGTextButton(cframe, "&Init");
-  // cframe->AddFrame(fBSetParam, new TGLayoutHints(kLHintsTop | kLHintsExpandX,
-  //                                            3, 2, 2, 2));
-  // fBSetParam-> Associate(fGalex);
-  // fBSetParam-> Connect("Clicked()", "GalexMF", this, "InitGalex()");
 
   fBOpenFile = new TGTextButton(cframe, "&OpenFile");
   cframe->AddFrame(fBOpenFile, new TGLayoutHints(kLHintsTop | kLHintsExpandX,
@@ -507,11 +616,38 @@ void GalexMF::InitGui()
   fBTrueVertex-> Associate(fGalex);
   fBTrueVertex-> Connect("Clicked()", "GalexMF", this, "TrueVertex()");
 
-  TGCompositeFrame *kframe = new TGCompositeFrame(fGalex, 170, 20, 
-                                                  kHorizontalFrame | kFixedWidth);
   
   TGCompositeFrame *cframe1 = new TGCompositeFrame(fGalex, 170, 20, 
                                                   kHorizontalFrame | kFixedWidth);
+
+  
+  TGCompositeFrame *pframe = new TGCompositeFrame(fGalex, 170, 20, 
+                                                  kHorizontalFrame | kFixedWidth);
+  
+  
+  fBPTracks = new TGTextButton(pframe, "&PTracks");
+  pframe->AddFrame(fBPTracks, new TGLayoutHints(kLHintsTop | kLHintsExpandX,
+                                              3, 2, 2, 2));
+
+  fBPTracks-> SetEnabled(kFALSE); 
+  fBPTracks-> Associate(fGalex);
+  fBPTracks-> Connect("Clicked()", "GalexMF", this, "PaolinaTracks()");
+
+   
+  fBPVoxels = new TGTextButton(pframe, "&PVoxels");
+  pframe->AddFrame(fBPVoxels, new TGLayoutHints(kLHintsTop | kLHintsExpandX,
+                                             3, 2, 2, 2));
+  fBPVoxels-> SetEnabled(kFALSE);
+  fBPVoxels-> Associate(fGalex);
+  fBPVoxels-> Connect("Clicked()", "GalexMF", this, "PaolinaVoxels()");
+
+  fBPBlobs = new TGTextButton(pframe, "&PBlobs");
+  pframe->AddFrame(fBPBlobs, new TGLayoutHints(kLHintsTop | kLHintsExpandX,
+                                             3, 2, 2, 2));
+  fBPBlobs-> SetEnabled(kFALSE);
+  fBPBlobs-> Associate(fGalex);
+  fBPBlobs-> Connect("Clicked()", "GalexMF", this, "PaolinaBlobs()");
+
    
   fBExit = new TGTextButton(cframe1, "&Exit");
   cframe1->AddFrame(fBExit, new TGLayoutHints(kLHintsTop | kLHintsExpandX,
@@ -529,8 +665,8 @@ void GalexMF::InitGui()
   
   fGalex -> AddFrame(cframe, new TGLayoutHints(kLHintsCenterX, 2, 2, 5, 1));
   fGalex -> AddFrame(iframe, new TGLayoutHints(kLHintsCenterX, 2, 2, 5, 1));
-  fGalex -> AddFrame(kframe, new TGLayoutHints(kLHintsCenterX, 2, 2, 5, 1));
-  //fGalex -> AddFrame(cframe2, new TGLayoutHints(kLHintsCenterX, 2, 2, 5, 1));
+  fGalex -> AddFrame(pframe, new TGLayoutHints(kLHintsCenterX, 2, 2, 5, 1));
+  
   fGalex -> AddFrame(cframe1, new TGLayoutHints(kLHintsCenterX, 2, 2, 5, 1));
   fGalex -> MapSubwindows();
   fGalex -> Resize(fGalex -> GetDefaultSize());
