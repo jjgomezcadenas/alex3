@@ -33,4 +33,13 @@ target_link_libraries (xgalex alex)
 
 EXECUTE_PROCESS(
     COMMAND ln -s -f galex/xgalex .)
+EXECUTE_PROCESS(
+    COMMAND ln -s -f galex/GalexDict_rdict.pcm .)
+
+EXECUTE_PROCESS(
+    COMMAND ln -s -f 
+    ${IRENE_INSTALL_DIR}/ireneDict_rdict.pcm .)
+EXECUTE_PROCESS(
+    COMMAND ln -s -f 
+    ${PAOLINA_INSTALL_DIR}/paolinaDict_rdict.pcm .)
 
