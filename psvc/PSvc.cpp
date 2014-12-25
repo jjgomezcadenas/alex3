@@ -10,7 +10,6 @@
 
 #include <TStopwatch.h>
 #include <alex/PSvc.h>
-#include <alex/ISvc.h>
 #include <alex/LogUtil.h>
 #include <cstdlib>
 #include <cstring>
@@ -27,74 +26,80 @@ using std::vector;
 
 namespace alex {
 
-//--------------------------------------------------------------------
-  void PaolinaManager::Init(std::string debugLevel, std::vector<double> voxel_size,
-    std::vector<double> left_range,std::vector<double> right_range, double rblob)
-//--------------------------------------------------------------------
-  {
-    fDebugLevel = debugLevel;
-    SetDebugLevel(debugLevel);
-    log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << " PaolinaManager::Init() left/right range " ;
+// //--------------------------------------------------------------------
+//   void PaolinaManager::Init(std::string debugLevel, 
+//     std::vector<double> voxel_size,
+//     std::vector<double> left_range,std::vector<double> right_range, 
+//     double rblob)
+// //--------------------------------------------------------------------
+//   {
+//     fDebugLevel = debugLevel;
+//     SetDebugLevel(debugLevel);
+//     log4cpp::Category& klog = log4cpp::Category::getRoot();
+//     klog << log4cpp::Priority::DEBUG 
+ // << " PaolinaManager::Init() left/right range " ;
 
-    klog << log4cpp::Priority::DEBUG << " init Voxel Builder" ;
-    klog << log4cpp::Priority::DEBUG 
-      << " voxel_size[0] =" << voxel_size[0]
-      << " voxel_size[1] =" << voxel_size[1]
-      << " voxel_size[2] =" << voxel_size[2]
-      << " left_range[0] =" << left_range[0]
-      << " left_range[1] =" << left_range[1]
-      << " left_range[2] =" << left_range[2]
-      << " right_range[0] =" << right_range[0]
-      << " right_range[1] =" << right_range[1]
-      << " right_range[2] =" << right_range[2]
-      << " rblob  =" << rblob;
+//     klog << log4cpp::Priority::DEBUG << " init Voxel Builder" ;
+//     klog << log4cpp::Priority::DEBUG 
+//       << " voxel_size[0] =" << voxel_size[0]
+//       << " voxel_size[1] =" << voxel_size[1]
+//       << " voxel_size[2] =" << voxel_size[2]
+//       << " left_range[0] =" << left_range[0]
+//       << " left_range[1] =" << left_range[1]
+//       << " left_range[2] =" << left_range[2]
+//       << " right_range[0] =" << right_range[0]
+//       << " right_range[1] =" << right_range[1]
+//       << " right_range[2] =" << right_range[2]
+//       << " rblob  =" << rblob;
       
 
-    fPVB =new paolina::VoxelBuilder(voxel_size, left_range, right_range);
-    fPTB = new paolina::TrackBuilder();
-    fPBB = new paolina::BlobBuilder(rblob);
-    //ComputePaolinaVoxels();
-  }
+//     fPVB =new paolina::VoxelBuilder(voxel_size, left_range, right_range);
+//     fPTB = new paolina::TrackBuilder();
+//     fPBB = new paolina::BlobBuilder(rblob);
+//     //ComputePaolinaVoxels();
+//   }
 
 
 //--------------------------------------------------------------------
-  void PaolinaManager::Init(std::string debugLevel,std::vector<double> voxelSize,
-                                 std::vector<std::pair<double,double> > detSize,
-                                 double blobRadius)
+  void PaolinaManager::Init(std::string debugLevel,
+                            std::vector<double> voxelSize,
+                            std::vector<std::pair<double,double> > detSize,
+                            double blobRadius)
 //--------------------------------------------------------------------
   {
     fPVB = new paolina::VoxelBuilder(voxelSize, detSize);
     fPTB = new paolina::TrackBuilder();
     fPBB = new paolina::BlobBuilder(blobRadius);
+    fPaolina = false;
     //ComputePaolinaVoxels();
   }
 
 //--------------------------------------------------------------------
-  void PaolinaManager::ComputePaolinaVoxels()
+  double PaolinaManager::ComputePaolinaObjects(
+        std::vector<std::pair<TLorentzVector,double> > hits)
 //--------------------------------------------------------------------  
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << " PaolinaManager::GetPaolinaVoxels()" ;
+    klog << log4cpp::Priority::DEBUG 
+    << " PaolinaManager::ComputePaolinaVoxels()" ;
   
     if(fPvoxels.size() > 0)
     {
+      klog << log4cpp::Priority::DEBUG 
+      << "Deleting previous voxel vector";
+      
       for (size_t i=0; i < fPvoxels.size(); i++)
       delete fPvoxels.at(i); 
       fPvoxels.clear();
     }
     
   
-    klog << log4cpp::Priority::INFO << " PaolonaManager::Compute Paolina Voxels";
     TStopwatch*  timer = new TStopwatch();
     timer->Start();
 
-    klog << log4cpp::Priority::DEBUG << " Fill Voxels";
+    klog << log4cpp::Priority::DEBUG << " Fill Voxel vector";
 
-    if (fDebugLevel == "DEBUG")
-      alex::ISvc::Instance().PrintHits();
-
-    fPvoxels = fPVB->FillVoxels(alex::ISvc::Instance().GetTrueHits());
+    fPvoxels = fPVB->FillVoxels(hits);
 
     klog << log4cpp::Priority::DEBUG << " IdentifyTracks";
     fPtracks = fPTB->IdentifyTracks(fPvoxels);
@@ -108,17 +113,31 @@ namespace alex {
 
     delete timer;
 
-    klog << log4cpp::Priority::INFO << "Fill Voxels finds" << fPvoxels.size()
+    klog << log4cpp::Priority::INFO << "Fill Voxels finds" 
+         << fPvoxels.size()
          << "voxels" << " and  " << fPtracks.size() << " paolina tracks";
 
     klog << log4cpp::Priority::INFO << "RealTime =" << rtime << " seconds"
          << " CpuTime = " << cctime << "seconds";
+
+    fPaolina = true;
+    return cctime;
    
   }
 //--------------------------------------------------------------------
   std::vector<std::pair<TVector3,double> > PaolinaManager::GetVoxels()
 //--------------------------------------------------------------------
   {
+    log4cpp::Category& klog = log4cpp::Category::getRoot();
+    klog << log4cpp::Priority::DEBUG 
+    << " PaolinaManager::GetVoxels()" ;
+
+    if (not fPaolina)
+    {
+      klog << log4cpp::Priority::FATAL << "Paolina objects not computed";
+      exit(-1);
+    }
+
     std::vector<std::pair<TVector3,double> > theVoxels;
     for (auto vox : fPvoxels)
     { 
@@ -140,16 +159,35 @@ namespace alex {
 
     return theVoxels;
   }
+//--------------------------------------------------------------------
+  std::vector<paolina::Voxel*> PaolinaManager::GetPaolinaVoxels() 
+//--------------------------------------------------------------------
+  {
+    log4cpp::Category& klog = log4cpp::Category::getRoot();
+    klog << log4cpp::Priority::DEBUG 
+    << " PaolinaManager::GetPaolinaVoxels()" ;
+    if (not fPaolina)
+    {
+      klog << log4cpp::Priority::FATAL << "Paolina objects not computed";
+      exit(-1);
+    }
 
-
+    return fPvoxels;
+  }
 //--------------------------------------------------------------------
   std::vector<paolina::Track*> PaolinaManager::GetPaolinaTracks()
 //--------------------------------------------------------------------  
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << " PaolinaManager::GetPaolinaTracks()" ;
+    klog << log4cpp::Priority::DEBUG << 
+    " PaolinaManager::GetPaolinaTracks()" ;
   
-    fPtracks = fPTB->IdentifyTracks(fPvoxels);
+    if (not fPaolina)
+    {
+      klog << log4cpp::Priority::FATAL << "Paolina objects not computed";
+      exit(-1);
+    }
+
     return fPtracks;
   }
 
@@ -158,16 +196,25 @@ namespace alex {
 //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << " PaolinaManager::GetPaolinaBlobs()" ;
+    klog << log4cpp::Priority::DEBUG 
+    << " PaolinaManager::GetPaolinaBlobs()" ;
+
+    if (not fPaolina)
+    {
+      klog << log4cpp::Priority::FATAL << "Paolina objects not computed";
+      exit(-1);
+    }
   
-    fPblobs = fPBB->MakeBlobs(fPtracks.at(0));
     return fPblobs;
   }
 //--------------------------------------------------------------------
-  void PaolinaManager::PrintVoxels()
+  std::string PaolinaManager::PrintVoxels()
 //--------------------------------------------------------------------
   {
-    std::cout << " Paolina Voxels: " << std::endl;
+    std::ostringstream s;
+    s << std::endl;
+
+    s << " Paolina Voxels: " << std::endl;
 
     std::vector<std::pair<TVector3,double> > theVoxels;
     for (auto vox : fPvoxels)
@@ -176,11 +223,12 @@ namespace alex {
       const paolina::vector3<double> vpos = vox->GetPosition();
       double edep =   vox->GetEDep();
 
-      std::cout 
+      s 
            << " x (mm) = " << vpos.x()
            << " y (mm) = " << vpos.y()
            << " z (mm) = " << vpos.z()
            << " edep (MeV) = " << edep << std::endl;    
-    }   
+    }
+    return s.str();   
   }
 }

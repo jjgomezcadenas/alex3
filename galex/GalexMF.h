@@ -125,6 +125,8 @@ class GalexMF
     double fRTPC,fZTPC; // params for Toy Detector
 
     double fDeDx ; //dE/dx at chosen pressure
+
+    double fMarkerSize;
     
     int             fEvent; //event number
 

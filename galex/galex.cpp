@@ -171,6 +171,7 @@ void GalexMF::InitPSvc()
 }
 void GalexMF::InitEve()
 {
+  fMarkerSize = 0.5;
   fEveTH = new EveHits(); //TH or TrueHits Eve Object
   fEveTV = new EveHits(); //TV or TrueVertex Eve Object
   fEveTT = new EveHits(); //TT or TrueTracks Eve Object
@@ -186,9 +187,30 @@ void GalexMF::InitEve()
 
   int marker_color=3;
   int marker_style=4;
-  double marker_size=0.5;
+  double marker_size=fMarkerSize;
   
   fEveTH->SetMarkers(marker_color, marker_style, marker_size);
+
+  int n_ebin = 10;
+  double emin = 0; // in keV
+  double emax = fDeDx; // in keV
+
+  fEveTH->SetEnergyBins(n_ebin, emin, emax);
+
+  marker_style=21;
+  marker_size=fMarkerSize*fZVoxel;
+  
+  emax = fVoxelDeDx; // in keV
+
+  fEvePV->SetMarkers(marker_color, marker_style, marker_size);
+  fEvePV->SetEnergyBins(n_ebin, emin, emax);
+
+  marker_color=46;
+  marker_style=20;
+  marker_size=2.0;
+  
+  fEveTV->SetMarkers(marker_color, marker_style, marker_size);
+
   fEveTH->SetStatus(false);
   fEveTV->SetStatus(false);
   fEveTT->SetStatus(false);
@@ -374,22 +396,14 @@ void GalexMF::TrueHits()
   klog.debug("In GalexMF::TrueHits():: event = %d\n",fEvent-1);
 
   IHits trueHits = alex::ISvc::Instance().GetTrueHits();
-  klog << log4cpp::Priority::DEBUG << " true hits = " << trueHits.size();
+  klog << log4cpp::Priority::INFO << " true hits = " << trueHits.size();
 
-  
+  double tt = alex::PSvc::Instance().ComputePaolinaObjects(trueHits);
+  klog.info("Paolina objects computed in %7.1f seconds\n",tt);
   klog.debug("cleaning previous graphics objects\n");
   CleanGraphics();  
 
   klog.debug("--Create graphic object (gTrueHits) for true hits \n");
-
-  int n_ebin = 10;
-  double emin = 0; // in keV
-  double emax = fDeDx; // in keV
-
-  klog.debug("In GalexMF::TrueHits():: n_ebin = %d emin = %7.1f (keV) emax = %7.1f (keV)\n",
-    fEvent-1,emin/keV, emax/keV);
-
-  fEveTH->SetEnergyBins(n_ebin, emin, emax);
 
   gTrueHits = fEveTH->Hits(trueHits);
 
@@ -405,17 +419,14 @@ void GalexMF::TrueTracks()
 {
   log4cpp::Category& klog = log4cpp::Category::getRoot();
   klog.debug("In GalexMF::TrueTracks():: event = %d\n",fEvent-1);
-
-  // if (strncmp (fDebug,"DEBUG",4)  ==0) 
-  //   fIrene->PrintTrueTracks();
-  
+ 
   klog.debug("cleaning previous graphics objects\n");
   CleanGraphics();
 
-  int marker_color=2;
   int marker_style=4;
   double marker_size=0.5;
-
+  int marker_color=2;
+  
   klog.debug("--Loop over tracks and get the hits of each track  \n");
 
   std::vector<const irene::Track*> trueTracks = fIevt->Tracks();
@@ -455,10 +466,7 @@ void GalexMF::TrueVertex()
   log4cpp::Category& klog = log4cpp::Category::getRoot();
   klog.debug("In GalexMF::TrueVertex():: event = %d\n",fEvent-1);
 
-  // if (strncmp (fDebug,"DEBUG",4)  ==0) 
-  //   fIrene->PrintTrueVertex();
-  
-  klog.debug("--Clear previous true vertex \n");
+ klog.debug("--Clear previous true vertex \n");
 
   if (fEveTV->Status())
   {
@@ -471,11 +479,7 @@ void GalexMF::TrueVertex()
 
   klog.debug("--Create graphic object (gTrueHits) for true hits \n");
 
-  int marker_color=46;
-  int marker_style=20;
-  double marker_size=2.0;
-  
-  fEveTV->SetMarkers(marker_color, marker_style, marker_size);
+
 
   std::vector<TLorentzVector> vertex;
   vertex.push_back(alex::ISvc::Instance().TrueVertex());
@@ -500,20 +504,6 @@ void GalexMF::PaolinaVoxels()
 
   klog.debug("--Create graphic object (gPaolinaVoxels) for voxels d \n");
 
-  int marker_color=3;
-  int marker_style=21;
-  double marker_size=2.5;
-  int n_ebin = 10;
-  double emin = 0; // in keV
-  double emax = fVoxelDeDx; // in keV
-
-  klog.debug(" n_ebin = %d emin = %7.1f (keV) emax = %7.1f (keV)\n",
-    fEvent-1,emin/keV, emax/keV);
-
-  fEvePV->SetEnergyBins(n_ebin, emin, emax);
-  fEvePV->SetMarkers(marker_color, marker_style, marker_size);
-
-  alex::PSvc::Instance().ComputePaolinaVoxels();
   gPaolinaVoxels = fEvePV->Hits(alex::PSvc::Instance().GetVoxels());
 
   klog.debug("Adding gPaolinaVoxels to the manager and drawing scene\n");

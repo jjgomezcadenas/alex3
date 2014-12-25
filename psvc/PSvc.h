@@ -22,28 +22,28 @@ class PaolinaManager {
 	public:
 		PaolinaManager(){};
 		virtual ~PaolinaManager(){};
-		void Init(std::string debugLevel, std::vector<double> voxel_size,
-    			  std::vector<double> left_range,std::vector<double> right_range, 
-    			  double rblob);
+		// void Init(std::string debugLevel, std::vector<double> voxel_size,
+  //   			  std::vector<double> left_range,std::vector<double> right_range, 
+  //   			  double rblob);
 
     void Init(std::string debugLevel,std::vector<double> voxelSize,
               std::vector<std::pair<double,double> > detSize,
               double blobRadius);
 
-    void ComputePaolinaVoxels();
-		std::vector<paolina::Voxel*> GetPaolinaVoxels() {return fPvoxels;}
+    double ComputePaolinaObjects(
+          std::vector<std::pair<TLorentzVector,double> > hits);
+
+		std::vector<paolina::Voxel*> GetPaolinaVoxels(); 
     std::vector<paolina::Track*>  GetPaolinaTracks();
     std::pair<paolina::Blob*, paolina::Blob*> GetPaolinaBlobs();
 
 		std::vector<std::pair<TVector3,double> > GetVoxels();
-		
-
-    void PrintVoxels();
+    std::string PrintVoxels();
 
 	private:
 		
-
     std::string fDebugLevel;
+    bool fPaolina;
 
 		std::vector<paolina::Voxel*> fPvoxels;	
   	//Voxel builder
@@ -61,11 +61,10 @@ class PaolinaManager {
   	//paolina Blob builder
   	paolina::BlobBuilder* fPBB;
 
-  
-    	
 	};
 
-	typedef alex::SingletonTemplate<PaolinaManager> PSvc;   // Global declaration
+  // Global declaration
+	typedef alex::SingletonTemplate<PaolinaManager> PSvc; 
 
 }
 #endif

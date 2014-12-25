@@ -72,17 +72,17 @@
 <Param>
     <name>fXVoxel</name>
     <dataType>double</dataType>
-    <value>5.</value>
+    <value>1.</value>
   </Param>
 <Param>
     <name>fYVoxel</name>
     <dataType>double</dataType>
-    <value>5.</value>
+    <value>1.</value>
   </Param>
 <Param>
     <name>fZVoxel</name>
     <dataType>double</dataType>
-    <value>5.</value>
+    <value>1.</value>
   </Param>
 <Param>
     <name>fRBlob</name>
