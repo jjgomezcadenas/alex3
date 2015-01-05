@@ -479,8 +479,6 @@ void GalexMF::TrueVertex()
 
   klog.debug("--Create graphic object (gTrueHits) for true hits \n");
 
-
-
   std::vector<TLorentzVector> vertex;
   vertex.push_back(alex::ISvc::Instance().TrueVertex());
 

@@ -1,9 +1,9 @@
 #ifndef PDEFS_
 #define PDEFS_
 /*
- typedefs for Paolina
+ includes and typedefs for Paolina
 */
-
+#include <alex/TDefs.h>
 #include <paolina/Voxel.h>
 #include <paolina/VoxelBuilder.h>
 #include <paolina/Track.h>
