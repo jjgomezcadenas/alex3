@@ -1,7 +1,7 @@
 #ifndef APROP_
 #define APROP_
 
-#include <alex/GDefs.h>
+#include <alex/TDefs.h>
 
 namespace alex {
 
@@ -16,7 +16,7 @@ namespace alex {
     ~AProperties(){};
 
     // Properties
-    std::string GetProperty(std::string name) const
+    std::string GetProperty(std::string name) 
     {return fProperties[name];}
     
     void SetProperty(std::string name, std::string value)

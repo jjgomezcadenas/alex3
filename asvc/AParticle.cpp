@@ -13,7 +13,7 @@
 #include <iostream>
 
 namespace alex {
-	void AParticle::AParticle(int Id, std::string name, 
+	  AParticle::AParticle(int Id, std::string name, 
 														bool isPrimary, double charge, 
               							TVector3 vertex, 
               							TLorentzVector p4) 
@@ -44,10 +44,14 @@ namespace alex {
     	s << "Name = " << GetName()  << std::endl;
     	s << "Charge = " << GetCharge()  << std::endl;
     	s << "Mass = " << GetMass()  << std::endl;
-    	s << "Vertex = " << GetVertex()  << std::endl;
-    	s << "Momentum = " << GetMomentum()  << std::endl;
-    	s << "4-Momentum = " << GetP4()  << std::endl;
-    	s << "Properties = " << DisplayProperties()  << std::endl;
+    	s << "Vertex = " << PrintTVector3(GetVertex())  
+                       << std::endl;
+    	s << "Momentum = " << PrintTVector3(GetMomentum())  
+                       << std::endl;
+    	s << "4-Momentum = " << PrintTLorentzVector(GetP4())
+                       << std::endl;
+    	s << "Properties = " << DisplayProperties()  
+                       << std::endl;
   	}
 }
 

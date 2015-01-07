@@ -9,4 +9,6 @@
 #include <utility>
 #include <memory>
 #include <map>
+#include <iostream>
+#include <sstream>
 #endif

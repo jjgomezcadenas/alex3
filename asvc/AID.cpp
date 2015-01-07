@@ -16,7 +16,7 @@ namespace alex {
 void AID::DisplayInfo(std::ostream& s) const
   {
     s << std::endl;    
-    s << "ID = " << fID << std::endl;
+    s << "ID = " << fId << std::endl;
   }
 }
 

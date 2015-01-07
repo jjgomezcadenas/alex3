@@ -3,8 +3,7 @@
 
 #include <alex/AProperties.h>
 #include <alex/AID.h>
-#include <TVector3.h>
-#include <TLorentzVector.h>
+
 namespace alex {
 
   class AParticle : public AProperties, public AID {
@@ -58,7 +57,7 @@ namespace alex {
     {return fP4;}
 
     // Mass
-    double GetMass()
+    double GetMass() const
     {return fP4.M();}
 
     //p3
@@ -71,7 +70,7 @@ namespace alex {
     
   private:
     std::string fName; // Particle name
-    double charge; // Particle charge
+    double fCharge; // Particle charge
     TLorentzVector fP4; // Particle four momentum
     TVector3 fVertex; // vertex
     bool fPrimary; // Primary

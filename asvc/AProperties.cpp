@@ -16,8 +16,9 @@ namespace alex {
 	void AProperties::DisplayInfo(std::ostream& s) const
   	{
     	s << std::endl; 
-    	for (std::map<std::string,std::string>::iterator it=mymap.begin(); 
-    			 it!=mymap.end(); ++it)
+    	for (std::map<std::string,std::string>::const_iterator 
+           it=fProperties.begin(); 
+    			 it!=fProperties.end(); ++it)
     	{
     		s << "Property["<<it->first <<"]="<< it->second << std::endl;
     	}
@@ -26,12 +27,13 @@ namespace alex {
   std::string AProperties::DisplayProperties() const
   	{
     	std::stringstream s;   
-    	for (std::map<std::string,std::string>::iterator it=mymap.begin(); 
-    			 it!=mymap.end(); ++it)
+    	for (std::map<std::string,std::string>::const_iterator 
+           it=fProperties.begin(); 
+    			 it!=fProperties.end(); ++it)
     	{
     		s << "Property["<<it->first <<"]="<< it->second << std::endl;
     	}
-    	return s;
+    	return s.str();
   	}
 }
 
