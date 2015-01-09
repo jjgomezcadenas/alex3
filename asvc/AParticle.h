@@ -56,6 +56,12 @@ namespace alex {
     TLorentzVector GetP4() const
     {return fP4;}
 
+    int GetMotherId() const
+    {return fMotherId;}
+
+    void SetMotherId(int motherId)
+    {fMotherId = motherId;}
+
     // Mass
     double GetMass() const
     {return fP4.M();}
@@ -69,6 +75,7 @@ namespace alex {
     
     
   private:
+    int fMotherId;
     std::string fName; // Particle name
     double fCharge; // Particle charge
     TLorentzVector fP4; // Particle four momentum
