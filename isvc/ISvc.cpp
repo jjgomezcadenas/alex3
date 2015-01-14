@@ -25,6 +25,7 @@ using std::ostream;
 using std::vector;
 
 namespace alex {
+
 //--------------------------------------------------------------------
 void IreneManager::Init(std::string debugLevel)
 //--------------------------------------------------------------------
@@ -32,9 +33,10 @@ void IreneManager::Init(std::string debugLevel)
     fDebugLevel = debugLevel;
     SetDebugLevel(debugLevel);
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << " IreneManager::Init" ;
+    klog << log4cpp::Priority::DEBUG << "IreneManager::Init" ;
     //fRandom = new TRandom2();
   }
+
 
 //--------------------------------------------------------------------
   void IreneManager::InitDst(std::string fileName, const irene::Event* ievt)
@@ -44,6 +46,8 @@ void IreneManager::Init(std::string debugLevel)
     fEvtTree = dynamic_cast<TTree*>(fIfile->Get("EVENT"));
     fEvtTree->SetBranchAddress("EventBranch", &ievt);
   }
+
+
 //--------------------------------------------------------------------
   int IreneManager::DstEntries()
 //--------------------------------------------------------------------
@@ -51,22 +55,25 @@ void IreneManager::Init(std::string debugLevel)
     return (int) fEvtTree->GetEntries();
   }
 
+
 //--------------------------------------------------------------------
   int IreneManager::DstGetEntry(int ivt) 
 //--------------------------------------------------------------------
   {
     return fEvtTree->GetEntry(ivt);
   }
+
+
 //--------------------------------------------------------------------
   void IreneManager::LoadEvent(const irene::Event* ievt)
 //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << " IreneManager::LoadEvent " ;
+    klog << log4cpp::Priority::DEBUG << "*** IreneManager::LoadEvent " << ievt->GetID();
 
     fIevt = ievt;
 
-    klog << log4cpp::Priority::DEBUG << " IreneManager:: call FetchElectrons()" ;
+/*    klog << log4cpp::Priority::DEBUG << "IreneManager:: call FetchElectrons()" ;
 
     FetchElectrons();
     FetchPMaxElectrons();
@@ -89,11 +96,11 @@ void IreneManager::Init(std::string debugLevel)
       }
     }
 
-    klog << log4cpp::Priority::DEBUG << " IreneManager::Compute True Vertex" ;
+    klog << log4cpp::Priority::DEBUG << "IreneManager::Compute True Vertex" ;
     GetTrueVertex();
-
-
+*/
   }
+
 
 //--------------------------------------------------------------------
   const irene::Event& IreneManager::GetEvent()
@@ -101,6 +108,7 @@ void IreneManager::Init(std::string debugLevel)
   {
     return *fIevt;
   }
+
 
 //--------------------------------------------------------------------
   void IreneManager::FetchElectrons() 
@@ -121,14 +129,15 @@ void IreneManager::Init(std::string debugLevel)
       }
     } 
   }
+
+
 //--------------------------------------------------------------------
   void IreneManager::FetchPMaxElectrons() 
 //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << " IreneManager::GetPMaxElectrons()" ;
+    klog << log4cpp::Priority::DEBUG << "IreneManager::GetPMaxElectrons()" ;
 
-    
     double pmax = 0;
     int imax=-1;
     int i=0;
@@ -142,7 +151,7 @@ void IreneManager::Init(std::string debugLevel)
       i++;
     }
 
-    klog << log4cpp::Priority::DEBUG << " imax =" << imax << " pmaxx = " << pmax;
+    klog << log4cpp::Priority::DEBUG << "imax =" << imax << "pmaxx = " << pmax;
 
     fBetasMax.first = fBetas.at(imax);
     if (GetNumberOfPrimaryElectrons() <2 )
@@ -162,10 +171,11 @@ void IreneManager::Init(std::string debugLevel)
           imax2=i;
         }
       }
-      klog << log4cpp::Priority::DEBUG << " imax2 =" << imax2 << " pmax = " << pmax;
+      klog << log4cpp::Priority::DEBUG << "imax2 =" << imax2 << "pmax = " << pmax;
       fBetasMax.second =fBetas.at(imax2);
     }
   }
+
 
 //--------------------------------------------------------------------
   void IreneManager::GetTrueVertex()
@@ -194,6 +204,7 @@ void IreneManager::Init(std::string debugLevel)
     klog.error("Error! vertex not found!");
 
   }
+
 
 //--------------------------------------------------------------------
   void IreneManager::PrintHits()

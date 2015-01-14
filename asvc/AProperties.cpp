@@ -31,7 +31,7 @@ namespace alex {
            it=fProperties.begin(); 
     			 it!=fProperties.end(); ++it)
     	{
-    		s << "Property["<<it->first <<"]="<< it->second << std::endl;
+    		s << "    Property["<<it->first <<"] = "<< it->second << std::endl;
     	}
     	return s.str();
   	}

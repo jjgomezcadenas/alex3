@@ -7,33 +7,34 @@
 namespace alex {
 
   class AHit;
-  class ATTRack : public AProperties, public AID {
+  class ATTrack : public AProperties, public AID {
     
   public:
     
     // Constructors
-    ATTRack(){};
-    ATTRack(int Id, int particleId);
+    ATTrack(){};
+    ATTrack(int Id, int particleId);
 
-    ATTRack(const ATTRack& at);
+    ATTrack(const ATTrack& att);
 
     // Destructor
-    ~ATTRack() {};
+    ~ATTrack() {};
 
-    // Name
+    // Particle ID
     int GetParticleID() const
     {return fParticleID;}
 
     void SetParticleID(int pID)
     {fParticleID = pID;}
 
+    // Hits
     void AddHit(const AHit* ahit);
 
     const std::vector<AHit*> GetHits() const
     {return fHits;}
 
-    std::vector<AHit*> GetHits() 
-    {return fHits;}
+    //std::vector<AHit*> GetHits() 
+    //{return fHits;}
 
 
     // Information
@@ -46,7 +47,7 @@ namespace alex {
     
   };
 
-std::ostream& operator << (std::ostream& s, const alex::ATTRack& p);
+std::ostream& operator << (std::ostream& s, const alex::ATTrack& p);
 }
 
 #endif

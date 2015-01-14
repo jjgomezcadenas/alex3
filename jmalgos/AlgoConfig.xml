@@ -2,8 +2,27 @@
 <AlgoConfig>
   
   <Algo>
+    <name>TestAlex</name>
+    <path>/Users/Javi/Development/alex3/src/jmalgos</path>
+  </Algo>
+
+ <!--
+
+  <Algo>
+    <name>SelectEnergy</name>
+    <path>/Users/Javi/Development/alex3/src/jmalgos</path>
+  </Algo>
+
+  <Algo>
+    <name>Paolinize</name>
+    <path>/Users/Javi/Development/alex3/src/jmalgos</path>
+  </Algo>
+
+   <Algo>
     <name>DrawHits</name>
     <path>/Users/Javi/Development/alex3/src/jmalgos</path>
   </Algo>
-  
+ 
+-->
+
 </AlgoConfig>

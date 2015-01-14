@@ -8,7 +8,19 @@
   </Param>
   
   <Param>
+    <name>fTestATTrack</name>
+    <dataType>int</dataType>
+    <value>1</value>
+  </Param>
+
+  <Param>
     <name>fTestAParticle</name>
+    <dataType>int</dataType>
+    <value>1</value>
+  </Param>
+
+  <Param>
+    <name>fTestAHit</name>
     <dataType>int</dataType>
     <value>1</value>
   </Param>

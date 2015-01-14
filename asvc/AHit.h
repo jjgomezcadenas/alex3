@@ -13,22 +13,21 @@ namespace alex {
     // Constructors
     AHit(){};
     AHit(int Id, double x, double y, double z, double E); 
-    AHit(int Id, TVector3 hit, double E); 
-              
-
+    AHit(int Id, TVector3 pos, double E);
+    
     AHit(const AHit& ahit);
 
     // Destructor
     ~AHit() {};
     
-    //vertex
-    void SetHit(TVector3 hit)
-    {fHit = hit;}
+    // Position
+    void SetPosition(TVector3 pos)
+    {fPos = pos;}
 
-    TVector3 GetHit() const
-    {return fHit;}
+    TVector3 GetPosition() const
+    {return fPos;}
 
-    //P4
+    // Energy Deposited
     void SetEdep(double E)
     {fE = E;}
     
@@ -40,8 +39,8 @@ namespace alex {
     
     
   private:
-    double fE; // Edep
-    TVector3 fHit; // Particle four momentum
+    double fE; // Hit Edep
+    TVector3 fPos; // Hit position
     
     
   };

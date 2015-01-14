@@ -1,96 +1,1 @@
-#include "TestAlex.hh"
-#include <alex/ISvc.h>
-#include <alex/PSvc.h>
-#include <alex/PSvc.h>
-#include <alex/AParticle.h>
-
-namespace alex {
-
-  void FillAPart(const irene::Particle* iPart, AParticle* aPart);
-
-  //--------------------------------------------------------------------
-  bool TestAlex::Init()
-  //--------------------------------------------------------------------
-  {
-    // Init the IreneManager
-    ISvc::Instance().Init("DEBUG");
-
-    log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::INFO << "TestAlex::Test Alex Particles = " << fTestAParticle;
-
-    return true;
-  }
-
-  
-  //--------------------------------------------------------------------
-  bool TestAlex::Execute()
-  //--------------------------------------------------------------------
-  {
-    log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << "TestAlex::Execute()";
-
-    // Testing Alex Particles
-    bool partTest = true;
-    if (fTestAParticle) {
-      std::vector<const irene::Particle*> iParts;
-      iParts = ISvc::Instance().GetEvent().Particles();
-
-      for (int p=0; p<iParts.size(); p++) {
-        AParticle* aPart = new AParticle();
-        const irene::Particle* iPart = iParts[p];
-        FillAPart(iPart, aPart);
-        
-        // Checking the setter process
-        assert (iPart->GetParticleID() == aPart->GetID());
-        assert (iPart->Name() == aPart->GetName());
-        assert (iPart->GetCharge() == aPart->GetCharge());
-        assert (iPart->GetInitialVertex().Vect() == aPart->GetVertex());
-        assert (iPart->GetInitialMomentum() == aPart->GetP4());
-        assert (iPart->IsPrimary() == aPart->GetIsPrimary());
-        if (!aPart->GetIsPrimary())
-          assert(iPart->GetMother()->GetParticleID() == aPart->GetMotherId());
-
-        delete aPart;
-      }
-
-    }
-
-    return true;
-  }
-
-  
-  //--------------------------------------------------------------------
-  bool TestAlex::End()
-  //--------------------------------------------------------------------
-  {
-    return true;
-  }
-
-
-  //--------------------------------------------------------------------
-  void FillAPart(const irene::Particle* iPart, AParticle* aPart)
-  //--------------------------------------------------------------------
-  {
-    //std::cout << "***** Part ID: " << iPart->GetParticleID() << std::endl;
-
-    // Filling the Alex Particle from Irene Particle
-    aPart->SetID(iPart->GetParticleID());
-    aPart->SetName(iPart->Name());
-    aPart->SetCharge(iPart->GetCharge());
-    aPart->SetVertex(iPart->GetInitialVertex().Vect());
-    aPart->SetP4(iPart->GetInitialMomentum());
-    aPart->SetIsPrimary(iPart->IsPrimary());
-    aPart->SetMotherID(0);
-    if (!aPart->GetIsPrimary())
-      aPart->SetMotherID(iPart->GetMother()->GetParticleID());
-
-    aPart->SetProperty("Using_Setters", "Yes");
-    aPart->SetProperty("Using_Constructor", "No");
-
-    //aPart->DisplayInfo(std::cout);
-  }
-
-}
-
-
-
+#include "TestAlex.hh"#include <alex/ISvc.h>#include <alex/PSvc.h>#include <alex/PSvc.h>#include <alex/ATTrack.h>#include <alex/AParticle.h>#include <alex/AHit.h>namespace alex {  void CheckATTrack(ATTrack* track, const irene::Track* iTrack);  void CheckAParticle(AParticle* aPart, const irene::Particle* iPart);  void CheckAHit(AHit* aHit, const std::pair<TLorentzVector,double> iHit);  //--------------------------------------------------------------------  bool TestAlex::Init()  //--------------------------------------------------------------------  {    // Init the IreneManager    ISvc::Instance().Init("DEBUG");    log4cpp::Category& klog = log4cpp::Category::getRoot();    klog << log4cpp::Priority::INFO << "TestAlex::Init()" ;    klog << log4cpp::Priority::INFO << "TestAlex::Test Alex TTracks = " << fTestATTrack;    klog << log4cpp::Priority::INFO << "TestAlex::Test Alex Particles = " << fTestAParticle;    klog << log4cpp::Priority::INFO << "TestAlex::Test Alex Hits = " << fTestAHit;    return true;  }    //--------------------------------------------------------------------  bool TestAlex::Execute()  //--------------------------------------------------------------------  {    log4cpp::Category& klog = log4cpp::Category::getRoot();    klog << log4cpp::Priority::DEBUG << "TestAlex::Execute()";    std::vector<const irene::Track*> iTracks;    iTracks = ISvc::Instance().GetEvent().Tracks();    // ATTrack    for (int t=0; t<iTracks.size(); t++) {      const irene::Track* iTrack = iTracks.at(t);      const irene::Particle* iPart = iTrack->GetParticle();      ATTrack* track = new ATTrack();      int id = iPart->GetParticleID();      track->SetID(id);      track->SetParticleID(id);      //track->DisplayInfo(std::cout);      if (fTestATTrack) CheckATTrack(track, iTrack);      // AHits      const std::vector<std::pair<TLorentzVector,double> >& iHits = iTrack->GetHits();      for (int h=0; h<iHits.size(); h++) {      	const std::pair<TLorentzVector,double> iHit = iHits[h];      	AHit* aHit = new AHit();      	aHit->SetID(h);      	aHit->SetPosition(iHit.first.Vect());      	aHit->SetEdep(iHit.second);      	track->AddHit(aHit);      	//aHit->DisplayInfo(std::cout);      	if (fTestAHit) CheckAHit(aHit, iHit);      	delete aHit;      }      // AParticle	    AParticle* aPart = new AParticle();      aPart->SetID(iPart->GetParticleID());      aPart->SetName(iPart->Name());      aPart->SetCharge(iPart->GetCharge());      aPart->SetVertex(iPart->GetInitialVertex().Vect());      aPart->SetP4(iPart->GetInitialMomentum());      aPart->SetIsPrimary(iPart->IsPrimary());      aPart->SetMotherID(0);      if (!aPart->GetIsPrimary())        aPart->SetMotherID(iPart->GetMother()->GetParticleID());      aPart->SetProperty("Using_Setters", "Yes");      aPart->SetProperty("Using_Constructor", "No");      //aPart->DisplayInfo(std::cout);      if (fTestAParticle) CheckAParticle(aPart, iPart);      delete aPart;      delete track;          }    return true;  }    //--------------------------------------------------------------------  bool TestAlex::End()  //--------------------------------------------------------------------  {    log4cpp::Category& klog = log4cpp::Category::getRoot();    if (fTestATTrack)      klog << log4cpp::Priority::INFO << "TestAlex::TTracks TEST OK!!";    if (fTestAParticle)      klog << log4cpp::Priority::INFO << "TestAlex::Particles TEST OK!!";    if (fTestAHit)      klog << log4cpp::Priority::INFO << "TestAlex::Hits TEST OK!!";    return true;  }  //--------------------------------------------------------------------  void CheckATTrack(ATTrack* track, const irene::Track* iTrack)  //--------------------------------------------------------------------  {    assert (iTrack->GetParticle()->GetParticleID() == track->GetID());    assert (iTrack->GetParticle()->GetParticleID() == track->GetParticleID());  }  //--------------------------------------------------------------------  void CheckAParticle(AParticle* aPart, const irene::Particle* iPart)  //--------------------------------------------------------------------  {    assert (iPart->GetParticleID() == aPart->GetID());    assert (iPart->Name() == aPart->GetName());    assert (iPart->GetCharge() == aPart->GetCharge());    assert (iPart->GetInitialVertex().Vect() == aPart->GetVertex());    assert (iPart->GetInitialMomentum() == aPart->GetP4());    assert (iPart->IsPrimary() == aPart->GetIsPrimary());    if (!aPart->GetIsPrimary())      assert(iPart->GetMother()->GetParticleID() == aPart->GetMotherId());  }  //--------------------------------------------------------------------  void CheckAHit(AHit* aHit, const std::pair<TLorentzVector,double> iHit)  //--------------------------------------------------------------------  {    assert (iHit.first.Vect() == aHit->GetPosition());    assert (iHit.second == aHit->GetEdep());  }}

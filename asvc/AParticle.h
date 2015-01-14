@@ -13,8 +13,7 @@ namespace alex {
     // Constructors
     AParticle(){};
     AParticle(int Id, std::string name, bool isPrimary, double charge, 
-              TVector3 vertex, 
-              TLorentzVector p4);
+              TVector3 vertex, TLorentzVector p4, int motherId);
 
     AParticle(const AParticle& apart);
 
@@ -28,7 +27,7 @@ namespace alex {
     void SetName(std::string name)
     {fName = name;}
 
-    //charge
+    // Charge
     double GetCharge() const
     {return fCharge;}
 
@@ -42,33 +41,38 @@ namespace alex {
     void SetIsPrimary(bool primary) 
     {fPrimary=primary;}
     
-    //vertex
+    // Vertex
     void SetVertex(TVector3 vertex)
     {fVertex = vertex;}
 
     TVector3 GetVertex() const
     {return fVertex;}
 
-    //P4
+    // P4
     void SetP4(TLorentzVector p4)
     {fP4 = p4;}
     
     TLorentzVector GetP4() const
     {return fP4;}
 
+    // Mother ID
     int GetMotherId() const
     {return fMotherId;}
 
-    void SetMotherId(int motherId)
+    void SetMotherID(int motherId)
     {fMotherId = motherId;}
 
     // Mass
     double GetMass() const
     {return fP4.M();}
 
-    //p3
+    // P3
     TVector3 GetMomentum() const
     {return fP4.Vect();}
+
+    // EKin
+    double GetEkin() const
+    {return fP4.Energy()-fP4.M();}
 
     // Information
     void DisplayInfo(std::ostream& s) const;

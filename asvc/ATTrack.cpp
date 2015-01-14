@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------
-//  $Id: ATTRack.cpp  2015-01-05 1
+//  $Id: ATTrack.cpp  2015-01-05 1
 //
 //  Author:  <gomez@mail.cern.ch>
 //  Created: 5 Jan 2015
@@ -15,47 +15,48 @@
 #include <iostream>
 
 namespace alex {
-	  ATTRack::ATTRack(int Id, int particleID) 
-  	{
-  		SetID(Id);
-  		SetParticleID(particleID);
-  	}
+	ATTrack::ATTrack(int Id, int particleID) 
+  {
+  	SetID(Id);
+  	SetParticleID(particleID);
+  }
 
-  	ATTRack::ATTRack(const ATTRack& at)
-  	{
-  		SetID(at.GetID());
-  		SetParticleID(at.GetParticleID());
-  		VDelete(fHits);
+  ATTrack::ATTrack(const ATTrack& att)
+  {
+ 		SetID(att.GetID());
+ 		SetParticleID(att.GetParticleID());
+ 		VDelete(fHits);
 
-      std::vector<AHit*> hits = at.GetHits();
-      for (auto hit : hits)
-      {
-        AddHit(hit);
-      }
-  	}
-
-    void ATTRack::AddHit(const AHit* ahit)
+    std::vector<AHit*> hits = att.GetHits();
+    for (auto hit : hits)
     {
-      fHits.push_back(new AHit(*ahit));
+      AddHit(hit);
     }
-	  
-    void ATTRack::DisplayInfo(std::ostream& s) const
-  	{
-    	s << std::endl;    
-    
-    	s << "ID = " << GetID() << std::endl;
-    	s << "Particle ID = " << GetParticleID() << std::endl;
-    	s << "Hits: " <<  std::endl;
+  }
 
-      const std::vector<AHit*> hits = GetHits();
-      for (auto hit : hits)
-      {
-        s << hit <<  std::endl;
-      }
-  	}
+  void ATTrack::AddHit(const AHit* ahit)
+  {
+    fHits.push_back(new AHit(*ahit));
+  }
+	  
+  void ATTrack::DisplayInfo(std::ostream& s) const
+  	{
+   	s << std::endl;    
+    
+   	s << "*** TTrack ID = " << GetID();
+   	s << "  from Particle " << GetParticleID() << std::endl;
+   	s << "* Hits Collection: " <<  std::endl;
+
+    const std::vector<AHit*> hits = GetHits();
+    for (auto hit : hits)
+    {
+      s << hit <<  std::endl;
+    }
+  }
 }
 
-std::ostream& operator << (std::ostream& s, const alex::ATTRack& ap) 
+
+std::ostream& operator << (std::ostream& s, const alex::ATTrack& ap) 
 {
   ap.DisplayInfo(s);
   return s; 
