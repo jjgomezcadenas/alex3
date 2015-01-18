@@ -1,31 +1,25 @@
-#ifndef ATTRACK_
-#define ATTRACK_
+#ifndef ABTRACK_
+#define ABTRACK_
 
 #include <alex/AProperties.h>
+#include <alex/AHit.h>
 #include <alex/AID.h>
 
 namespace alex {
 
   class AHit;
-  class ATTrack : public AProperties, public AID {
+  class ABTrack : public AProperties, public AID {
     
   public:
     
     // Constructors
-    ATTrack(){};
-    ATTrack(int Id, int particleId);
+    ABTrack();
+    ABTrack(int id);
 
-    ATTrack(const ATTrack& att);
+    ABTrack(const ABTrack& abt);
 
     // Destructor
-    ~ATTrack() {};
-
-    // Particle ID
-    int GetParticleID() const
-    {return fParticleID;}
-
-    void SetParticleID(int pID)
-    {fParticleID = pID;}
+    ~ABTrack() {};
 
     // Hits
     void AddHit(const AHit* ahit);
@@ -36,18 +30,48 @@ namespace alex {
     //std::vector<AHit*> GetHits() 
     //{return fHits;}
 
+    const AHit* GetHit(int hitId) const;
+ 
+    // Extremes
+    void SetExtreme1(const AHit* ahit) {
+      fExtremes.first = new AHit(*ahit);
+    }
+
+    const AHit* GetExtreme1() const {
+      return fExtremes.first;
+    };
+
+    void SetExtreme2(const AHit* ahit) {
+      fExtremes.second = new AHit(*ahit);
+    }
+    
+    const AHit* GetExtreme2() const {
+      return fExtremes.second;
+    };
+
+    void SetExtremes(const std::pair<AHit*, AHit*> extremes);
+    
+    const std::pair<AHit*, AHit*> GetExtremes() const {
+      return fExtremes;
+    };
+
+    // Energy Deposited
+    double GetEdep() const {
+      return fEdep;
+    };
 
     // Information
     void DisplayInfo(std::ostream& s) const;
     
     
   private:
-    int fParticleID;
     std::vector<AHit*> fHits;
+    std::pair<AHit*, AHit*> fExtremes;
+    double fEdep;
     
   };
 
-std::ostream& operator << (std::ostream& s, const alex::ATTrack& p);
+std::ostream& operator << (std::ostream& s, const alex::ABTrack& abt);
 }
 
 #endif

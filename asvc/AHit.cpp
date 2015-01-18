@@ -13,6 +13,7 @@
 #include <iostream>
 
 namespace alex {
+
 	AHit::AHit(int Id, double x, double y, double z, double E) 												
   {
   	SetID(Id);
@@ -31,7 +32,7 @@ namespace alex {
  	{
  		SetID(ahit.GetID());
  		SetPosition(ahit.GetPosition());
-     SetEdep(ahit.GetEdep());
+    SetEdep(ahit.GetEdep());
  	}
 
   void AHit::DisplayInfo(std::ostream& s) const
