@@ -67,6 +67,8 @@ namespace alex {
   private:
     std::vector<AHit*> fHits;
     std::pair<AHit*, AHit*> fExtremes;
+    
+  protected:
     double fEdep;
     
   };

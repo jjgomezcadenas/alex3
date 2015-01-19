@@ -13,6 +13,7 @@
 #include <iostream>
 
 namespace alex {
+
 	AParticle::AParticle(int Id, std::string name, 
 											bool isPrimary, double charge, 
          							TVector3 vertex, 
@@ -28,6 +29,7 @@ namespace alex {
     SetMotherID(motherID);
   }
 
+
   AParticle::AParticle(const AParticle& apart)
   {
   	SetID(apart.GetID());
@@ -38,16 +40,20 @@ namespace alex {
   	SetP4(apart.GetP4());
   }
 
+
 	void AParticle::DisplayInfo(std::ostream& s) const
   { 
    	s << "* Particle " << GetID() << ": " << GetName();
     s << "  Charge: " << GetCharge() << "  Mass: " << GetMass() << std::endl;
    	s << "  Primary: " << GetIsPrimary() << " -> Mother ID: " << GetMotherId() << std::endl;
    	s << "  Initial Vertex: " << PrintTVector3(GetVertex());
-   	s << "  Initial 4-Momentum: " << PrintTLorentzVector(GetP4());
+    s << "  Initial 4-Momentum: " << PrintTLorentzVector(GetP4());
+    s << "  Initial Kinetic E: " << GetEkin() << std::endl;
    	s << "  Properties: " << std::endl << DisplayProperties();
   }
+
 }
+
 
 std::ostream& operator << (std::ostream& s, const alex::AParticle& ap) 
 {

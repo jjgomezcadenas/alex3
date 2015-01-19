@@ -5,7 +5,6 @@
 
 namespace alex {
 
-  class AHit;
   class ATTrack : public ABTrack {
     
   public:
