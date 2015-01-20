@@ -2,11 +2,10 @@
 #define ARTRACK_
 
 #include <alex/ABTrack.h>
-#include <alex/ATTrack.h>
+
 
 namespace alex {
 
-  class ATTrack;
   class ARTrack : public ABTrack {
     
   public:
@@ -24,7 +23,7 @@ namespace alex {
     const std::vector <int> GetTTrackIDs() const
     {return fTTrackIDs;}
 
-    void AddTTrack(const ATTrack* att);
+    void AddTTrack(int ttid);
 
     // E Deposited
     void SetEdep(double eDep);

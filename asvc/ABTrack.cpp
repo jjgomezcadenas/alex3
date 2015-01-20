@@ -8,7 +8,6 @@
 // ---------------------------------------------------------------------------- 
 
 #include "ABTrack.h"
-#include "AHit.h"
 #include <alex/VectorOperations.h>
 
 #include <iostream>
@@ -28,13 +27,17 @@ namespace alex {
     fEdep = 0.;
   }
 
-
+  ABTrack::~ABTrack()
+  {
+    VDelete(fHits);
+  }
+  
   ABTrack::ABTrack(const ABTrack& abt)
   {
  		SetID(abt.GetID());
 
  		VDelete(fHits);
-    std::vector<AHit*> hits = abt.GetHits();
+    const std::vector<AHit*> hits = abt.GetHits();
     for (auto hit : hits) AddHit(hit);
 
     SetExtremes(abt.GetExtremes());
@@ -48,14 +51,25 @@ namespace alex {
     fEdep += ahit->GetEdep();
   }
 	  
+// Extremes
+  void ABTrack::SetExtreme1(const AHit* ahit) 
+  {
+    fExtremes.first = new AHit(*ahit);
+  }
 
-  const AHit* ABTrack::GetHit(int hitId) const {
-    std::vector<AHit*> hits = GetHits();
+  void ABTrack::SetExtreme2(const AHit* ahit) 
+  {
+    fExtremes.second = new AHit(*ahit);
+  }
+
+  const AHit* ABTrack::GetHit(int hitId) const 
+  {
+    const std::vector<AHit*> hits = GetHits();
     for (auto hit : hits)
     {
       if (hit->GetID() == hitId) return hit;
     }
-    std::cout << "ABTrack::ERROR: No existe hit: " << hitId << std::endl;
+    std::cout << "ABTrack::ERROR: hit ID does not exist: " << hitId << std::endl;
     exit(0);
   }
 
