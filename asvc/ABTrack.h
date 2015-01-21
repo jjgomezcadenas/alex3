@@ -30,7 +30,7 @@ namespace alex {
     //std::vector<AHit*> GetHits() 
     //{return fHits;}
 
-    const AHit* GetHit(int hitId) const;
+    const AHit* GetHit(int id) const;
  
     // Extremes
     void SetExtreme1(const AHit* ahit) {

@@ -79,7 +79,6 @@ class IreneManager {
   	std::pair<IParticle, IParticle> fBetasMax;
   	std::pair<IHits, IHits> fBetasMaxHits;
 
-  	
 	};
 
 	typedef alex::SingletonTemplate<IreneManager> ISvc;   // Global declaration

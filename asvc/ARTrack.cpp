@@ -25,8 +25,6 @@ namespace alex {
   {
     std::vector <int> ids = art.GetTTrackIDs();
  		for (int i=0; i<ids.size(); i++) {
-      //ATTrack* track ASvc::Instance::GetTTrack();
-      //AddTTrack(track);
       fTTrackIDs.push_back(ids[i]);
     }
   }

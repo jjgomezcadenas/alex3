@@ -27,7 +27,7 @@ namespace alex {
   template< typename T>
   std::string VPrint(const std::vector<T>& vd)
   {
-    PrintVector(vd,vd.size());
+    return PrintVector(vd,vd.size());
   }
     
   template< typename T>

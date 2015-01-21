@@ -49,13 +49,13 @@ namespace alex {
   }
 	  
 
-  const AHit* ABTrack::GetHit(int hitId) const {
+  const AHit* ABTrack::GetHit(int id) const {
     std::vector<AHit*> hits = GetHits();
-    for (auto hit : hits)
+    for (auto hit : hits) 
     {
-      if (hit->GetID() == hitId) return hit;
+      if (hit->GetID() == id) return hit;
     }
-    std::cout << "ABTrack::ERROR: No existe hit: " << hitId << std::endl;
+    std::cout << "ABTrack::ERROR: Hit ID " << id << " does NOT EXIST !!" << std::endl;
     exit(0);
   }
 

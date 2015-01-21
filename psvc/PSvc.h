@@ -22,10 +22,6 @@ class PaolinaManager {
 	public:
 		PaolinaManager(){};
 		virtual ~PaolinaManager(){};
-		// void Init(std::string debugLevel, std::vector<double> voxel_size,
-  //   			  std::vector<double> left_range,std::vector<double> right_range, 
-  //   			  double rblob);
-
     void Init(std::string debugLevel,std::vector<double> voxelSize,
               std::vector<std::pair<double,double> > detSize,
               double blobRadius);

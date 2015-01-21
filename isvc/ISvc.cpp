@@ -33,7 +33,7 @@ void IreneManager::Init(std::string debugLevel)
     fDebugLevel = debugLevel;
     SetDebugLevel(debugLevel);
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << "IreneManager::Init" ;
+    klog << log4cpp::Priority::DEBUG << "IreneManager::Init()" ;
     //fRandom = new TRandom2();
   }
 
@@ -69,7 +69,7 @@ void IreneManager::Init(std::string debugLevel)
 //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << "*** IreneManager::LoadEvent " << ievt->GetID();
+    klog << log4cpp::Priority::DEBUG << "***** IreneManager::LoadEvent " << ievt->GetID();
 
     fIevt = ievt;
 
