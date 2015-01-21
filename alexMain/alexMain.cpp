@@ -82,22 +82,21 @@ int main(int argc, char **argv)
 
   //Get path, open DST file, set Tree
   string fp = PathFromStrings(aconf.DstPath(),aconf.DstName());
-  klog << log4cpp::Priority::INFO 
-        << " Open DST file =" << fp;
+  klog << log4cpp::Priority::INFO << "Open DST file =" << fp;
   
   TFile* ifile = new TFile(fp.c_str(), "READ");
   TTree* fEvtTree = dynamic_cast<TTree*>(ifile->Get("EVENT"));
   fEvtTree->SetBranchAddress("EventBranch", &ievt);
 
   klog << log4cpp::Priority::INFO << "number of entries in Irene Tree = " 
-  << fEvtTree->GetEntries();
+       << fEvtTree->GetEntries();
   klog << log4cpp::Priority::INFO << "number of events required = " 
-  << aconf.EventsToRun();
+       << aconf.EventsToRun();
 
   if(evtEnd < evtStart) evtEnd = std::min(aconf.EventsToRun(), (int) fEvtTree->GetEntries());
   else evtEnd = std::min(evtEnd, (int) fEvtTree->GetEntries());
   klog << log4cpp::Priority::INFO << "number of events to run  = " 
-  << (evtEnd - evtStart);
+       << (evtEnd - evtStart);
   
   //-----------Event loop --------
   ISvc::Instance().SetStartEvent(evtStart);
@@ -118,11 +117,11 @@ int main(int argc, char **argv)
     if (ivt%aconf.EventsToDebug() ==0)
     {
       klog << log4cpp::Priority::INFO 
-          << " read event " << ivt << " nb = " << nb;
+           << " read event " << ivt << " nb = " << nb;
     }
 
     klog << log4cpp::Priority::DEBUG 
-        << " Executing algos  " ;
+         << " Executing algos  " ;
 
     nev++;
     bool test = alex::Alex::Instance().ExecuteAlgorithms();
@@ -136,10 +135,9 @@ int main(int argc, char **argv)
   klog << log4cpp::Priority::INFO 
         << " Ending...  " ;
   alex::Alex::Instance().EndAlgorithms();
-  klog << log4cpp::Priority::INFO  << "Read " 
-  << nev << " events" ;
+  klog << log4cpp::Priority::INFO  << "Read " << nev << " events" ;
   klog << log4cpp::Priority::INFO  << "Passed selection =" 
-  << npass << " Failed selection =" << nfail ;
+       << npass << " Failed selection =" << nfail ;
 
   // gFile->ls();
   // gFile = fHistoFile;

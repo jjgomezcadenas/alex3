@@ -42,6 +42,9 @@ namespace alex {
 
     SetExtremes(abt.GetExtremes());
     fEdep = abt.GetEdep();
+
+    std::map <std::string, std::string> props = abt.GetProperties();
+    for (auto prop : props) SetProperty(prop.first, prop.second);
   }
 
 
@@ -69,8 +72,7 @@ namespace alex {
     {
       if (hit->GetID() == id) return hit;
     }
-    
-    std::cout << "ABTrack::ERROR: hit ID does not exist: " << id << std::endl;
+    std::cout << "ABTrack::ERROR: Hit ID "  << id << " does NOT EXIST !!" << std::endl;
     exit(0);
   }
 

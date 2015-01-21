@@ -16,6 +16,9 @@ namespace alex {
     ~AProperties(){};
 
     // Properties
+    std::map <std::string, std::string> GetProperties() const
+    {return fProperties;}
+    
     std::string GetProperty(std::string name) 
     {return fProperties[name];}
     

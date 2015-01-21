@@ -27,6 +27,8 @@ class AlexService {
 		
 		void Init(std::string debugLevel);
 
+		void Clear();
+
 		// AParticles
 		void AddParticle(const alex::AParticle* part);
 		const alex::AParticle* GetParticle(int id) const;

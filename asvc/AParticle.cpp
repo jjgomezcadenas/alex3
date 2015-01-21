@@ -38,6 +38,9 @@ namespace alex {
   	SetCharge(apart.GetCharge());
   	SetVertex(apart.GetVertex());
   	SetP4(apart.GetP4());
+
+    std::map <std::string, std::string> props = apart.GetProperties();
+    for (auto prop : props) SetProperty(prop.first, prop.second);
   }
 
 

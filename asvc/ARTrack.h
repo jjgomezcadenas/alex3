@@ -23,7 +23,7 @@ namespace alex {
     const std::vector <int> GetTTrackIDs() const
     {return fTTrackIDs;}
 
-    void AddTTrack(int ttid);
+    void AddTTrackID(int id);
 
     // E Deposited
     void SetEdep(double eDep);
