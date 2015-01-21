@@ -16,7 +16,7 @@ namespace alex {
     ATTrack(const ATTrack& att);
 
     // Destructor
-    ~ATTrack() {};
+    ~ATTrack() {}; // hits destroyed in the base class
 
     // Particle ID
     int GetParticleID() const

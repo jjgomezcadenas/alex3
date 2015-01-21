@@ -19,7 +19,7 @@ namespace alex {
     ABTrack(const ABTrack& abt);
 
     // Destructor
-    ~ABTrack() {};
+    ~ABTrack();
 
     // Hits
     void AddHit(const AHit* ahit);
@@ -33,17 +33,13 @@ namespace alex {
     const AHit* GetHit(int id) const;
  
     // Extremes
-    void SetExtreme1(const AHit* ahit) {
-      fExtremes.first = new AHit(*ahit);
-    }
+    void SetExtreme1(const AHit* ahit);
 
     const AHit* GetExtreme1() const {
       return fExtremes.first;
     };
 
-    void SetExtreme2(const AHit* ahit) {
-      fExtremes.second = new AHit(*ahit);
-    }
+    void SetExtreme2(const AHit* ahit) ;
     
     const AHit* GetExtreme2() const {
       return fExtremes.second;

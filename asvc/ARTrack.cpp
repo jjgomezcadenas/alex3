@@ -8,7 +8,6 @@
 // ---------------------------------------------------------------------------- 
 
 #include "ARTrack.h"
-#include "AHit.h"
 #include <alex/VectorOperations.h>
 
 #include <iostream>
@@ -24,15 +23,14 @@ namespace alex {
   ARTrack::ARTrack(const ARTrack& art) : ABTrack::ABTrack(art)
   {
     std::vector <int> ids = art.GetTTrackIDs();
- 		for (int i=0; i<ids.size(); i++) {
-      fTTrackIDs.push_back(ids[i]);
-    }
+
+ 		for (auto tid: ids) AddTTrackID(tid);
   }
 
 
-  void ARTrack::AddTTrack(const ATTrack* att)
+  void ARTrack::AddTTrackID(int id)
   {
-    fTTrackIDs.push_back(att->GetID());
+    fTTrackIDs.push_back(id);
   }
 
 
