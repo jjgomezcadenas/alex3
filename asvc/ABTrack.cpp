@@ -30,6 +30,8 @@ namespace alex {
   ABTrack::~ABTrack()
   {
     VDelete(fHits);
+    delete fExtremes.first;
+    delete fExtremes.second;
   }
   
   ABTrack::ABTrack(const ABTrack& abt)
@@ -78,8 +80,8 @@ namespace alex {
 
 
   void ABTrack::SetExtremes(const std::pair<AHit*, AHit*> extremes) {
-    SetExtreme1(extremes.first);
-    SetExtreme2(extremes.second);
+    SetExtreme1(new AHit(*extremes.first));
+    SetExtreme2(new AHit(*extremes.second));
   }
 
 

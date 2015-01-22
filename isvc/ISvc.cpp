@@ -73,7 +73,7 @@ void IreneManager::Init(std::string debugLevel)
 
     fIevt = ievt;
 
-/*    klog << log4cpp::Priority::DEBUG << "IreneManager:: call FetchElectrons()" ;
+    klog << log4cpp::Priority::DEBUG << "IreneManager:: call FetchElectrons()" ;
 
     FetchElectrons();
     FetchPMaxElectrons();
@@ -98,7 +98,7 @@ void IreneManager::Init(std::string debugLevel)
 
     klog << log4cpp::Priority::DEBUG << "IreneManager::Compute True Vertex" ;
     GetTrueVertex();
-*/
+
   }
 
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<TestAlex>
+  
+  <Param>
+    <name>fName</name>
+    <dataType>string</dataType>
+    <value>TestAlex</value>
+  </Param>
+  
+  <Param>
+    <name>fTestATTrack</name>
+    <dataType>int</dataType>
+    <value>1</value>
+  </Param>
+
+  <Param>
+    <name>fTestAParticle</name>
+    <dataType>int</dataType>
+    <value>1</value>
+  </Param>
+
+  <Param>
+    <name>fTestAHit</name>
+    <dataType>int</dataType>
+    <value>1</value>
+  </Param>
+  
+
+</TestAlex>

@@ -4,4 +4,8 @@
     <name>DrawHits</name>
     <path>/Users/jjgomezcadenas/Development/devnext/alex3/jjalgos</path>
   </Algo>
+  <Algo>
+    <name>TestAlex</name>
+    <path>/Users/jjgomezcadenas/Development/devnext/alex3/jjalgos</path>
+  </Algo>
 </AlgoConfig>
