@@ -128,10 +128,10 @@ template< typename T>
 
   template< typename T>
   void VDelete(std::vector<T*> v) //
-  {     
+  {
     for (size_t i=0; i < v.size(); ++i)
     {
-	     delete v[i];
+	    delete v[i];
     }
     v.clear();
   }

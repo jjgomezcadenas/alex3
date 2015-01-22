@@ -21,7 +21,7 @@ class AlexService {
 
 		AlexService(){};
 
-		virtual ~AlexService(){};
+		virtual ~AlexService() {Clear();}
 		
 		void Init(std::string debugLevel);
 
