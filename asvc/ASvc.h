@@ -14,8 +14,6 @@
 #include <alex/ATTrack.h>
 #include <alex/ARTrack.h>
 
-#include <TFile.h>
-
 namespace alex {
 
 class AlexService {
