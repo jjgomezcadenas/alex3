@@ -45,6 +45,15 @@ namespace alex {
     ABTrack::DisplayInfo(s);
    	s << "* Origin: TTrack IDs: " << VPrint(GetTTrackIDs()) << std::endl;
   }
+
+
+  std::string ARTrack::PrintInfo() const
+  {
+    std::stringstream s;
+    DisplayInfo(s);
+    return s.str();
+  }
+
 }
 
 

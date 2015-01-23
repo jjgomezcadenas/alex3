@@ -2,22 +2,17 @@
 <AlgoConfig>
   
   <Algo>
-    <name>TestAlex</name>
-    <path>/Users/Javi/Development/alex3/src/jmalgos</path>
-  </Algo>
-
-  <Algo>
     <name>IreneLoader</name>
     <path>/Users/Javi/Development/alex3/src/jmalgos</path>
   </Algo>
 
- <!--
-
   <Algo>
-    <name>SelectEnergy</name>
+    <name>TrueEnergyFilter</name>
     <path>/Users/Javi/Development/alex3/src/jmalgos</path>
   </Algo>
 
+
+ <!--
   <Algo>
     <name>Paolinize</name>
     <path>/Users/Javi/Development/alex3/src/jmalgos</path>
@@ -28,6 +23,11 @@
     <path>/Users/Javi/Development/alex3/src/jmalgos</path>
   </Algo>
  
+  <Algo>
+    <name>TestAlex</name>
+    <path>/Users/Javi/Development/alex3/src/jmalgos</path>
+  </Algo>
+
 -->
 
 </AlgoConfig>

@@ -17,8 +17,8 @@
   </HistoFile>
 
   <Events>
-    <runMax>3</runMax>
-    <runDebug>3</runDebug>
+    <runMax>10</runMax>
+    <runDebug>10</runDebug>
   </Events>
 
   <Debug>

@@ -55,6 +55,14 @@ namespace alex {
    	s << "  Properties: " << std::endl << DisplayProperties();
   }
 
+
+  std::string AParticle::PrintInfo() const
+  {
+    std::stringstream s;
+    DisplayInfo(s);
+    return s.str();
+  }
+
 }
 
 

@@ -34,6 +34,9 @@ namespace alex {
     fDebugLevel = debugLevel;
     SetDebugLevel(debugLevel);
 
+    fTrueEventEnergy = 0.;
+    fRecEventEnergy = 0.;
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "AlexManager::Init()" ;
   }
@@ -42,6 +45,12 @@ namespace alex {
   void AlexService::Clear()
   //--------------------------------------------------------------------
   {
+    log4cpp::Category& klog = log4cpp::Category::getRoot();
+    klog << log4cpp::Priority::DEBUG << "AlexManager::Clear()" ;
+
+    fTrueEventEnergy = 0.;
+    fRecEventEnergy = 0.;
+
     VDelete(fParticles);
     VDelete(fTTracks);
     VDelete(fRTracks);
@@ -74,6 +83,7 @@ namespace alex {
   void AlexService::AddTTrack(const alex::ATTrack* ttrack)
   //--------------------------------------------------------------------
   {
+    fTrueEventEnergy += ttrack->GetEdep();
     fTTracks.push_back(new ATTrack(*ttrack));
   }
 
@@ -96,6 +106,7 @@ namespace alex {
   void AlexService::AddRTrack(const alex::ARTrack* rtrack)
   //--------------------------------------------------------------------
   {
+    fRecEventEnergy += rtrack->GetEdep();
     fRTracks.push_back(new ARTrack(*rtrack));
   }
 

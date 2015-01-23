@@ -21,6 +21,7 @@ namespace alex {
   	SetEdep(E);
   }
 
+
   AHit::AHit(int Id, TVector3 pos, double E)            
   {
     SetID(Id);
@@ -28,12 +29,17 @@ namespace alex {
     SetEdep(E);
   }
 
+
  	AHit::AHit(const AHit& ahit)
  	{
  		SetID(ahit.GetID());
  		SetPosition(ahit.GetPosition());
     SetEdep(ahit.GetEdep());
+
+    std::map <std::string, std::string> props = ahit.GetProperties();
+    for (auto prop : props) SetProperty(prop.first, prop.second);
  	}
+
 
   void AHit::DisplayInfo(std::ostream& s) const
  	{
@@ -41,6 +47,13 @@ namespace alex {
    	s << "  Edep: " << GetEdep();
    	s << "  Position: " << PrintTVector3(GetPosition());
  	}
+
+  std::string AHit::PrintInfo() const
+  {
+    std::stringstream s;
+    DisplayInfo(s);
+    return s.str();
+  }
 
 }
 

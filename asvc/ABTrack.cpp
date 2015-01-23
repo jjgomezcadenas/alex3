@@ -27,6 +27,7 @@ namespace alex {
     fEdep = 0.;
   }
 
+
   ABTrack::~ABTrack()
   {
     VDelete(fHits);
@@ -34,6 +35,7 @@ namespace alex {
     delete fExtremes.second;
   }
   
+
   ABTrack::ABTrack(const ABTrack& abt)
   {
  		SetID(abt.GetID());
@@ -56,16 +58,19 @@ namespace alex {
     fEdep += ahit->GetEdep();
   }
 	  
-// Extremes
+
+  // Extremes
   void ABTrack::SetExtreme1(const AHit* ahit) 
   {
     fExtremes.first = new AHit(*ahit);
   }
 
+
   void ABTrack::SetExtreme2(const AHit* ahit) 
   {
     fExtremes.second = new AHit(*ahit);
   }
+
 
   const AHit* ABTrack::GetHit(int id) const 
   {
@@ -87,7 +92,6 @@ namespace alex {
 
   void ABTrack::DisplayInfo(std::ostream& s) const
   {
-   	s << std::endl;    
    	s << "*** TTrack ID: " << GetID() << std::endl;
     s << "* EnergyDep: " << GetEdep() << std::endl;
     TVector3 pos1 = GetExtreme1()->GetPosition();
@@ -97,7 +101,16 @@ namespace alex {
    	s << "* Hits Collection: " <<  std::endl;
     const std::vector<AHit*> hits = GetHits();
     for (auto hit : hits) hit->DisplayInfo(s);
+  	s << "* Properties: " << std::endl << DisplayProperties();
   }
+
+
+	std::string ABTrack::PrintInfo() const
+	{
+  	std::stringstream s;
+	 	DisplayInfo(s);
+  	return s.str();
+	}
 
 }
 

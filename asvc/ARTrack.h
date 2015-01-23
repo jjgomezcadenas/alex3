@@ -30,6 +30,7 @@ namespace alex {
 
     // Information
     void DisplayInfo(std::ostream& s) const;
+    std::string PrintInfo() const; 
     
   
   private:

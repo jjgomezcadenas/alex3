@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SelectEnergy>
+  
+  <Param>
+    <name>fName</name>
+    <dataType>string</dataType>
+    <value>TrueEnergyFilter</value>
+  </Param>
+  
+  <!-- Set to the minimum energy in an event -->
+  <Param>
+    <name>fMinEnergy</name>
+    <dataType>double</dataType>
+    <value>2.3</value>
+  </Param>
+
+</SelectEnergy>

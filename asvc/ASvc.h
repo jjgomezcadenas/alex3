@@ -27,6 +27,10 @@ class AlexService {
 
 		void Clear();
 
+		// Event Energy
+		double GetTrueEventEnergy() const {return fTrueEventEnergy;}
+		double GetRecEventEnergy() const {return fRecEventEnergy;}
+
 		// AParticles
 		void AddParticle(const alex::AParticle* part);
 		const alex::AParticle* GetParticle(int id) const;
@@ -45,6 +49,9 @@ class AlexService {
 
 	private:
 	  std::string fDebugLevel;
+
+	  double fTrueEventEnergy;
+	  double fRecEventEnergy;
 
 		std::vector <alex::AParticle*> fParticles;
 		std::vector <alex::ATTrack*> fTTracks;

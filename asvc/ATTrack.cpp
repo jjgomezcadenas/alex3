@@ -35,6 +35,15 @@ namespace alex {
     ABTrack::DisplayInfo(s);
    	s << "* Origin: Particle ID " << GetParticleID() << std::endl;
   }
+
+
+  std::string ATTrack::PrintInfo() const
+  {
+    std::stringstream s;
+    DisplayInfo(s);
+    return s.str();
+  }
+
 }
 
 
