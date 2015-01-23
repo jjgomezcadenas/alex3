@@ -133,7 +133,6 @@ template< typename T>
     {
       delete v[i];
     }
-    v.clear();
   }
 
   

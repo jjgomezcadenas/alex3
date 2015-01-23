@@ -51,9 +51,22 @@ namespace alex {
     fTrueEventEnergy = 0.;
     fRecEventEnergy = 0.;
 
+    klog << log4cpp::Priority::DEBUG << "fParticles size before VDELETE = " 
+    << fParticles.size(); 
+
     VDelete(fParticles);
     VDelete(fTTracks);
     VDelete(fRTracks);
+
+    //MUST clear after VDelete!
+    fParticles.clear();
+    fTTracks.clear();
+    fRTracks.clear();
+
+
+    klog << log4cpp::Priority::DEBUG << "fParticles size after clear = " 
+    << fParticles.size();
+
   }
 
 

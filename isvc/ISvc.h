@@ -37,6 +37,8 @@ class IreneManager {
 
 		TLorentzVector TrueVertex(){return fVertex;}
 		
+		IParticles GetParticles() const {return fIevt->Particles();}
+		ITracks GetTracks() const {return fIevt->Tracks();}
 		IParticles GetElectrons() const {return fElectrons;}
 		int GetNumberOfElectrons() const {return fElectrons.size();}
 		IParticles GetPrimaryElectrons() const {return fBetas;}
