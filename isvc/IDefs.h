@@ -14,6 +14,8 @@
 
 namespace alex {
 typedef const irene::Particle* IParticle;
+typedef const irene::Track* ITrack;
 typedef std::vector<const irene::Particle*> IParticles;
+typedef std::vector<const irene::Track*> ITracks;
 }
 #endif
