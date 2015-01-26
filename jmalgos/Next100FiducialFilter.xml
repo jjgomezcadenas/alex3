@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Next100FiducialFilter>
+  
+  <Param>
+    <name>fName</name>
+    <dataType>string</dataType>
+    <value>Next100FiducialFilter</value>
+  </Param>
+  
+  <!-- Void Gap Width [mm] -> It defines the Fiducial Volume -->
+  <Param>
+    <name>fVoidGap</name>
+    <dataType>double</dataType>
+    <value>20.0</value>
+  </Param>
+
+  <!-- Minimum Energy [MeV] in Void Gap for Vetoing -->
+  <Param>
+    <name>fMinEnergy</name>
+    <dataType>double</dataType>
+    <value>0.01</value>
+  </Param>
+
+</Next100FiducialFilter>

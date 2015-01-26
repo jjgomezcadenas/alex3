@@ -9,11 +9,12 @@ namespace alex {
   //--------------------------------------------------------------------
   {
     // Set the Debug Level
-    SetDebugLevel("DEBUG");
+    SetDebugLevel("INFO");
     
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "TrueEnergyFilter::Init()" ;
     klog << log4cpp::Priority::INFO << "TrueEnergyFilter::fMinEnergy = " << fMinEnergy;
+    klog << log4cpp::Priority::INFO << "TrueEnergyFilter::fMaxEnergy = " << fMaxEnergy;
 
     return true;
   }
@@ -30,7 +31,7 @@ namespace alex {
     // Get the energy in the event and compare to the minimum allowed.
     double etot = ASvc::Instance().GetTrueEventEnergy();
 
-    if(etot < fMinEnergy) {
+    if( (etot < fMinEnergy) || (etot > fMaxEnergy) ) {
       klog << log4cpp::Priority::DEBUG << "TrueEnergyFilter::Event Energy: "
            << etot << " MeV. --> Cut Failed";
       return false;
@@ -52,5 +53,5 @@ namespace alex {
 
     return true;
   }
-  
+
 }

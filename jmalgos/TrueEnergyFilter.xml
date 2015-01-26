@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<SelectEnergy>
+<TrueEnergyFilter>
   
   <Param>
     <name>fName</name>
@@ -14,4 +14,11 @@
     <value>2.3</value>
   </Param>
 
-</SelectEnergy>
+  <!-- Set to the maximum energy in an event -->
+  <Param>
+    <name>fMaxEnergy</name>
+    <dataType>double</dataType>
+    <value>3.0</value>
+  </Param>
+
+</TrueEnergyFilter>

@@ -31,6 +31,7 @@ namespace alex {
   ABTrack::~ABTrack()
   {
     VDelete(fHits);
+    fHits.clear();
     delete fExtremes.first;
     delete fExtremes.second;
   }
@@ -41,6 +42,7 @@ namespace alex {
  		SetID(abt.GetID());
 
  		VDelete(fHits);
+    fHits.clear();
     const std::vector<AHit*> hits = abt.GetHits();
     for (auto hit : hits) AddHit(hit);
 

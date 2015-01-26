@@ -117,7 +117,7 @@ int main(int argc, char **argv)
     if (ivt%aconf.EventsToDebug() ==0)
     {
       klog << log4cpp::Priority::INFO 
-           << " read event " << ivt << " nb = " << nb;
+           << "Read event " << ivt << " nb = " << nb;
     }
 
     klog << log4cpp::Priority::DEBUG 

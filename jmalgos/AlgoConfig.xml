@@ -11,6 +11,11 @@
     <path>/Users/Javi/Development/alex3/src/jmalgos</path>
   </Algo>
 
+  <Algo>
+    <name>Next100FiducialFilter</name>
+    <path>/Users/Javi/Development/alex3/src/jmalgos</path>
+  </Algo>
+
 
  <!--
   <Algo>
