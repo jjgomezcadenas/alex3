@@ -6,5 +6,23 @@
     <dataType>string</dataType>
     <value>IreneLoader</value>
   </Param>
+
+  <!-- Histogram with the number of particles per event -->
+  <H1D>
+    <name>fIreneLoader_NumParts_H1</name>
+    <title>Number of Particles </title>
+    <nbinsx>30</nbinsx>
+    <xlow>0.0</xlow>
+    <xup>30.0</xup>
+  </H1D>
+  
+  <!-- Histogram with the number of true tracks per event -->
+  <H1D>
+    <name>fIreneLoader_NumTTracks_H1</name>
+    <title>Number of True Tracks </title>
+    <nbinsx>30</nbinsx>
+    <xlow>0.0</xlow>
+    <xup>30.0</xup>
+  </H1D>
   
 </IreneLoader>

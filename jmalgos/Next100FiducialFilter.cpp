@@ -51,6 +51,7 @@ namespace alex {
       }
     }
 
+    if (vetoE > 0.) fNext100FiducialFilter_VetoEdep_H1->Fill(vetoE);
 
     if(vetoE > fMinEnergy) {
       klog << log4cpp::Priority::DEBUG << "Next100FiducialFilter::Veto Energy: "

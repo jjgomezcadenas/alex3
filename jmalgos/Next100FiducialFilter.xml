@@ -21,4 +21,14 @@
     <value>0.01</value>
   </Param>
 
+  <!-- Histogram with True Edep in Veto -->
+  <H1D>
+    <name>fNext100FiducialFilter_VetoEdep_H1</name>
+    <title>True Veto Edep</title>
+    <nbinsx>50</nbinsx>
+    <xlow>0.0</xlow>
+    <xup>0.50</xup>
+  </H1D>
+
+
 </Next100FiducialFilter>

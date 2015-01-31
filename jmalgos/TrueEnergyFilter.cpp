@@ -30,6 +30,7 @@ namespace alex {
       
     // Get the energy in the event and compare to the minimum allowed.
     double etot = ASvc::Instance().GetTrueEventEnergy();
+    fTrueEnergyFilter_EdepBefore_H1->Fill(etot);
 
     if( (etot < fMinEnergy) || (etot > fMaxEnergy) ) {
       klog << log4cpp::Priority::DEBUG << "TrueEnergyFilter::Event Energy: "
@@ -37,8 +38,11 @@ namespace alex {
       return false;
     }
 
-    else klog << log4cpp::Priority::DEBUG << "TrueEnergyFilter::Event Energy: "
+    else {
+      klog << log4cpp::Priority::DEBUG << "TrueEnergyFilter::Event Energy: "
               << etot << " MeV. --> Cut Passed";
+      fTrueEnergyFilter_EdepAfter_H1->Fill(etot);
+    } 
 
   return true;
   }
