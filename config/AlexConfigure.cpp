@@ -573,9 +573,10 @@ namespace alex {
       s<<"#include <TH1F.h>" << endl;
       s<<"#include <TH2F.h>" << endl;
       s<<"#include <alex/IAlgorithm.h>" << endl;
+      s<<"#include " << '"' << "P" <<algoName  <<".h" << '"' << endl;
 
       s<<"namespace alex {" << endl;
-      s << "  class " << algoName << ": public IAlgorithm {" << endl;
+      s << "  class " << algoName << ": public IAlgorithm," << "P"<<algoName << "{" << endl;
       s << "  public:" << endl;
       s << "    "<< algoName << "();" << endl;
       s << "    ~"<< algoName << "(){}" << endl;
