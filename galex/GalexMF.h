@@ -86,6 +86,7 @@ class GalexMF
    
     irene::Event*                                   fIevt; //i for irene objects
 
+    std::vector<std::pair<double,double> > fDetSize;
     std::vector<double> fVoxelSize;
     double fXVoxel,fYVoxel,fZVoxel,fRBlob,fVoxelDeDx;
     double fMinDetX,fMaxDetX,fMinDetY,fMaxDetY,fMinDetZ,fMaxDetZ;

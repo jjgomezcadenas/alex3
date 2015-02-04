@@ -141,7 +141,7 @@ void GalexMF::InitPSvc()
   std::pair<double,double> xRange;
   std::pair<double,double> yRange;
   std::pair<double,double> zRange;
-  std::vector<std::pair<double,double> > detSize;
+  
 
   xRange.first  = fMinDetX;
   xRange.second = fMaxDetX;
@@ -150,9 +150,9 @@ void GalexMF::InitPSvc()
   zRange.first  = fMinDetZ;
   zRange.second = fMaxDetZ;
 
-  detSize.push_back(xRange);
-  detSize.push_back(yRange);
-  detSize.push_back(zRange);
+  fDetSize.push_back(xRange);
+  fDetSize.push_back(yRange);
+  fDetSize.push_back(zRange);
 
   std::vector<double> left_range(3);
   std::vector<double> right_range(3);
@@ -166,7 +166,7 @@ void GalexMF::InitPSvc()
   right_range[2]= fMaxDetZ;
 
   // Init Svc
-  PSvc::Instance().Init(fDebug,fVoxelSize, detSize, fRBlob);
+  PSvc::Instance().Init(fDebug,fDetSize);
 
 }
 void GalexMF::InitEve()
@@ -398,8 +398,8 @@ void GalexMF::TrueHits()
   IHits trueHits = alex::ISvc::Instance().GetTrueHits();
   klog << log4cpp::Priority::INFO << " true hits = " << trueHits.size();
 
-  double tt = alex::PSvc::Instance().ComputePaolinaObjects(trueHits);
-  klog.info("Paolina objects computed in %7.1f seconds\n",tt);
+  // double tt = alex::PSvc::Instance().ComputePaolinaObjects(trueHits);
+  // klog.info("Paolina objects computed in %7.1f seconds\n",tt);
   klog.debug("cleaning previous graphics objects\n");
   CleanGraphics();  
 
@@ -502,7 +502,8 @@ void GalexMF::PaolinaVoxels()
 
   klog.debug("--Create graphic object (gPaolinaVoxels) for voxels d \n");
 
-  gPaolinaVoxels = fEvePV->Hits(alex::PSvc::Instance().GetVoxels());
+  gPaolinaVoxels = fEvePV->Hits(
+    alex::PSvc::Instance().ComputePaolinaVoxels(alex::ISvc::Instance().GetTrueHits(),fVoxelSize));
 
   klog.debug("Adding gPaolinaVoxels to the manager and drawing scene\n");
 

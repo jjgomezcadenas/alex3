@@ -12,7 +12,6 @@
 #include <memory>
 #include <map>
 #include <alex/SingletonTemplate.h>
-#include <alex/LogUtil.h>
 #include "PDefs.h"
 
 
@@ -22,40 +21,30 @@ class PaolinaManager {
 	public:
 		PaolinaManager(){};
 		virtual ~PaolinaManager(){};
-    void Init(std::string debugLevel,std::vector<double> voxelSize,
-              std::vector<std::pair<double,double> > detSize,
-              double blobRadius);
 
-    double ComputePaolinaObjects(
-          std::vector<std::pair<TLorentzVector,double> > hits);
+    void Init(std::string debugLevel,
+              std::vector<std::pair<double,double> > detSize);
+  
+    std::vector<std::pair<TVector3,double> > ComputePaolinaVoxels(IHits hits,
+                                                                  std::vector<double> voxelSize);
+    std::vector<paolina::Track*>  ComputePaolinaTracks();
+    std::pair<paolina::Blob*, paolina::Blob*> ComputePaolinaBlobs(double blobRadius);
 
-		std::vector<paolina::Voxel*> GetPaolinaVoxels(); 
-    std::vector<paolina::Track*>  GetPaolinaTracks();
-    std::pair<paolina::Blob*, paolina::Blob*> GetPaolinaBlobs();
-
-		std::vector<std::pair<TVector3,double> > GetVoxels();
     std::string PrintVoxels();
+    std::string PrintBlobs();
+    std::string PrintTracks();
 
 	private:
 		
     std::string fDebugLevel;
-    bool fPaolina;
-
+    
+    std::vector<std::pair<double,double> > fDetSize;
+    //voxels
 		std::vector<paolina::Voxel*> fPvoxels;	
-  	//Voxel builder
-  	paolina::VoxelBuilder* fPVB;
-
   	//paolina tracks
   	std::vector<paolina::Track*> fPtracks;
-
-  	//paolina track builder
-  	paolina::TrackBuilder* fPTB;
-
   	//paolina blobs
   	std::pair<paolina::Blob*, paolina::Blob*> fPblobs;
-
-  	//paolina Blob builder
-  	paolina::BlobBuilder* fPBB;
 
 	};
 
