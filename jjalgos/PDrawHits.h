@@ -5,8 +5,9 @@
 namespace alex {
   class PDrawHits {
   public:
-   public:
-    // You can add here functions and variables to be used by derived algp
+    // You can add here public functions and variables to be used by derived algos
+  protected:
+    // You can add here protected functions and variables to be used by derived algos
     
   };
 }
