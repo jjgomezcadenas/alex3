@@ -23,7 +23,9 @@
 #include <cstring>
 
 #include <TFile.h>
-#include <TTree.h>
+#include <TChain.h>
+#include <TList.h>
+#include <TFileInfo.h>
 // #include <TRandom2.h>
 
 #include <AlgoHeaders.hh> 
@@ -87,18 +89,23 @@ int main(int argc, char **argv)
   //Get path, open DST file, set Tree
   string fp = PathFromStrings(aconf.DstPath(),aconf.DstName());
   klog << log4cpp::Priority::INFO << "Open DST file =" << fp;
+
+  TChain fEvtTree("EVENT");
+  fEvtTree.Add(fp.c_str()); 
   
-  TFile* ifile = new TFile(fp.c_str(), "READ");
-  TTree* fEvtTree = dynamic_cast<TTree*>(ifile->Get("EVENT"));
-  fEvtTree->SetBranchAddress("EventBranch", &ievt);
+  fEvtTree.SetBranchAddress("EventBranch", &ievt);
+  
+  //TFile* ifile = new TFile(fp.c_str(), "READ");
+  //TTree* fEvtTree = dynamic_cast<TTree*>(ifile->Get("EVENT"));
+  //fEvtTree->SetBranchAddress("EventBranch", &ievt);
 
   klog << log4cpp::Priority::INFO << "number of entries in Irene Tree = " 
-       << fEvtTree->GetEntries();
+       << fEvtTree.GetEntries();
   klog << log4cpp::Priority::INFO << "number of events required = " 
        << aconf.EventsToRun();
 
-  if(evtEnd < evtStart) evtEnd = std::min(aconf.EventsToRun(), (int) fEvtTree->GetEntries());
-  else evtEnd = std::min(evtEnd, (int) fEvtTree->GetEntries());
+  if(evtEnd < evtStart) evtEnd = std::min(aconf.EventsToRun(), (int) fEvtTree.GetEntries());
+  else evtEnd = std::min(evtEnd, (int) fEvtTree.GetEntries());
   klog << log4cpp::Priority::INFO << "number of events to run  = " 
        << (evtEnd - evtStart);
   
@@ -113,7 +120,7 @@ int main(int argc, char **argv)
   int nfail = 0;
   for(int ivt = evtStart; ivt < evtEnd; ivt++)
   {
-    nb = fEvtTree->GetEntry(ivt);
+    nb = fEvtTree.GetEntry(ivt);
     //nb = ISvc::Instance().DstGetEntry(ivt);
     ISvc::Instance().LoadEvent(ievt);
     ISvc::Instance().SetEvtNum(ivt);

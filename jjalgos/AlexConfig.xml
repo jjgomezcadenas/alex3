@@ -14,7 +14,7 @@
   </HistoFile> -->
   <DST>
     <path>/Users/jjgomezcadenas/Development/NEXT/DATA</path>
-    <name>MagBox_Xe_10atm_00tesla.Xe136_bb0nu.next</name>
+    <name>MagBox_Xe_10atm_00tesla.Xe136_bb0nu*.next</name>
   </DST>
   <HistoFile>
     <path>/Users/jjgomezcadenas/Development/build/alexdeb/alexMain</path>
