@@ -22,6 +22,10 @@
 #include <cstdio>
 #include <cstring>
 
+#include <TFile.h>
+#include <TTree.h>
+// #include <TRandom2.h>
+
 #include <AlgoHeaders.hh> 
 #include <RegisterAlgosHeader.hh>
 #include <AConf.hh> // generated

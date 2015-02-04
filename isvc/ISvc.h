@@ -15,9 +15,9 @@
 #include <alex/LogUtil.h>
 #include "IDefs.h"
 
-#include <TFile.h>
-#include <TTree.h>
-#include <TRandom2.h>
+// #include <TFile.h>
+// #include <TTree.h>
+// #include <TRandom2.h>
 
 
 
@@ -28,38 +28,43 @@ class IreneManager {
 		IreneManager(){};
 		virtual ~IreneManager(){};
 		void Init(std::string debugLevel);
-		void InitDst(std::string fileName,const irene::Event* ievt);
 		
-		int DstEntries();
-		int DstGetEntry(int ivt);
 		void LoadEvent(const irene::Event* ievt);
 		const irene::Event& GetEvent();
-
-		TLorentzVector TrueVertex(){return fVertex;}
-		
-		IParticles GetParticles() const {return fIevt->Particles();}
-		ITracks GetTracks() const {return fIevt->Tracks();}
-		IParticles GetElectrons() const {return fElectrons;}
-		int GetNumberOfElectrons() const {return fElectrons.size();}
-		IParticles GetPrimaryElectrons() const {return fBetas;}
-		int GetNumberOfPrimaryElectrons() const {return fBetas.size();}
-		std::pair<IParticle, IParticle> GetPMaxElectrons() const {return fBetasMax;}
-		IHits GetTrueHits() const {return fTrueHits;}
-		std::pair<IHits, IHits> GetPMaxElectronsHits() const {return fBetasMaxHits;}
-		
-		void PrintHits();
-
-    void SetStartEvent(int sevt) { startEvt = sevt; }
+		void SetStartEvent(int sevt) { startEvt = sevt; }
     int GetStartEvent() const { return startEvt; }
 
     void SetEvtNum(int sevt) { evtNum = sevt; }	
     int GetEvtNum() const { return evtNum; }
 
+		TVector3 TrueVertex(){return fVertex;}
+		
+		IParticles GetParticles() const {return fIreneParticles;}
+		ITracks GetTracks() const {return fIreneTracks;}
+		IHits GetTrueHits() const {return fTrueHits;}
+
+		void PrintHits();
+
+
+		// IParticles GetElectrons() const {return fElectrons;}
+		// int GetNumberOfElectrons() const {return fElectrons.size();}
+		// IParticles GetPrimaryElectrons() const {return fBetas;}
+		// int GetNumberOfPrimaryElectrons() const {return fBetas.size();}
+		// std::pair<IParticle, IParticle> GetPMaxElectrons() const {return fBetasMax;}
+		
+		// std::pair<IHits, IHits> GetPMaxElectronsHits() const {return fBetasMaxHits;}
+		//void InitDst(std::string fileName,const irene::Event* ievt);
+		
+		// int DstEntries();
+		// int DstGetEntry(int ivt);
+		
+		
+
 		
 
 	private:
-		void FetchElectrons();
-		void FetchPMaxElectrons();
+		// void FetchElectrons();
+		// void FetchPMaxElectrons();
 		void GetTrueVertex();
     
     int startEvt;
@@ -68,18 +73,23 @@ class IreneManager {
     std::string fDebugLevel;
 
     //TRandom2* fRandom;
-		TFile* fIfile;
-  	TTree* fEvtTree;
+		//TFile* fIfile;
+  	//TTree* fEvtTree;
         
   	const irene::Event* fIevt;
-  	IParticles fElectrons;
-  	IParticles fBetas; //beta = primary electron
+
   	IHits fTrueHits;
-  	TLorentzVector fVertex;
+  	TVector3 fVertex;
+  	std::vector<const irene::Track*> fIreneTracks ;
+  	IParticles fIreneParticles;
+
+  	// IParticles fElectrons;
+  	// IParticles fBetas; //beta = primary electron
   	
-    std::vector<const irene::Track*> fIreneTracks ; 
-  	std::pair<IParticle, IParticle> fBetasMax;
-  	std::pair<IHits, IHits> fBetasMaxHits;
+  	
+     
+  	// std::pair<IParticle, IParticle> fBetasMax;
+  	// std::pair<IHits, IHits> fBetasMaxHits;
 
 	};
 

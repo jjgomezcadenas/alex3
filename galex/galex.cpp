@@ -480,7 +480,13 @@ void GalexMF::TrueVertex()
   klog.debug("--Create graphic object (gTrueHits) for true hits \n");
 
   std::vector<TLorentzVector> vertex;
-  vertex.push_back(alex::ISvc::Instance().TrueVertex());
+  TVector3 V3 = alex::ISvc::Instance().TrueVertex();
+  TLorentzVector V4;
+
+  for (int i=0; i< 3; i++)
+        V4[i]= V3[i];
+
+  vertex.push_back(V4);
 
   gTrueVertex = fEveTV->TrackHits(vertex);
 
