@@ -16,6 +16,8 @@ namespace alex {
     klog << log4cpp::Priority::INFO << "TrueEnergyFilter::fMinEnergy = " << fMinEnergy;
     klog << log4cpp::Priority::INFO << "TrueEnergyFilter::fMaxEnergy = " << fMaxEnergy;
 
+    fNumInputEvents = fNumOutputEvents = 0;
+
     return true;
   }
 
@@ -27,7 +29,8 @@ namespace alex {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "TrueEnergyFilter::Execute()";
 
-      
+    fNumInputEvents += 1;
+
     // Get the energy in the event and compare to the minimum allowed.
     double etot = ASvc::Instance().GetTrueEventEnergy();
     fTrueEnergyFilter_EdepBefore_H1->Fill(etot);
@@ -44,6 +47,8 @@ namespace alex {
       fTrueEnergyFilter_EdepAfter_H1->Fill(etot);
     } 
 
+  fNumOutputEvents += 1;
+
   return true;
   }
 
@@ -54,6 +59,8 @@ namespace alex {
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "TrueEnergyFilter::End()";
+    klog << log4cpp::Priority::INFO << "TrueEnergyFilter::fNumInputEvents:  " << fNumInputEvents;
+    klog << log4cpp::Priority::INFO << "TrueEnergyFilter::fNumOutputEvents: " << fNumOutputEvents;
 
     return true;
   }
