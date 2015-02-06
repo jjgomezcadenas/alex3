@@ -17,7 +17,7 @@ namespace alex {
     ARTrack(const ARTrack& art);
 
     // Destructor
-    ~ARTrack() {};
+    ~ARTrack() ;
 
     // True Tracks
     const std::vector <int> GetTTrackIDs() const
@@ -28,6 +28,12 @@ namespace alex {
     // E Deposited
     void SetEdep(double eDep);
 
+    // Hits
+    void AddOrdHit(AHit* ahit);
+
+    const std::vector<AHit*> GetOrdHits() const
+    {return fOrdHits;}
+
     // Information
     void DisplayInfo(std::ostream& s) const;
     std::string PrintInfo() const; 
@@ -35,6 +41,7 @@ namespace alex {
   
   private:
     std::vector <int> fTTrackIDs;
+    std::vector<AHit*> fOrdHits;
     
   };
 

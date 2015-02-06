@@ -9,6 +9,7 @@
 
 #include "ARTrack.h"
 #include <alex/VectorOperations.h>
+#include <alex/LogUtil.h>
 
 #include <iostream>
 
@@ -28,6 +29,22 @@ namespace alex {
   }
 
 
+  ARTrack::~ARTrack()
+  {
+
+    log4cpp::Category& klog = log4cpp::Category::getRoot();
+    klog << log4cpp::Priority::DEBUG << "ARTrack::~ARTrack()" ;
+
+    klog << log4cpp::Priority::DEBUG << "clearing ordered hit vector" ;
+
+    fOrdHits.clear();
+  }
+  
+  void ARTrack::AddOrdHit(AHit* ahit)
+  {
+    fOrdHits.push_back(ahit);
+  }
+
   void ARTrack::AddTTrackID(int id)
   {
     fTTrackIDs.push_back(id);
@@ -43,7 +60,8 @@ namespace alex {
   void ARTrack::DisplayInfo(std::ostream& s) const
   {
     ABTrack::DisplayInfo(s);
-   	s << "* Origin: TTrack IDs: " << VPrint(GetTTrackIDs()) << std::endl;
+    if(GetTTrackIDs().size() >0)
+   	  s << "* Origin: TTrack IDs: " << VPrint(GetTTrackIDs()) << std::endl;
   }
 
 

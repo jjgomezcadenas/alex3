@@ -46,16 +46,41 @@ namespace alex {
   //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    //klog << log4cpp::Priority::DEBUG << "AlexManager::Clear()" ;
+    klog << log4cpp::Priority::DEBUG << "AlexService::Clear()" ;
 
     fTrueEventEnergy = 0.;
     fRecEventEnergy = 0.;
 
-    //klog << log4cpp::Priority::DEBUG << "fParticles size before VDELETE = " 
-    //<< fParticles.size(); 
+    klog << log4cpp::Priority::DEBUG << "fParticles size before VDELETE = " 
+    << fParticles.size(); 
+
+    klog << log4cpp::Priority::DEBUG << "fTTracks size before VDELETE = " 
+    << fTTracks.size();
+
+    klog << log4cpp::Priority::DEBUG << "fRTracks size before VDELETE = " 
+    << fRTracks.size(); 
+
+    for (auto particle: fParticles)
+    {
+      std::cout << particle->PrintInfo() << std::endl;
+    }
 
     VDelete(fParticles);
+
+    klog << log4cpp::Priority::DEBUG << "fParticles size after VDELETE = " 
+    << fParticles.size(); 
+
+
+    for (auto ttrack: fTTracks)
+    {
+      std::cout << ttrack->PrintInfo() << std::endl;
+    }
+
     VDelete(fTTracks);
+
+    klog << log4cpp::Priority::DEBUG << "fTTracks size after VDELETE = " 
+    << fTTracks.size();
+
     VDelete(fRTracks);
 
     // MUST clear after VDelete!
@@ -71,15 +96,20 @@ namespace alex {
 
 
   //--------------------------------------------------------------------
-  void AlexService::AddParticle(const alex::AParticle* part)
+  void AlexService::AddParticle(alex::AParticle* part)
   //--------------------------------------------------------------------
   {
-    fParticles.push_back(new AParticle(*part));
+    log4cpp::Category& klog = log4cpp::Category::getRoot();
+    klog << log4cpp::Priority::DEBUG << "In AlexService::AddParticle() " ;
+
+    fParticles.push_back(part);
+
+    klog << log4cpp::Priority::DEBUG << "size of fParticles " << fParticles.size();
   }
 
 
   //--------------------------------------------------------------------
-  const alex::AParticle* AlexService::GetParticle(int id) const
+  alex::AParticle* AlexService::GetParticle(int id) const
   //--------------------------------------------------------------------
   {
     std::vector <AParticle*> parts = GetParticles();
@@ -93,16 +123,16 @@ namespace alex {
 
 
   //--------------------------------------------------------------------
-  void AlexService::AddTTrack(const alex::ATTrack* ttrack)
+  void AlexService::AddTTrack(alex::ATTrack* ttrack)
   //--------------------------------------------------------------------
   {
     fTrueEventEnergy += ttrack->GetEdep();
-    fTTracks.push_back(new ATTrack(*ttrack));
+    fTTracks.push_back(ttrack);
   }
 
 
   //--------------------------------------------------------------------
-  const alex::ATTrack* AlexService::GetTTrack(int id) const
+   alex::ATTrack* AlexService::GetTTrack(int id) const
   //--------------------------------------------------------------------
   {
     std::vector <ATTrack*> ttracks = GetTTracks();
@@ -116,16 +146,16 @@ namespace alex {
 
 
   //--------------------------------------------------------------------
-  void AlexService::AddRTrack(const alex::ARTrack* rtrack)
+  void AlexService::AddRTrack(alex::ARTrack* rtrack)
   //--------------------------------------------------------------------
   {
     fRecEventEnergy += rtrack->GetEdep();
-    fRTracks.push_back(new ARTrack(*rtrack));
+    fRTracks.push_back(rtrack);
   }
 
 
   //--------------------------------------------------------------------
-  const alex::ARTrack* AlexService::GetRTrack(int id) const
+   alex::ARTrack* AlexService::GetRTrack(int id) const
   //--------------------------------------------------------------------
   {
     std::vector <ARTrack*> rtracks = GetRTracks();
