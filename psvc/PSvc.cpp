@@ -44,15 +44,14 @@ namespace alex {
   //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << " PaolinaManager::ComputePaolinaVoxels()" ;
-    klog << log4cpp::Priority::DEBUG << " voxel size: x = " 
-    << voxelSize[0]<< "  y = " << voxelSize[1] << "  z = " << voxelSize[2];
+    klog << log4cpp::Priority::DEBUG << "PaolinaManager::ComputePaolinaVoxels()" ;
+    //klog << log4cpp::Priority::DEBUG << "Voxel size: x = " 
+    //<< voxelSize[0]<< "  y = " << voxelSize[1] << "  z = " << voxelSize[2];
 
-  
     TStopwatch*  timer = new TStopwatch();
     timer->Start();
 
-    klog << log4cpp::Priority::DEBUG << " Fill Voxel vector";
+    //klog << log4cpp::Priority::DEBUG << "Fill Voxel vector";
     paolina::VoxelBuilder* PVB = new paolina::VoxelBuilder(voxelSize, fDetSize);
 
     fPvoxels = PVB->FillVoxels(hits);
@@ -65,12 +64,12 @@ namespace alex {
 
     delete timer;
 
-    klog << log4cpp::Priority::INFO << "Paolina finds " 
+    klog << log4cpp::Priority::DEBUG << "Paolina finds " 
          << fPvoxels.size()
-         << "voxels" ;
+         << " voxels" ;
 
-    klog << log4cpp::Priority::INFO << "RealTime =" << rtime << " seconds"
-         << " CpuTime = " << cctime << "seconds";
+    klog << log4cpp::Priority::DEBUG << "RealTime = " << rtime << " seconds"
+         << " CpuTime = " << cctime << " seconds";
 
 
     std::vector<std::pair<TVector3,double> > theVoxels;
@@ -94,28 +93,26 @@ namespace alex {
   }
 
 
-
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
   std::vector<paolina::Track*>  PaolinaManager::ComputePaolinaTracks()
-//--------------------------------------------------------------------  
+  //--------------------------------------------------------------------  
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG 
-    << " PaolinaManager::ComputePaolinaTracks()" ;
+    << "PaolinaManager::ComputePaolinaTracks()" ;
   
     if(fPvoxels.size() == 0)
     {
       klog << log4cpp::Priority::FATAL 
       << "ERROR: size of Voxel vector is cero, have you created voxels?";
       exit(-1);
-      
     }
 
   
     TStopwatch*  timer = new TStopwatch();
     timer->Start();
 
-    klog << log4cpp::Priority::DEBUG << " Fill Track vector";
+    //klog << log4cpp::Priority::DEBUG << "Fill Track vector";
 
     paolina::TrackBuilder* PTB = new paolina::TrackBuilder();
 
@@ -129,19 +126,20 @@ namespace alex {
 
     delete timer;
 
-    klog << log4cpp::Priority::INFO << "Paolina finds" 
+    klog << log4cpp::Priority::DEBUG << "Paolina finds " 
          << fPtracks.size() << " paolina tracks";
 
-    klog << log4cpp::Priority::INFO << "RealTime =" << rtime << " seconds"
+    klog << log4cpp::Priority::DEBUG << "RealTime =" << rtime << " seconds"
          << " CpuTime = " << cctime << "seconds";
 
     return fPtracks;
   }
 
-//--------------------------------------------------------------------
+
+  //--------------------------------------------------------------------
   std::pair<paolina::Blob*, paolina::Blob*> PaolinaManager::ComputePaolinaBlobs(
                                                                           double blobRadius)
-//--------------------------------------------------------------------  
+  //--------------------------------------------------------------------  
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG 
@@ -154,7 +152,6 @@ namespace alex {
       exit(-1);
     }
 
-    
     TStopwatch*  timer = new TStopwatch();
     timer->Start();
 
@@ -172,9 +169,8 @@ namespace alex {
 
     delete timer;
 
-    klog << log4cpp::Priority::INFO << "Found Blobs" ;
+    klog << log4cpp::Priority::INFO << "Found Blobs";
         
-
     klog << log4cpp::Priority::INFO << "RealTime =" << rtime << " seconds"
          << " CpuTime = " << cctime << "seconds";
 
@@ -207,6 +203,7 @@ namespace alex {
     return s.str();   
   }
 
+
   //--------------------------------------------------------------------
   std::string PaolinaManager::PrintBlobs()
   //--------------------------------------------------------------------
@@ -228,7 +225,9 @@ namespace alex {
     
     return s.str(); 
   }
-   //--------------------------------------------------------------------
+
+
+  //--------------------------------------------------------------------
   std::string PaolinaManager::PrintTracks()
   //--------------------------------------------------------------------
   {
@@ -288,7 +287,6 @@ namespace alex {
       i++;
     }
 
-    
     return s.str();   
   }
 

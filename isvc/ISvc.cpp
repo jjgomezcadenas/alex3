@@ -78,18 +78,18 @@ void IreneManager::Init(std::string debugLevel)
     //FetchElectrons();
     //FetchPMaxElectrons();
 
-    klog << log4cpp::Priority::DEBUG << "IreneManager:: Fill true hits" ;
+    //klog << log4cpp::Priority::DEBUG << "IreneManager::Fill true hits" ;
     fTrueHits.clear();
     fIevt->FillHitVector(fTrueHits, "ACTIVE");
-    klog << log4cpp::Priority::DEBUG << "Size of hit vector =" << fTrueHits.size(); 
+    klog << log4cpp::Priority::DEBUG << "IreneManager::Size of hit vector: " << fTrueHits.size(); 
 
-    klog << log4cpp::Priority::DEBUG << "IreneManager:: Fill tracks" ;
+    //klog << log4cpp::Priority::DEBUG << "IreneManager:: Fill tracks" ;
     fIreneTracks = fIevt->Tracks();
-    klog << log4cpp::Priority::DEBUG << "Size of tracks vector =" << fIreneTracks.size();
+    klog << log4cpp::Priority::DEBUG << "IreneManager::Size of tracks vector: " << fIreneTracks.size();
 
-    klog << log4cpp::Priority::DEBUG << "IreneManager:: Fill particles" ;
+    //klog << log4cpp::Priority::DEBUG << "IreneManager:: Fill particles" ;
     fIreneParticles= fIevt->Particles();
-    klog << log4cpp::Priority::DEBUG << "Size of particles vector =" << fIreneParticles.size();
+    klog << log4cpp::Priority::DEBUG << "IreneManager::Size of particles vector: " << fIreneParticles.size();
 
     // for (auto track: fIreneTracks)
     // {
@@ -106,8 +106,8 @@ void IreneManager::Init(std::string debugLevel)
     //   }
     // }
 
-    klog << log4cpp::Priority::DEBUG << "IreneManager::Compute True Vertex" ;
-    GetTrueVertex();
+    //klog << log4cpp::Priority::DEBUG << "IreneManager::Compute True Vertex" ;
+    //GetTrueVertex();
 
   }
 

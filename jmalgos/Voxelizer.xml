@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Voxelizer>
+  
+  <Param>
+    <name>fName</name>
+    <dataType>string</dataType>
+    <value>Voxelizer</value>
+  </Param>
+  
+  <!-- Detector size -->
+  <Param>
+    <name>fMinDetX</name>
+    <dataType>double</dataType>
+    <value>-550.</value>
+  </Param>
+
+  <Param>
+    <name>fMaxDetX</name>
+    <dataType>double</dataType>
+    <value>550.</value>
+  </Param>
+
+  <Param>
+    <name>fMinDetY</name>
+    <dataType>double</dataType>
+    <value>-550.</value>
+  </Param>
+
+  <Param>
+    <name>fMaxDetY</name>
+    <dataType>double</dataType>
+    <value>550.</value>
+  </Param>
+
+  <Param>
+    <name>fMinDetZ</name>
+    <dataType>double</dataType>
+    <value>-700.</value>
+  </Param>
+
+  <Param>
+    <name>fMaxDetZ</name>
+    <dataType>double</dataType>
+    <value>700.</value>
+  </Param>
+
+
+  <!-- Voxels size -->
+  <Param>
+    <name>fVoxelX</name>
+    <dataType>double</dataType>
+    <value>10.</value>
+  </Param>
+
+  <Param>
+    <name>fVoxelY</name>
+    <dataType>double</dataType>
+    <value>10.</value>
+  </Param>
+
+  <Param>
+    <name>fVoxelZ</name>
+    <dataType>double</dataType>
+    <value>5.</value>
+  </Param>
+
+
+  <!-- Histogram with number of voxels -->
+  <H1D>
+    <name>fVoxelizer_NumVoxels_H1</name>
+    <title>Number of Paolina Voxels</title>
+    <nbinsx>50</nbinsx>
+    <xlow>0.0</xlow>
+    <xup>70.0</xup>
+  </H1D>
+
+  <!-- Histogram with number of tracks -->
+  <H1D>
+    <name>fVoxelizer_NumTracks_H1</name>
+    <title>Number of Paolina Tracks</title>
+    <nbinsx>10</nbinsx>
+    <xlow>0.0</xlow>
+    <xup>10.0</xup>
+  </H1D>
+
+</Voxelizer>
