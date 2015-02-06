@@ -75,7 +75,6 @@ namespace alex {
     for (int t=0; t<tracks.size(); t++) {
       ARTrack* arTrk = new ARTrack(t);
       paolina::Track* pTrk = tracks[t];
-      //std::cout << pTrk->NVoxels() << " " << pTrk->NMainPathVoxels() << std::endl;
       // Converting from Paolina Voxels to AHits
       for (int v=0; v<pTrk->NVoxels(); v++) {
         AHit* ahit = new AHit();
@@ -88,23 +87,21 @@ namespace alex {
         ahit->SetPosition(pos);
         ahit->SetEdep(pVxl->GetEDep());
         arTrk->AddHit(ahit);
-
-        // TO BE DELETED
-        if (v==0) arTrk->SetExtreme1(ahit);
-        if (v==pTrk->NVoxels()-1) arTrk->SetExtreme2(ahit);
-
-        delete ahit;
       }
 
-      // Setting Extremes *************
+      // Adding Ordered hits
+      //std::cout << pTrk->NVoxels() << " " << pTrk->NMainPathVoxels() << std::endl;
+
+      // As origin True Tracks are unknown, set to -1
+      arTrk->AddTTrackID(-1);
+
+      // Setting Extremes
       //arTrk->SetExtreme1();
       //arTrk->SetExtreme2();
 
       //arTrk->DisplayInfo(std::cout);
       ASvc::Instance().AddRTrack(arTrk);
-      delete arTrk;
     }
-
 
     SetDebugLevel("INFO");
 

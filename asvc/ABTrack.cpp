@@ -107,16 +107,16 @@ namespace alex {
 
   void ABTrack::DisplayInfo(std::ostream& s) const
   {
-   	s << "*** TTrack ID: " << GetID() << std::endl;
+    s << std::endl;
+   	s << "*** Track ID: " << GetID() << std::endl;
     s << "* EnergyDep: " << GetEdep() << std::endl;
 
-    if (fSetExtreme1 ==true)
-    {
+    if (fSetExtreme1 ==true) {
       TVector3 pos1 = GetExtreme1()->GetPosition();
       s << "* Extreme1:" << PrintTVector3(pos1);
     }
-    if (fSetExtreme2 ==true)
-    {
+
+    if (fSetExtreme2 ==true) {
       TVector3 pos2 = GetExtreme2()->GetPosition();
       s << "* Extreme2:" << PrintTVector3(pos2);
     }
@@ -124,6 +124,7 @@ namespace alex {
    	s << "* Hits Collection: " <<  std::endl;
     const std::vector<AHit*> hits = GetHits();
     for (auto hit : hits) hit->DisplayInfo(s);
+
   	s << "* Properties: " << std::endl << DisplayProperties();
   }
 
