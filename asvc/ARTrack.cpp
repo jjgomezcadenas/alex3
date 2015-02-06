@@ -9,6 +9,7 @@
 
 #include "ARTrack.h"
 #include <alex/VectorOperations.h>
+#include <alex/LogUtil.h>
 
 #include <iostream>
 
@@ -27,6 +28,22 @@ namespace alex {
  		for (auto tid: ids) AddTTrackID(tid);
   }
 
+
+  ARTrack::~ARTrack()
+  {
+
+    log4cpp::Category& klog = log4cpp::Category::getRoot();
+    klog << log4cpp::Priority::DEBUG << "ARTrack::~ARTrack()" ;
+
+    klog << log4cpp::Priority::DEBUG << "clearing ordered hit vector" ;
+
+    fOrdHits.clear();
+  }
+  
+  void ARTrack::AddOrdHit(AHit* ahit)
+  {
+    fOrdHits.push_back(ahit);
+  }
 
   void ARTrack::AddTTrackID(int id)
   {
