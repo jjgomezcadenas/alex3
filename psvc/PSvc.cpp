@@ -51,36 +51,29 @@ namespace alex {
     TStopwatch*  timer = new TStopwatch();
     timer->Start();
 
-    //klog << log4cpp::Priority::DEBUG << "Fill Voxel vector";
     paolina::VoxelBuilder* PVB = new paolina::VoxelBuilder(voxelSize, fDetSize);
-
     fPvoxels = PVB->FillVoxels(hits);
     delete PVB;
 
     timer->Stop(); 
-
     double rtime = timer->RealTime();
     double cctime = timer->CpuTime();
-
     delete timer;
 
     klog << log4cpp::Priority::DEBUG << "Paolina finds " 
-         << fPvoxels.size()
-         << " voxels" ;
+         << fPvoxels.size() << " voxels" ;
 
     klog << log4cpp::Priority::DEBUG << "RealTime = " << rtime << " seconds"
          << " CpuTime = " << cctime << " seconds";
 
 
     std::vector<std::pair<TVector3,double> > theVoxels;
-
     for (auto vox : fPvoxels)
     { 
       std::pair<TVector3,double> theVox;
       const paolina::vector3<double> vpos = vox->GetPosition();
 
       TVector3 theVector;
-      
       theVector[0]= vpos.x();
       theVector[1]= vpos.y();
       theVector[2]= vpos.z();
@@ -98,8 +91,7 @@ namespace alex {
   //--------------------------------------------------------------------  
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG 
-    << "PaolinaManager::ComputePaolinaTracks()" ;
+    klog << log4cpp::Priority::DEBUG << "PaolinaManager::ComputePaolinaTracks()" ;
   
     if(fPvoxels.size() == 0)
     {
@@ -108,22 +100,14 @@ namespace alex {
       exit(-1);
     }
 
-  
     TStopwatch*  timer = new TStopwatch();
     timer->Start();
-
-    //klog << log4cpp::Priority::DEBUG << "Fill Track vector";
-
     paolina::TrackBuilder* PTB = new paolina::TrackBuilder();
-
     fPtracks = PTB->IdentifyTracks(fPvoxels);
-
     delete PTB;
     timer->Stop(); 
-
     double rtime = timer->RealTime();
     double cctime = timer->CpuTime();
-
     delete timer;
 
     klog << log4cpp::Priority::DEBUG << "Paolina finds " 
@@ -142,8 +126,7 @@ namespace alex {
   //--------------------------------------------------------------------  
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG 
-    << " PaolinaManager::ComputePaolinaTracks()" ;
+    klog << log4cpp::Priority::DEBUG << " PaolinaManager::ComputePaolinaBlobs()";
   
     if(fPtracks.size() == 0)
     {
@@ -155,18 +138,13 @@ namespace alex {
     TStopwatch*  timer = new TStopwatch();
     timer->Start();
 
-    klog << log4cpp::Priority::DEBUG << " Fill Blobs";
-
-    paolina::BlobBuilder* PBB = new paolina::BlobBuilder(blobRadius);
-    
+    paolina::BlobBuilder* PBB = new paolina::BlobBuilder(blobRadius);    
     fPblobs = PBB->MakeBlobs(fPtracks.at(0));
-
     delete PBB;
-    timer->Stop(); 
 
+    timer->Stop(); 
     double rtime = timer->RealTime();
     double cctime = timer->CpuTime();
-
     delete timer;
 
     klog << log4cpp::Priority::INFO << "Found Blobs";
