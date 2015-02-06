@@ -15,7 +15,10 @@
 
 namespace alex {
 
-  ATTrack::ATTrack() : ABTrack::ABTrack() {};
+  ATTrack::ATTrack() : ABTrack::ABTrack() 
+  {
+    fParticleID=-1;
+  };
 
 
   ATTrack::ATTrack(int id, int particleId) : ABTrack::ABTrack(id)

@@ -22,7 +22,7 @@ namespace alex {
     ~ABTrack();
 
     // Hits
-    void AddHit(const AHit* ahit);
+    void AddHit(AHit* ahit);
 
     const std::vector<AHit*> GetHits() const
     {return fHits;}
@@ -30,23 +30,21 @@ namespace alex {
     //std::vector<AHit*> GetHits() 
     //{return fHits;}
 
-    const AHit* GetHit(int id) const;
+     AHit* GetHit(int id) const;
  
     // Extremes
-    void SetExtreme1(const AHit* ahit);
+    void SetExtreme1(AHit* ahit);
 
-    const AHit* GetExtreme1() const {
+    AHit* GetExtreme1() const {
       return fExtremes.first;
     };
 
-    void SetExtreme2(const AHit* ahit) ;
+    void SetExtreme2(AHit* ahit) ;
     
-    const AHit* GetExtreme2() const {
+    AHit* GetExtreme2() const {
       return fExtremes.second;
     };
 
-    void SetExtremes(const std::pair<AHit*, AHit*> extremes);
-    
     const std::pair<AHit*, AHit*> GetExtremes() const {
       return fExtremes;
     };
@@ -61,12 +59,14 @@ namespace alex {
     std::string PrintInfo() const; 
     
     
-  private:
+  protected:
     std::vector<AHit*> fHits;
     std::pair<AHit*, AHit*> fExtremes;
     
-  protected:
     double fEdep;
+    bool fSetExtreme1;
+    bool fSetExtreme2;
+
     
   };
 

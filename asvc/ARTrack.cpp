@@ -43,7 +43,8 @@ namespace alex {
   void ARTrack::DisplayInfo(std::ostream& s) const
   {
     ABTrack::DisplayInfo(s);
-   	s << "* Origin: TTrack IDs: " << VPrint(GetTTrackIDs()) << std::endl;
+    if(GetTTrackIDs().size() >0)
+   	  s << "* Origin: TTrack IDs: " << VPrint(GetTTrackIDs()) << std::endl;
   }
 
 

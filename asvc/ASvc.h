@@ -32,18 +32,18 @@ class AlexService {
 		double GetRecEventEnergy() const {return fRecEventEnergy;}
 
 		// AParticles
-		void AddParticle(const alex::AParticle* part);
-		const alex::AParticle* GetParticle(int id) const;
+		void AddParticle(alex::AParticle* part);
+		alex::AParticle* GetParticle(int id) const;
 		const std::vector <alex::AParticle*> GetParticles() const {return fParticles;}
 
 		// ATTracks
-		void AddTTrack(const alex::ATTrack* ttrack);
-		const alex::ATTrack* GetTTrack(int id) const;
+		void AddTTrack(alex::ATTrack* ttrack);
+		alex::ATTrack* GetTTrack(int id) const;
 		const std::vector <alex::ATTrack*> GetTTracks() const {return fTTracks;}
 
 		// ARTracks
-		void AddRTrack(const alex::ARTrack* rtrack);
-		const alex::ARTrack* GetRTrack(int id) const;
+		void AddRTrack(alex::ARTrack* rtrack);
+		alex::ARTrack* GetRTrack(int id) const;
 		const std::vector <alex::ARTrack*> GetRTracks() const {return fRTracks;}
 
 
