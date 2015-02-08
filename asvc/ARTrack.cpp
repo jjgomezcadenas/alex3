@@ -60,6 +60,11 @@ namespace alex {
   void ARTrack::DisplayInfo(std::ostream& s) const
   {
     ABTrack::DisplayInfo(s);
+
+    s << "* " << GetOrdHits().size() << " main Path Hits: ";
+    for (auto hit: GetOrdHits()) s << hit->GetID() << ", ";
+    s << std::endl;
+
     if(GetTTrackIDs().size() >0)
    	  s << "* Origin: TTrack IDs: " << VPrint(GetTTrackIDs()) << std::endl;
   }

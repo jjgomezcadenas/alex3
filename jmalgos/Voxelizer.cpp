@@ -89,15 +89,29 @@ namespace alex {
         arTrk->AddHit(ahit);
       }
 
-      // Adding Ordered hits
-      //std::cout << pTrk->NVoxels() << " " << pTrk->NMainPathVoxels() << std::endl;
-
       // As origin True Tracks are unknown, set to -1
       arTrk->AddTTrackID(-1);
 
       // Setting Extremes
-      //arTrk->SetExtreme1();
-      //arTrk->SetExtreme2();
+      std::pair <int, int> pExtremes = pTrk->GetExtremes();
+      AHit* hit1 = arTrk->GetHit(pExtremes.first);
+      AHit* hit2 = arTrk->GetHit(pExtremes.second);
+      arTrk->SetExtreme1(new AHit(*hit1));
+      arTrk->SetExtreme2(new AHit(*hit2));
+
+      // Adding Ordered hits (It takes long time)
+      for (int v=0; v<pTrk->NMainPathVoxels(); v++) {
+        const paolina::Voxel* pVxl = pTrk->GetMainPathVoxel(v);
+        for (auto hit: arTrk->GetHits()) {
+          if ( (hit->GetEdep() == pVxl->GetEDep()) and
+               (hit->GetPosition().x() == pVxl->GetPosition().x()) and
+               (hit->GetPosition().y() == pVxl->GetPosition().y()) and
+               (hit->GetPosition().z() == pVxl->GetPosition().z()) ) {
+            arTrk->AddOrdHit(hit);
+            break;
+          }
+        } 
+      }
 
       //arTrk->DisplayInfo(std::cout);
       ASvc::Instance().AddRTrack(arTrk);
