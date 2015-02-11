@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<EnergySmearer>
+  
+  <Param>
+    <name>fName</name>
+    <dataType>string</dataType>
+    <value>EnergySmearer</value>
+  </Param>
+  
+  <!-- FWHM(%) @ Qbb -->
+  <Param>
+    <name>fFWHM</name>
+    <dataType>double</dataType>
+    <value>0.8</value>
+  </Param>
+
+  <!-- Histogram with True Event Edep -->
+  <H1D>
+    <name>fEnergySmearer_TrueEdep_H1</name>
+    <title>True Event Edep</title>
+    <nbinsx>80</nbinsx>
+    <xlow>2.3</xlow>
+    <xup>2.7</xup>
+  </H1D>
+
+  <!-- Histogram with Smeared Event Edep -->
+  <H1D>
+    <name>fEnergySmearer_SmEdep_H1</name>
+    <title>Smeared Event Edep</title>
+    <nbinsx>60</nbinsx>
+    <xlow>2.35</xlow>
+    <xup>2.65</xup>
+  </H1D>
+
+
+</EnergySmearer>
