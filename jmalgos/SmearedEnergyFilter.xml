@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SmearedEnergyFilter>
+  
+  <Param>
+    <name>fName</name>
+    <dataType>string</dataType>
+    <value>SmearedEnergyFilter</value>
+  </Param>
+  
+  <!-- Set to the minimum energy in an event -->
+  <Param>
+    <name>fMinEnergy</name>
+    <dataType>double</dataType>
+    <value>2.4</value>
+  </Param>
+
+  <!-- Set to the maximum energy in an event -->
+  <Param>
+    <name>fMaxEnergy</name>
+    <dataType>double</dataType>
+    <value>2.5</value>
+  </Param>
+
+  <!-- Histogram with Event Edep before filter -->
+  <H1D>
+    <name>fSmearedEnergyFilter_EdepBefore_H1</name>
+    <title>True Edep Before Filter</title>
+    <nbinsx>60</nbinsx>
+    <xlow>2.35</xlow>
+    <xup>2.65</xup>
+  </H1D>
+
+  <!-- Histogram with Event Edep before filter -->
+  <H1D>
+    <name>fSmearedEnergyFilter_EdepAfter_H1</name>
+    <title>True Edep After Filter</title>
+    <nbinsx>50</nbinsx>
+    <xlow>2.4</xlow>
+    <xup>2.5</xup>
+  </H1D>
+
+
+</SmearedEnergyFilter>

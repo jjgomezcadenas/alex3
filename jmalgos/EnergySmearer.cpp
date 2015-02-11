@@ -57,12 +57,14 @@ namespace alex {
       double sigmaE = ((fFWHM/100.) * sqrt(fQbb) * sqrt(trueTrkE)) / fFWHM2Sigma;
       double smTrkE = trueTrkE + fRand->Gaus(0., 1.) * sigmaE;
       smE += smTrkE;
+      //std::cout << "RTrack Smered Energy: " << smTrkE << std::endl;
 
       // Updating Energy of Voxels from Reconstructed Tracks
       double voxelFactor = smTrkE / trueTrkE;
       for (auto hit : track->GetHits()) hit->SetEdep(hit->GetEdep() * voxelFactor);
     }
 
+    ASvc::Instance().SetRecEventEnergy(smE);
     fEnergySmearer_SmEdep_H1->Fill(smE);
     klog << log4cpp::Priority::DEBUG << "EnergySmearer::Smeared Energy: " << smE;
 

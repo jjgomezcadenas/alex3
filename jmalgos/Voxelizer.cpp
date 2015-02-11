@@ -52,8 +52,6 @@ namespace alex {
   bool Voxelizer::Execute()
   //--------------------------------------------------------------------
   {
-    SetDebugLevel("INFO");
-
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "Voxelizer::Execute()";
 
@@ -116,8 +114,6 @@ namespace alex {
       //arTrk->DisplayInfo(std::cout);
       ASvc::Instance().AddRTrack(arTrk);
     }
-
-    SetDebugLevel("INFO");
 
     return true;
   }

@@ -30,6 +30,7 @@ class AlexService {
 		// Event Energy
 		double GetTrueEventEnergy() const {return fTrueEventEnergy;}
 		double GetRecEventEnergy() const {return fRecEventEnergy;}
+		void SetRecEventEnergy(double e) {fRecEventEnergy=e;}
 
 		// AParticles
 		void AddParticle(alex::AParticle* part);

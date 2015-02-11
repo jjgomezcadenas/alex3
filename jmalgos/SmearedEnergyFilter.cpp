@@ -1,20 +1,20 @@
-#include "TrueEnergyFilter.hh"
+#include "SmearedEnergyFilter.hh"
 #include <alex/ASvc.h>
 #include <alex/ATTrack.h>
 
 namespace alex {
 
   //--------------------------------------------------------------------
-  bool TrueEnergyFilter::Init()
+  bool SmearedEnergyFilter::Init()
   //--------------------------------------------------------------------
   {
     // Set the Debug Level
     SetDebugLevel("INFO");
     
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::INFO << "TrueEnergyFilter::Init()" ;
-    klog << log4cpp::Priority::INFO << "TrueEnergyFilter::fMinEnergy = " << fMinEnergy;
-    klog << log4cpp::Priority::INFO << "TrueEnergyFilter::fMaxEnergy = " << fMaxEnergy;
+    klog << log4cpp::Priority::INFO << "SmearedEnergyFilter::Init()" ;
+    klog << log4cpp::Priority::INFO << "SmearedEnergyFilter::fMinEnergy = " << fMinEnergy;
+    klog << log4cpp::Priority::INFO << "SmearedEnergyFilter::fMaxEnergy = " << fMaxEnergy;
 
     fNumInputEvents = fNumOutputEvents = 0;
 
@@ -23,27 +23,27 @@ namespace alex {
 
   
   //--------------------------------------------------------------------
-  bool TrueEnergyFilter::Execute()
+  bool SmearedEnergyFilter::Execute()
   //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << "TrueEnergyFilter::Execute()";
+    klog << log4cpp::Priority::DEBUG << "SmearedEnergyFilter::Execute()";
 
     fNumInputEvents += 1;
 
-    double etot = ASvc::Instance().GetTrueEventEnergy();
-    fTrueEnergyFilter_EdepBefore_H1->Fill(etot);
+    double etot = ASvc::Instance().GetRecEventEnergy();
+    fSmearedEnergyFilter_EdepBefore_H1->Fill(etot);
 
     if( (etot < fMinEnergy) || (etot > fMaxEnergy) ) {
-      klog << log4cpp::Priority::DEBUG << "TrueEnergyFilter::Event Energy: "
+      klog << log4cpp::Priority::DEBUG << "SmearedEnergyFilter::Event Energy: "
            << etot << " MeV. --> Cut Failed";
       return false;
     }
 
     else {
-      klog << log4cpp::Priority::DEBUG << "TrueEnergyFilter::Event Energy: "
-              << etot << " MeV. --> Cut Passed";
-      fTrueEnergyFilter_EdepAfter_H1->Fill(etot);
+      klog << log4cpp::Priority::DEBUG << "SmearedEnergyFilter::Event Energy: "
+            << etot << " MeV. --> Cut Passed";
+      fSmearedEnergyFilter_EdepAfter_H1->Fill(etot);
     } 
 
   fNumOutputEvents += 1;
@@ -53,13 +53,13 @@ namespace alex {
 
   
   //--------------------------------------------------------------------
-  bool TrueEnergyFilter::End()
+  bool SmearedEnergyFilter::End()
   //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::INFO << "TrueEnergyFilter::End()";
-    klog << log4cpp::Priority::INFO << "TrueEnergyFilter::fNumInputEvents:  " << fNumInputEvents;
-    klog << log4cpp::Priority::INFO << "TrueEnergyFilter::fNumOutputEvents: " << fNumOutputEvents;
+    klog << log4cpp::Priority::INFO << "SmearedEnergyFilter::End()";
+    klog << log4cpp::Priority::INFO << "SmearedEnergyFilter::fNumInputEvents:  " << fNumInputEvents;
+    klog << log4cpp::Priority::INFO << "SmearedEnergyFilter::fNumOutputEvents: " << fNumOutputEvents;
 
     return true;
   }
