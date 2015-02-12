@@ -125,8 +125,8 @@ namespace alex {
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "Voxelizer::End()";
-    klog << log4cpp::Priority::INFO << "Voxelizer::Number of events with 1 Track: " 
-      << fVoxelizer_NumTracks_H1->GetBinContent(2);
+    //klog << log4cpp::Priority::INFO << "Voxelizer::Number of events with 1 Track: " 
+    //  << fVoxelizer_NumTracks_H1->GetBinContent(2);
 
     return true;
   }

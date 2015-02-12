@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<Voxelizer>
+<RoadFilter>
   
   <Param>
     <name>fName</name>
     <dataType>string</dataType>
-    <value>Voxelizer</value>
+    <value>RoadFilter</value>
   </Param>
   
   <!-- Detector size -->
@@ -45,42 +45,22 @@
   </Param>
 
 
-  <!-- Voxels size -->
+  <!-- Road Width -->
   <Param>
-    <name>fVoxelX</name>
+    <name>fRoadWidth</name>
     <dataType>double</dataType>
-    <value>3.</value>
-  </Param>
-
-  <Param>
-    <name>fVoxelY</name>
-    <dataType>double</dataType>
-    <value>3.</value>
-  </Param>
-
-  <Param>
-    <name>fVoxelZ</name>
-    <dataType>double</dataType>
-    <value>2.</value>
+    <value>10.</value>
   </Param>
 
 
   <!-- Histogram with number of voxels -->
   <H1D>
-    <name>fVoxelizer_NumVoxels_H1</name>
-    <title>Number of Paolina Voxels</title>
-    <nbinsx>40</nbinsx>
+    <name>fRoadFilter_NumRoads_H1</name>
+    <title>Number of Roads</title>
+    <nbinsx>10</nbinsx>
     <xlow>0.0</xlow>
-    <xup>200.0</xup>
+    <xup>10.0</xup>
   </H1D>
 
-  <!-- Histogram with number of tracks -->
-  <H1D>
-    <name>fVoxelizer_NumTracks_H1</name>
-    <title>Number of Paolina Tracks</title>
-    <nbinsx>15</nbinsx>
-    <xlow>0.0</xlow>
-    <xup>15.0</xup>
-  </H1D>
 
-</Voxelizer>
+</RoadFilter>
