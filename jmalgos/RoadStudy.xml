@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<RoadFilter>
+<RoadStudy>
   
   <Param>
     <name>fName</name>
     <dataType>string</dataType>
-    <value>RoadFilter</value>
+    <value>RoadStudy</value>
   </Param>
   
   <!-- Detector size -->
@@ -44,23 +44,30 @@
     <value>700.</value>
   </Param>
 
-
-  <!-- Road Width -->
+  <!-- Minimum Road Width -->
   <Param>
-    <name>fRoadWidth</name>
-    <dataType>double</dataType>
-    <value>10.</value>
+    <name>fMinWidth</name>
+    <dataType>int</dataType>
+    <value>3</value>
+  </Param>
+
+  <!-- Maximum Road Width -->
+  <Param>
+    <name>fMaxWidth</name>
+    <dataType>int</dataType>
+    <value>20</value>
   </Param>
 
 
-  <!-- Histogram with number of roads -->
+
+  <!-- Histogram with number of voxels -->
   <H1D>
-    <name>fRoadFilter_NumRoads_H1</name>
-    <title>Number of Roads</title>
-    <nbinsx>10</nbinsx>
+    <name>fRoadStudy_Evts1Road_H1</name>
+    <title>Number of Events with One Road</title>
+    <nbinsx>25</nbinsx>
     <xlow>0.0</xlow>
-    <xup>10.0</xup>
+    <xup>25.0</xup>
   </H1D>
 
 
-</RoadFilter>
+</RoadStudy>
