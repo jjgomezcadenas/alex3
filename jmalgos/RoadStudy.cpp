@@ -54,6 +54,7 @@ namespace alex {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "RoadStudy::Execute()";
 
+    // METHOD BASED ON PAOLINA
     for (int width=fMinWidth; width<fMaxWidth+1; width++) {
       std::vector<double> fVoxelSize;
       fVoxelSize.push_back(width);
@@ -64,11 +65,30 @@ namespace alex {
       voxels = PSvc::Instance().ComputePaolinaVoxels(ISvc::Instance().GetTrueHits(), fVoxelSize);
       if (voxels.size() > 0) {
         std::vector<paolina::Track*> tracks = PSvc::Instance().ComputePaolinaTracks();
-        //std::cout << "Width " << width << " -> Roads: " << tracks.size() << std::endl;
         if (tracks.size() == 1) fRoadStudy_Evts1Road_H1->AddBinContent(width+1);
       }
     }
 
+
+/*
+    // METHOD BASED ON EUCLIDEAN DISTANCE OF RTracks
+    std::vector <ARTrack*> tracks = ASvc::Instance().GetRTracks();
+    int numTracks = tracks.size();
+    double evtMaxDist = 0.;
+    for (int i=0; i<numTracks-1; i++) {
+      for (int j=i+1; j<numTracks; j++) {
+        double trkDist = GetMinDistance(tracks[i], tracks[j]);
+        klog << log4cpp::Priority::DEBUG << "RoadStudy::Distance from RTrk " << i
+             << " to RTrk " << j << ": " << trkDist;
+        if (trkDist > evtMaxDist) evtMaxDist = trkDist;
+      }
+    }
+
+    for (int width=fMinWidth; width<fMaxWidth+1; width++) {
+      if (evtMaxDist <= width) fRoadStudy_Evts1Road_H1->AddBinContent(width+1);
+    }
+*/
+    
     return true;
   }
 
@@ -86,4 +106,24 @@ namespace alex {
 
     return true;
   }
+
+
+  //--------------------------------------------------------------------
+  double PRoadStudy::GetMinDistance(ARTrack* trk1, ARTrack* trk2)
+  //--------------------------------------------------------------------
+  {
+    double trksDist = 1000.;
+
+    for (auto hit1 : trk1->GetHits()) {
+      TVector3 pos1 = hit1->GetPosition();
+      for (auto hit2 : trk2->GetHits()) {
+        TVector3 pos2 = hit2->GetPosition();
+        TVector3 distV = pos1 - pos2;
+        double hitsDist = distV.Mag();
+        if (hitsDist < trksDist) trksDist = hitsDist;
+      }
+    }
+    return trksDist;
+  }
+
 }
