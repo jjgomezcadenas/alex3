@@ -52,6 +52,7 @@ namespace alex {
 
     double smE = 0.;
     for (auto track : ASvc::Instance().GetRTracks()) {
+      track->SetEnergyRes(fFWHM);
       double trueTrkE = track->GetEdep();
       // Scaling FWHM at Qbb to Sigma at True Energy
       double sigmaE = ((fFWHM/100.) * sqrt(fQbb) * sqrt(trueTrkE)) / fFWHM2Sigma;
@@ -62,6 +63,8 @@ namespace alex {
       // Updating Energy of Voxels from Reconstructed Tracks
       double voxelFactor = smTrkE / trueTrkE;
       for (auto hit : track->GetHits()) hit->SetEdep(hit->GetEdep() * voxelFactor);
+
+      //track->DisplayInfo(std::cout);
     }
 
     ASvc::Instance().SetRecEventEnergy(smE);

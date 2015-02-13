@@ -15,35 +15,41 @@
 
 namespace alex {
 
-  ARTrack::ARTrack() : ABTrack::ABTrack() {};
+  ARTrack::ARTrack() : ABTrack::ABTrack() {
+    fSpatialRes.SetXYZ(0., 0., 0.);
+    fEnergyRes = 0.;
+  };
 
 
-  ARTrack::ARTrack(int id) : ABTrack::ABTrack(id) {};
+  ARTrack::ARTrack(int id) : ABTrack::ABTrack(id) {
+    fSpatialRes.SetXYZ(0., 0., 0.);
+    fEnergyRes = 0.;    
+  };
 
 
   ARTrack::ARTrack(const ARTrack& art) : ABTrack::ABTrack(art)
   {
     std::vector <int> ids = art.GetTTrackIDs();
-
  		for (auto tid: ids) AddTTrackID(tid);
+    fSpatialRes = art.GetSpatialRes();
+    fEnergyRes = art.GetEnergyRes();
   }
 
 
   ARTrack::~ARTrack()
   {
-
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "ARTrack::~ARTrack()" ;
-
     klog << log4cpp::Priority::DEBUG << "clearing ordered hit vector" ;
-
     fOrdHits.clear();
   }
   
+
   void ARTrack::AddOrdHit(AHit* ahit)
   {
     fOrdHits.push_back(ahit);
   }
+
 
   void ARTrack::AddTTrackID(int id)
   {
@@ -54,6 +60,18 @@ namespace alex {
   void ARTrack::SetEdep(double eDep)
   {
     fEdep = eDep;
+  }
+
+  
+  void ARTrack::SetSpatialRes(TVector3 res)
+  {
+    fSpatialRes = res;
+  }
+
+
+  void ARTrack::SetEnergyRes(double res)
+  {
+    fEnergyRes = res;
   }
 
 	  
@@ -67,6 +85,9 @@ namespace alex {
 
     if(GetTTrackIDs().size() >0)
    	  s << "* Origin: TTrack IDs: " << VPrint(GetTTrackIDs()) << std::endl;
+
+    s << "* Spatial Resolution [mm]:" << PrintTVector3(GetSpatialRes());
+    s << "* Energy  Resolution: " << GetEnergyRes() << " \%";
   }
 
 

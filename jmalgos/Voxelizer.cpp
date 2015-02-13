@@ -90,6 +90,9 @@ namespace alex {
       // As origin True Tracks are unknown, set to -1
       arTrk->AddTTrackID(-1);
 
+      // Setting Spatial Energy
+      arTrk->SetSpatialRes(TVector3(fVoxelX, fVoxelY, fVoxelZ));
+
       // Setting Extremes
       std::pair <int, int> pExtremes = pTrk->GetExtremes();
       AHit* hit1 = arTrk->GetHit(pExtremes.first);
