@@ -8,9 +8,11 @@
 //  Copyright (c) 2015 NEXT Collaboration
 // ---------------------------------------------------------------------------- 
 
-#include "AHit.h"
+#include <alex/AHit.h>
 
 #include <iostream>
+
+ClassImp(alex::AHit)
 
 namespace alex {
 

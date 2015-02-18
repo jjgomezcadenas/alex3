@@ -2,11 +2,11 @@
 #define ARTRACK_
 
 #include <alex/ABTrack.h>
-
+#include <TObject.h>
 
 namespace alex {
 
-  class ARTrack : public ABTrack {
+  class ARTrack : public ABTrack, public TObject  {
     
   public:
     
@@ -58,7 +58,9 @@ namespace alex {
     TVector3 fSpatialRes;
 
     // Energy Resolution
-    double fEnergyRes;    
+    double fEnergyRes;  
+
+    ClassDef(ARTrack,1);  
   };
 
 std::ostream& operator << (std::ostream& s, const alex::ARTrack& art);

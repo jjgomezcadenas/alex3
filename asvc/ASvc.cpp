@@ -37,6 +37,8 @@ namespace alex {
     fTrueEventEnergy = 0.;
     fRecEventEnergy = 0.;
 
+    fEvent = new AEvent(0);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "AlexManager::Init()" ;
   }
@@ -89,6 +91,8 @@ namespace alex {
 
     //klog << log4cpp::Priority::DEBUG << "fParticles size after clear = " 
     //<< fParticles.size();
+
+    delete fEvent;
   }
 
 

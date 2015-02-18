@@ -2,10 +2,11 @@
 #define ATTRACK_
 
 #include <alex/ABTrack.h>
+#include <TObject.h>
 
 namespace alex {
 
-  class ATTrack : public ABTrack {
+  class ATTrack : public ABTrack, public TObject {
     
   public:
     
@@ -32,6 +33,8 @@ namespace alex {
     
   private:
     int fParticleID;
+
+    ClassDef(ATTrack,1);
     
   };
 

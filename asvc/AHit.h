@@ -3,10 +3,11 @@
 
 #include <alex/AProperties.h>
 #include <alex/AID.h>
+#include <TObject.h>
 
 namespace alex {
 
-  class AHit : public AProperties, public AID{
+  class AHit : public AProperties, public AID, public TObject{
     
   public:
     
@@ -43,7 +44,7 @@ namespace alex {
     double fE; // Hit Edep
     TVector3 fPos; // Hit position
     
-    
+    ClassDef(AHit,1);
   };
 
 std::ostream& operator << (std::ostream& s, const alex::AHit& ah);

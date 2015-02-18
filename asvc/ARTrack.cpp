@@ -7,11 +7,13 @@
 //  Copyright (c) 2015 NEXT Collaboration
 // ---------------------------------------------------------------------------- 
 
-#include "ARTrack.h"
+#include <alex/ARTrack.h>
 #include <alex/VectorOperations.h>
 #include <alex/LogUtil.h>
 
 #include <iostream>
+
+ClassImp(alex::ARTrack)
 
 namespace alex {
 

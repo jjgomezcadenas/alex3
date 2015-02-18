@@ -3,10 +3,11 @@
 
 #include <alex/AProperties.h>
 #include <alex/AID.h>
+#include <TObject.h>
 
 namespace alex {
 
-  class AParticle : public AProperties, public AID {
+  class AParticle : public AProperties, public AID, public TObject{
     
   public:
     
@@ -21,10 +22,10 @@ namespace alex {
     ~AParticle() {};
 
     // Name
-    std::string GetName() const
+    std::string GetParticleName() const
     {return fName;}
 
-    void SetName(std::string name)
+    void SetParticleName(std::string name)
     {fName = name;}
 
     // Charge
@@ -87,7 +88,7 @@ namespace alex {
     TVector3 fVertex; // vertex
     bool fPrimary; // Primary
     
-    
+    ClassDef(AParticle,1);
   };
 
 std::ostream& operator << (std::ostream& s, const alex::AParticle& p);

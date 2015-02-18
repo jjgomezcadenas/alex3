@@ -8,9 +8,11 @@
 //  Copyright (c) 2015 NEXT Collaboration
 // ---------------------------------------------------------------------------- 
 
-#include "AParticle.h"
+#include <alex/AParticle.h>
 
 #include <iostream>
+ClassImp(alex::AParticle)
+
 
 namespace alex {
 
@@ -21,7 +23,7 @@ namespace alex {
                       int motherID)
   {
  		SetID(Id);
-  	SetName(name);
+  	SetParticleName(name);
   	SetIsPrimary(isPrimary);
  		SetCharge(charge);
  		SetVertex(vertex);
@@ -33,7 +35,7 @@ namespace alex {
   AParticle::AParticle(const AParticle& apart)
   {
   	SetID(apart.GetID());
-  	SetName(apart.GetName());
+  	SetParticleName(apart.GetParticleName());
   	SetIsPrimary(apart.GetIsPrimary());
   	SetCharge(apart.GetCharge());
   	SetVertex(apart.GetVertex());
