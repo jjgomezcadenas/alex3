@@ -37,7 +37,7 @@ namespace alex {
     fTrueEventEnergy = 0.;
     fRecEventEnergy = 0.;
 
-    fEvent = new AEvent(0);
+    //fEvent = new AEvent(0);
 
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "AlexManager::Init()" ;
@@ -53,34 +53,34 @@ namespace alex {
     fTrueEventEnergy = 0.;
     fRecEventEnergy = 0.;
 
-    // klog << log4cpp::Priority::DEBUG << "fParticles size before VDELETE = " 
-    // << fParticles.size(); 
+    klog << log4cpp::Priority::DEBUG << "fParticles size before VDELETE = " 
+    << fParticles.size(); 
 
-    // klog << log4cpp::Priority::DEBUG << "fTTracks size before VDELETE = " 
-    // << fTTracks.size();
+    klog << log4cpp::Priority::DEBUG << "fTTracks size before VDELETE = " 
+    << fTTracks.size();
 
-    // klog << log4cpp::Priority::DEBUG << "fRTracks size before VDELETE = " 
-    // << fRTracks.size(); 
+    klog << log4cpp::Priority::DEBUG << "fRTracks size before VDELETE = " 
+    << fRTracks.size(); 
 
-    // for (auto particle: fParticles)
-    // {
-    //   std::cout << particle->PrintInfo() << std::endl;
-    // }
+    for (auto particle: fParticles)
+    {
+      std::cout << particle->PrintInfo() << std::endl;
+    }
 
     VDelete(fParticles);
 
-    // klog << log4cpp::Priority::DEBUG << "fParticles size after VDELETE = " 
-    // << fParticles.size(); 
+    klog << log4cpp::Priority::DEBUG << "fParticles size after VDELETE = " 
+    << fParticles.size(); 
 
-    // for (auto ttrack: fTTracks)
-    // {
-    //   std::cout << ttrack->PrintInfo() << std::endl;
-    // }
+    for (auto ttrack: fTTracks)
+    {
+      std::cout << ttrack->PrintInfo() << std::endl;
+    }
 
     VDelete(fTTracks);
 
-    // klog << log4cpp::Priority::DEBUG << "fTTracks size after VDELETE = " 
-    // << fTTracks.size();
+    klog << log4cpp::Priority::DEBUG << "fTTracks size after VDELETE = " 
+    << fTTracks.size();
 
     VDelete(fRTracks);
 
@@ -89,10 +89,13 @@ namespace alex {
     fTTracks.clear();
     fRTracks.clear();
 
-    //klog << log4cpp::Priority::DEBUG << "fParticles size after clear = " 
-    //<< fParticles.size();
+    klog << log4cpp::Priority::DEBUG << "fParticles size after clear = " 
+    << fParticles.size();
 
-    delete fEvent;
+    klog << log4cpp::Priority::DEBUG << "Delete AEvent " ;
+    
+
+    //delete fEvent;
   }
 
 
