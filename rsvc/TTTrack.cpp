@@ -11,7 +11,9 @@
 #include <alex/AHit.h>
 #include <alex/VectorOperations.h>
 #include <alex/LogUtil.h>
+#include <iostream>
 
+ClassImp(alex::ATTrack)
 
 namespace alex {
 

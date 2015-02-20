@@ -9,8 +9,9 @@
 // ---------------------------------------------------------------------------- 
 
 #include <alex/AParticle.h>
-#include <alex/VectorOperations.h>
-#include <alex/LogUtil.h>
+
+#include <iostream>
+ClassImp(alex::AParticle)
 
 
 namespace alex {
@@ -47,7 +48,7 @@ namespace alex {
 
 	void AParticle::DisplayInfo(std::ostream& s) const
   { 
-   	s << "* Particle " << GetID() << ": " << GetParticleName();
+   	s << "* Particle " << GetID() << ": " << GetName();
     s << "  Charge: " << GetCharge() << "  Mass: " << GetMass() << std::endl;
    	s << "  Primary: " << GetIsPrimary() << " -> Mother ID: " << GetMotherId() << std::endl;
    	s << "  Initial Vertex: " << PrintTVector3(GetVertex());

@@ -8,10 +8,12 @@
 // ---------------------------------------------------------------------------- 
 
 #include <alex/ARTrack.h>
-#include <alex/AHit.h>
 #include <alex/VectorOperations.h>
 #include <alex/LogUtil.h>
 
+#include <iostream>
+
+ClassImp(alex::ARTrack)
 
 namespace alex {
 
@@ -87,7 +89,7 @@ namespace alex {
    	  s << "* Origin: TTrack IDs: " << VPrint(GetTTrackIDs()) << std::endl;
 
     s << "* Spatial Resolution [mm]:" << PrintTVector3(GetSpatialRes());
-    s << "* Energy  Resolution: " << GetEnergyRes() << std::endl;
+    s << "* Energy  Resolution: " << GetEnergyRes() << " \%";
   }
 
 

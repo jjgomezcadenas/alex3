@@ -8,10 +8,7 @@
 //  Copyright (c) 2015 NEXT Collaboration
 // ---------------------------------------------------------------------------- 
 
-#include "AID.h"
-
-#include <iostream>
-
+#include <alex/AID.h>
 
 
 namespace alex {

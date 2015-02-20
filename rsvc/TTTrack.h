@@ -3,9 +3,9 @@
 
 #include <alex/ABTrack.h>
 
+
 namespace alex {
 
-  class AHit; 
   class ATTrack : public ABTrack {
     
   public:
@@ -17,7 +17,7 @@ namespace alex {
     ATTrack(const ATTrack& att);
 
     // Destructor
-    virtual ~ATTrack() ; // hits destroyed in the base class
+    ~ATTrack() ; // hits destroyed in the base class
 
     // Particle ID
     int GetParticleID() const
@@ -34,6 +34,7 @@ namespace alex {
   private:
     int fParticleID;
 
+    ClassDef(ATTrack,1);
     
   };
 

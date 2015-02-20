@@ -88,20 +88,20 @@ INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/
 
 #set everything needed for the root dictonary and create the dictionary
 
-set(ASVC_DICTIONARY ${CMAKE_BINARY_DIR}/AsvcDict.cxx)  # set dictionary path
+# set(ASVC_DICTIONARY ${CMAKE_BINARY_DIR}/AsvcDict.cxx)  # set dictionary path
 
-MESSAGE("Generate dictionary")
+# MESSAGE("Generate dictionary")
 
-SET(ASVC_HEADERS ${CMAKE_SOURCE_DIR}/asvc/AHit.h ${CMAKE_SOURCE_DIR}/asvc/ATTrack.h
-  ${CMAKE_SOURCE_DIR}/asvc/ARTrack.h ${CMAKE_SOURCE_DIR}/asvc/AParticle.h
-  ${CMAKE_SOURCE_DIR}/asvc/AEvent.h)
+# SET(ASVC_HEADERS ${CMAKE_SOURCE_DIR}/asvc/AHit.h ${CMAKE_SOURCE_DIR}/asvc/ATTrack.h
+#   ${CMAKE_SOURCE_DIR}/asvc/ARTrack.h ${CMAKE_SOURCE_DIR}/asvc/AParticle.h
+#   ${CMAKE_SOURCE_DIR}/asvc/AEvent.h)
 
-ROOT_GENERATE_DICTIONARY(
-           "${ASVC_DICTIONARY}"            # path to dictionary to generate
-           "${CMAKE_SOURCE_DIR}/asvc"  # list of includes
-           "${ASVC_HEADERS}" 
-           "${CMAKE_SOURCE_DIR}/asvc/LinkDef.h"   # ROOT linkDef file
-         )
+# ROOT_GENERATE_DICTIONARY(
+#            "${ASVC_DICTIONARY}"            # path to dictionary to generate
+#            "${CMAKE_SOURCE_DIR}/asvc"  # list of includes
+#            "${ASVC_HEADERS}" 
+#            "${CMAKE_SOURCE_DIR}/asvc/LinkDef.h"   # ROOT linkDef file
+#          )
 
  FILE(GLOB alex_src . util/*.cpp config/*.cpp base/*.cpp isvc/*.cpp psvc/*.cpp
  asvc/*.cpp )
@@ -111,7 +111,9 @@ ROOT_GENERATE_DICTIONARY(
 
 MESSAGE("Creating Alex library")
 
-ADD_LIBRARY(alex SHARED ${alex_src} ${ASVC_DICTIONARY})
+#ADD_LIBRARY(alex SHARED ${alex_src} ${ASVC_DICTIONARY})
+
+ADD_LIBRARY(alex SHARED ${alex_src})
 SET_TARGET_PROPERTIES(alex PROPERTIES VERSION 1.1.0 SOVERSION 1)
 TARGET_LINK_LIBRARIES(alex ${LOG4CPP_LIBRARIES} ${IRENE_LIBRARIES} ${PAOLINA_LIBRARIES} 
 	${RECPACK_LIBRARIES} ${ROOT_LIBRARIES} ${CLHEP_LIBRARIES} ${TINYXML2_LIBRARIES})
@@ -134,7 +136,7 @@ target_link_libraries (gConfigure alex)
   
 ADD_SUBDIRECTORY(${ALEX_WDIR})
 ADD_SUBDIRECTORY(alexMain)
-ADD_SUBDIRECTORY(galex)
+#ADD_SUBDIRECTORY(galex)
 #ADD_SUBDIRECTORY(asvc)
 #ADD_SUBDIRECTORY(test)
 #ADD_SUBDIRECTORY(exampleConf)

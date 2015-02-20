@@ -20,39 +20,39 @@ ClassImp(alex::AEvent)
 
 namespace alex {
 
-  AEvent::AEvent() : fEventID(0)
-  {
-    fParticles = 0;
-    fTTracks = 0; ///< true tracks
-    fRTracks = 0;
+  // AEvent::AEvent() : fEventID(0)
+  // {
+  //   fParticles = 0;
+  //   fTTracks = 0; ///< true tracks
+  //   fRTracks = 0;
      
-  }
+  // }
 
-  AEvent::AEvent(int id) : fEventID(id) 
+  AEvent::AEvent() : fEventID(0) 
   { 
     fParticles = new TObjArray(); ///< particles
     fTTracks = new TObjArray(); ///< true tracks
     fRTracks = new TObjArray();
   }
 
-  AEvent::AEvent(const AEvent& right)
-  {
-    *this = right;
-  } 
+  // AEvent::AEvent(const AEvent& right)
+  // {
+  //   *this = right;
+  // } 
 
-  AEvent& AEvent::operator=(const AEvent& right) 
-  {
-    if (this != &right) 
-    {
-      fParticles = (TObjArray*)right.fParticles->Clone();
-      fTTracks = (TObjArray*)right.fTTracks->Clone();
-      fRTracks = (TObjArray*)right.fRTracks->Clone();
+  // AEvent& AEvent::operator=(const AEvent& right) 
+  // {
+  //   if (this != &right) 
+  //   {
+  //     fParticles = (TObjArray*)right.fParticles->Clone();
+  //     fTTracks = (TObjArray*)right.fTTracks->Clone();
+  //     fRTracks = (TObjArray*)right.fRTracks->Clone();
     
-      fEventID = right.fEventID;
-    }
+  //     fEventID = right.fEventID;
+  //   }
 
-    return *this;
-  }
+  //   return *this;
+  // }
 
 
 
@@ -62,18 +62,18 @@ namespace alex {
     delete fTTracks;
     delete fRTracks;	
   }
-  void AEvent::AddParticle(AParticle* apart)
+  void AEvent::AddParticle(const AParticle* apart)
   {
-    fParticles->AddLast(apart);
+    fParticles->AddLast(new AParticle(*apart));
   }
-  void AEvent::AddTTrack(ATTrack* att)
+  void AEvent::AddTTrack(const ATTrack* att)
   {
-    fTTracks->AddLast(att);
+    fTTracks->AddLast(new ATTrack(*att));
   }
 
-  void AEvent::AddRTrack(ARTrack* art)
+  void AEvent::AddRTrack(const ARTrack* art)
   {
-    fRTracks->AddLast(art);
+    fRTracks->AddLast(new ARTrack(*art));
   }
 
   std::vector <AParticle*> AEvent::GetParticles() const
@@ -140,7 +140,7 @@ namespace alex {
   
   }
 
-} // end namespace irene
+} // end namespace 
 
 std::ostream& operator << (std::ostream& s, const alex::AEvent& ev) {
   ev.AInfo(s);

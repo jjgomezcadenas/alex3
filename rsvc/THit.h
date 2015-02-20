@@ -1,13 +1,11 @@
 #ifndef AHIT_
 #define AHIT_
 
-#include <alex/TDefs.h>
 #include <alex/AProperties.h>
-#include <alex/AID.h>
 
 namespace alex {
 
-  class AHit : public AProperties, public AID {
+  class AHit : public AProperties {
     
   public:
     
@@ -19,7 +17,7 @@ namespace alex {
     AHit(const AHit& ahit);
 
     // Destructor
-    virtual ~AHit() {};
+    ~AHit() {};
     
     // Position
     void SetPosition(TVector3 pos)
@@ -44,6 +42,7 @@ namespace alex {
     double fE; // Hit Edep
     TVector3 fPos; // Hit position
     
+    ClassDef(AHit,1);
   };
 
 std::ostream& operator << (std::ostream& s, const alex::AHit& ah);

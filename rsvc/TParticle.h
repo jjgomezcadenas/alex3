@@ -1,14 +1,11 @@
 #ifndef APART_
 #define APART_
 
-#include <alex/TDefs.h>
 #include <alex/AProperties.h>
-#include <alex/AID.h>
 
 namespace alex {
 
-
-  class AParticle : public AProperties, public AID {
+  class AParticle : public AProperties {
     
   public:
     
@@ -20,7 +17,7 @@ namespace alex {
     AParticle(const AParticle& apart);
 
     // Destructor
-    //~AParticle() {};
+    ~AParticle() {};
 
     // Name
     std::string GetParticleName() const
@@ -89,6 +86,7 @@ namespace alex {
     TVector3 fVertex; // vertex
     bool fPrimary; // Primary
     
+    ClassDef(AParticle,1);
   };
 
 std::ostream& operator << (std::ostream& s, const alex::AParticle& p);

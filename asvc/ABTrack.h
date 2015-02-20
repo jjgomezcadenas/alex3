@@ -1,13 +1,14 @@
 #ifndef ABTRACK_
 #define ABTRACK_
 
+#include <alex/GDefs.h>
 #include <alex/AProperties.h>
-#include <alex/AHit.h>
 #include <alex/AID.h>
 
 namespace alex {
 
   class AHit;
+  
   class ABTrack : public AProperties, public AID {
     
   public:
@@ -19,7 +20,7 @@ namespace alex {
     ABTrack(const ABTrack& abt);
 
     // Destructor
-    ~ABTrack();
+    virtual ~ABTrack();
 
     // Hits
     void AddHit(AHit* ahit);
@@ -67,7 +68,7 @@ namespace alex {
     bool fSetExtreme1;
     bool fSetExtreme2;
 
-    
+
   };
 
 std::ostream& operator << (std::ostream& s, const alex::ABTrack& abt);

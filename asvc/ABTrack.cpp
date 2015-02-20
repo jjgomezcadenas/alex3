@@ -7,11 +7,12 @@
 //  Copyright (c) 2015 NEXT Collaboration
 // ---------------------------------------------------------------------------- 
 
-#include "ABTrack.h"
+#include <alex/ABTrack.h>
+#include <alex/AProperties.h>
+#include <alex/AID.h>
+#include <alex/AHit.h>
 #include <alex/VectorOperations.h>
 #include <alex/LogUtil.h>
-
-#include <iostream>
 
 namespace alex {
 

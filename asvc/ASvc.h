@@ -10,8 +10,8 @@
 #include <alex/GDefs.h>
 #include <alex/SingletonTemplate.h>
 #include <alex/LogUtil.h>
-#include <alex/AEvent.h>
-#include <alex/AlexRootWriter.h>
+//#include <alex/AEvent.h>
+//#include <alex/AlexRootWriter.h>
 #include <alex/AParticle.h>
 #include <alex/ATTrack.h>
 #include <alex/ARTrack.h>
@@ -28,6 +28,12 @@ class AlexService {
 		void Init(std::string debugLevel);
 
 		void Clear();
+
+		void SetStartEvent(int sevt) { startEvt = sevt; }
+    int GetStartEvent() const { return startEvt; }
+
+    void SetEvtNum(int sevt) { evtNum = sevt; }	
+    int GetEvtNum() const { return evtNum; }
 
 		// Event Energy
 		double GetTrueEventEnergy() const {return fTrueEventEnergy;}
@@ -49,12 +55,15 @@ class AlexService {
 		alex::ARTrack* GetRTrack(int id) const;
 		const std::vector <alex::ARTrack*> GetRTracks() const {return fRTracks;}
 
-		AEvent* GetEvent() {return fEvent;}
-    AlexRootWriter& GetAlexRootWriter() {return fWriter;}
+		// AEvent* GetEvent() {return fEvent;}
+  //   AlexRootWriter& GetAlexRootWriter() {return fWriter;}
 
 
 	private:
 	  std::string fDebugLevel;
+
+	  int startEvt;
+    int evtNum;
 
 	  double fTrueEventEnergy;
 	  double fRecEventEnergy;
@@ -64,8 +73,8 @@ class AlexService {
 		std::vector <alex::ARTrack*> fRTracks;
 
 
-		AEvent* fEvent; ///< event to be accessed
-    AlexRootWriter fWriter; ///< instance of the class that writes the ROOT file
+		// AEvent* fEvent; ///< event to be accessed
+  //   AlexRootWriter fWriter; ///< instance of the class that writes the ROOT file
 
 	};
 

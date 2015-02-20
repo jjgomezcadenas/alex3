@@ -9,7 +9,10 @@
 // ---------------------------------------------------------------------------- 
 
 #include <alex/AHit.h>
-#include <alex/LogUtil.h>
+
+#include <iostream>
+
+ClassImp(alex::AHit)
 
 namespace alex {
 

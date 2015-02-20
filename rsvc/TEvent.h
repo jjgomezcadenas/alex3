@@ -29,9 +29,9 @@ namespace alex {
   public: 
     /// Constructor
     AEvent();
-    AEvent(int id);
+    //AEvent(int id);
     /// Copy Constructor
-    AEvent(const AEvent& right);
+    //AEvent(const AEvent& right);
     /// Destructor
     ~AEvent();
 
@@ -46,25 +46,32 @@ namespace alex {
     TObjArray* fRTracks; ///< reconstructed tracks
     int fEventID; ///< unique identificative number
 
-   
+    double fTrueEventEnergy;
+    double fRecEventEnergy;
+
 
   public:
 
     AEvent& operator=(const AEvent& right);
     
-    void AddParticle(AParticle* apart);
+    void AddParticle(const AParticle* apart);
     std::vector <AParticle*> GetParticles() const;
 
-    void AddTTrack(ATTrack* att);
+    void AddTTrack(const ATTrack* att);
     std::vector <ATTrack*> GetTTracks() const;
 
-    void AddRTrack(ARTrack* art);
+    void AddRTrack(const ARTrack* art);
     std::vector <ARTrack*> GetRTracks() const;
 
     //const TObjArray* GetSensorHits() const;
 
-    void SetID(int id); 
+    void SetID(int id) {fEventID = id;} 
     int GetID() const {return fEventID;}
+
+    double GetTrueEventEnergy() const {return fTrueEventEnergy;}
+    double GetRecEventEnergy() const {return fRecEventEnergy;}
+    void SetRecEventEnergy(double e) {fRecEventEnergy=e;}
+    void SetTrueEventEnergy(double e) {fTrueEventEnergy=e;}
 
     void AClear();
 

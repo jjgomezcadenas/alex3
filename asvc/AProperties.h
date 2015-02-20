@@ -1,7 +1,8 @@
 #ifndef APROP_
 #define APROP_
 
-#include <alex/TDefs.h>
+
+#include <alex/GDefs.h>
 
 namespace alex {
 

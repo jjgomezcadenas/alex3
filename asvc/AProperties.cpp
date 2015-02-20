@@ -8,9 +8,8 @@
 //  Copyright (c) 2015 NEXT Collaboration
 // ---------------------------------------------------------------------------- 
 
-#include "AProperties.h"
+#include <alex/AProperties.h>
 
-#include <iostream>
 
 namespace alex {
 	void AProperties::DisplayInfo(std::ostream& s) const

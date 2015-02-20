@@ -92,7 +92,7 @@ namespace alex {
     klog << log4cpp::Priority::DEBUG << "fParticles size after clear = " 
     << fParticles.size();
 
-    klog << log4cpp::Priority::DEBUG << "Delete AEvent " ;
+    klog << log4cpp::Priority::DEBUG << "+++All vectors cleared+++ " ;
     
 
     //delete fEvent;

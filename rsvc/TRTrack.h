@@ -1,11 +1,10 @@
 #ifndef ARTRACK_
 #define ARTRACK_
 
-#include <alex/TDefs.h>
 #include <alex/ABTrack.h>
 
 namespace alex {
-  class AHit; 
+
   class ARTrack : public ABTrack {
     
   public:
@@ -17,7 +16,7 @@ namespace alex {
     ARTrack(const ARTrack& art);
 
     // Destructor
-    virtual ~ARTrack() ;
+    ~ARTrack() ;
 
     // True Tracks
     const std::vector <int> GetTTrackIDs() const
@@ -59,7 +58,8 @@ namespace alex {
 
     // Energy Resolution
     double fEnergyRes;  
- 
+
+    ClassDef(ARTrack,1);  
   };
 
 std::ostream& operator << (std::ostream& s, const alex::ARTrack& art);

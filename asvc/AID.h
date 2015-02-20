@@ -3,12 +3,11 @@
 
 #include <alex/GDefs.h>
 
-
 // an object with an ID
 
 namespace alex {
 
-  class AID   {
+  class AID    {
     
   public:
 
@@ -30,6 +29,7 @@ namespace alex {
     
   private:
     int fId; // Unique identification number 
+
   };
 
   
