@@ -4,16 +4,16 @@
 
 #include <TFile.h>
 #include <TTree.h>
-#include <alex/AEvent.h>
+#include <alex/TEvent.h>
 
 namespace alex {
-  class PWriteDST {
+  class PWriteAlexDST {
   public:
     
   protected:
     TFile* fFile; ///< ROOT file where the output is written
     TTree* fAevtTree; ///< ROOT tree where the events are stored
-    AEvent* fAevent; ///< event to be stored
+    TEvent* fAevent; ///< event to be stored
     
   };
 }

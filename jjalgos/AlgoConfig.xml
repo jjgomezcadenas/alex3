@@ -8,8 +8,8 @@
     <name>IreneLoader</name>
     <path>/Users/jjgomezcadenas/Development/devnext/alex3/jjalgos</path>
    </Algo>
-    <!-- <Algo>
-    <name>WriteDST</name>
+    <Algo>
+    <name>WriteAlexDST</name>
     <path>/Users/jjgomezcadenas/Development/devnext/alex3/jjalgos</path>
-   </Algo> -->
+   </Algo>
 </AlgoConfig>
