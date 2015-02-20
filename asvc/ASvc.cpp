@@ -32,15 +32,14 @@ namespace alex {
   //--------------------------------------------------------------------
   {
     fDebugLevel = debugLevel;
-    SetDebugLevel(debugLevel);
+    SetDebugLevel(fDebugLevel);
 
     fTrueEventEnergy = 0.;
     fRecEventEnergy = 0.;
 
-    //fEvent = new AEvent(0);
-
+    
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << "AlexManager::Init()" ;
+    klog << log4cpp::Priority::INFO << "AlexManager Initialized" ;
   }
 
   //--------------------------------------------------------------------
@@ -48,7 +47,8 @@ namespace alex {
   //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << "AlexService::Clear()" ;
+    klog << log4cpp::Priority::INFO << "AlexService::Clear()" ;
+    SetDebugLevel(fDebugLevel);
 
     fTrueEventEnergy = 0.;
     fRecEventEnergy = 0.;
@@ -64,7 +64,7 @@ namespace alex {
 
     for (auto particle: fParticles)
     {
-      std::cout << particle->PrintInfo() << std::endl;
+      klog << log4cpp::Priority::DEBUG << particle->PrintInfo() ;
     }
 
     VDelete(fParticles);
@@ -74,7 +74,7 @@ namespace alex {
 
     for (auto ttrack: fTTracks)
     {
-      std::cout << ttrack->PrintInfo() << std::endl;
+      klog << log4cpp::Priority::DEBUG << ttrack->PrintInfo() ;
     }
 
     VDelete(fTTracks);
@@ -95,7 +95,6 @@ namespace alex {
     klog << log4cpp::Priority::DEBUG << "+++All vectors cleared+++ " ;
     
 
-    //delete fEvent;
   }
 
 
@@ -103,12 +102,12 @@ namespace alex {
   void AlexService::AddParticle(alex::AParticle* part)
   //--------------------------------------------------------------------
   {
-    // log4cpp::Category& klog = log4cpp::Category::getRoot();
-    // klog << log4cpp::Priority::DEBUG << "In AlexService::AddParticle() " ;
+    log4cpp::Category& klog = log4cpp::Category::getRoot();
+    SetDebugLevel(fDebugLevel);
+    klog << log4cpp::Priority::DEBUG << "In AlexService::AddParticle() " ;
 
+    
     fParticles.push_back(part);
-
-    // klog << log4cpp::Priority::DEBUG << "Size of fParticles " << fParticles.size();
   }
 
 
@@ -116,12 +115,15 @@ namespace alex {
   alex::AParticle* AlexService::GetParticle(int id) const
   //--------------------------------------------------------------------
   {
+    log4cpp::Category& klog = log4cpp::Category::getRoot();
     std::vector <AParticle*> parts = GetParticles();
+
     for (auto part : parts)
     {
       if (part->GetID() == id) return part;
     }
-    std::cout << "ASvc::ERROR: Particle ID " << id << " does NOT EXIST !!" << std::endl;
+    klog << log4cpp::Priority::FATAL  << "ASvc::ERROR: Particle ID " 
+    << id << " does NOT EXIST !!" ;
     exit(-1);
   }
 
@@ -139,12 +141,15 @@ namespace alex {
    alex::ATTrack* AlexService::GetTTrack(int id) const
   //--------------------------------------------------------------------
   {
+    log4cpp::Category& klog = log4cpp::Category::getRoot();
     std::vector <ATTrack*> ttracks = GetTTracks();
     for (auto ttrack : ttracks)
     {
       if (ttrack->GetID() == id) return ttrack;
     }
-    std::cout << "ASvc::ERROR: TTrack ID " << id << " does NOT EXIST !!" << std::endl;
+    
+    klog << log4cpp::Priority::FATAL  << "ASvc::ERROR: TTrack ID " 
+    << id << " does NOT EXIST !!" ;
     exit(-1);
   }
 
@@ -162,12 +167,15 @@ namespace alex {
    alex::ARTrack* AlexService::GetRTrack(int id) const
   //--------------------------------------------------------------------
   {
+    log4cpp::Category& klog = log4cpp::Category::getRoot();
     std::vector <ARTrack*> rtracks = GetRTracks();
     for (auto rtrack : rtracks)
     {
       if (rtrack->GetID() == id) return rtrack;
     }
-    std::cout << "ASvc::ERROR: RTrack ID " << id << " does NOT EXIST !!" << std::endl;
+    klog << log4cpp::Priority::FATAL  << "ASvc::ERROR: RTrack ID " 
+    << id << " does NOT EXIST !!" ;
+
     exit(-1);
   }
 

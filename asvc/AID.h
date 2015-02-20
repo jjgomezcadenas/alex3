@@ -24,11 +24,12 @@ namespace alex {
     void SetID(int id)
     {fId = id;}
 
+
     // Information
     void DisplayInfo(std::ostream& s) const;
     
   private:
-    int fId; // Unique identification number 
+    int fId; // Unique identification number
 
   };
 

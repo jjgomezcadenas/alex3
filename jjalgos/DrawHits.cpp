@@ -12,6 +12,7 @@ namespace alex {
   {
     // Init the IreneManager
     ISvc::Instance().Init("DEBUG");
+    SetDebugLevel(fDebug);
   
     char * ch ;
     int argc = 0;
@@ -29,41 +30,42 @@ namespace alex {
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << " DrawHits::Execute";
+    SetDebugLevel(fDebug);
 
     IHits allHits = ISvc::Instance().GetTrueHits();
     klog << log4cpp::Priority::DEBUG << " true hits = " << allHits.size();
 
-    if(fDraw == 1) 
-    {
-      char userInput;
-      TCanvas * c1 = new TCanvas("c1", "Hits", 10, 10, 600, 600);
-      TH2F* h2_xyAll = new TH2F("h2_xy","xy hits",200,-100.,100.,200,-100.,100.);
+  
+    char userInput;
+    TCanvas * c1 = new TCanvas("c1", "Hits", 10, 10, 600, 600);
+    TH2F* h2_xyAll = new TH2F("h2_xy","xy hits",200,-100.,100.,200,-100.,100.);
 
-      for(auto hit : allHits)
-        h2_xyAll->Fill(hit.first.X(),hit.first.Y());  
+    for(auto hit : allHits)
+      h2_xyAll->Fill(hit.first.X(),hit.first.Y());  
     
-      // Draw the histogram.
-      std::cout << " Drawing histogram..." << std::endl;
-      h2_xyAll->GetXaxis()->SetTitle("x");
-      h2_xyAll->GetYaxis()->SetTitle("y");
-      h2_xyAll->Draw("colz");
+    // Draw the histogram.
+      
+    klog << log4cpp::Priority::INFO << " Drawing histogram..." ;
+  
+    h2_xyAll->GetXaxis()->SetTitle("x");
+    h2_xyAll->GetYaxis()->SetTitle("y");
+    h2_xyAll->Draw("colz");
       //h2_xyAll->SetMarkerStyle(6);
 
       // h2_xyAll->Draw("SAME");
-      c1->Update();
+    c1->Update();
 
       // Process ROOT events allowing for the drawing of the histogram.
       //gSystem->ProcessEvents();
 
       // Await input from the user before continuing.
-      std::cin >> userInput;
+    std::cin >> userInput;
 
       // Close the plot and delete the histogram.
-      c1->Close();
-      delete h2_xyAll;
-      delete c1;
-    }
-
+    c1->Close();
+    delete h2_xyAll;
+    delete c1;
+  
     return true;
   }
   //--------------------------------------------------------------------

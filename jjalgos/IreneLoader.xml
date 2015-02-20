@@ -6,5 +6,11 @@
     <dataType>string</dataType>
     <value>IreneLoader</value>
   </Param>
+
+  <Param>
+    <name>fDebug</name>
+    <dataType>string</dataType>
+    <value>INFO</value>
+  </Param>
   
 </IreneLoader>

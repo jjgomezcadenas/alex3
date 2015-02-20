@@ -4,12 +4,13 @@
 #include <alex/GDefs.h>
 #include <alex/AProperties.h>
 #include <alex/AID.h>
+#include <alex/ADebug.h>
 
 namespace alex {
 
   class AHit;
   
-  class ABTrack : public AProperties, public AID {
+  class ABTrack : public AProperties, public AID, public ADebug {
     
   public:
     

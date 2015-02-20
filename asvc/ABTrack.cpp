@@ -8,8 +8,6 @@
 // ---------------------------------------------------------------------------- 
 
 #include <alex/ABTrack.h>
-#include <alex/AProperties.h>
-#include <alex/AID.h>
 #include <alex/AHit.h>
 #include <alex/VectorOperations.h>
 #include <alex/LogUtil.h>

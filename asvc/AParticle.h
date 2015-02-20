@@ -4,11 +4,12 @@
 #include <alex/TDefs.h>
 #include <alex/AProperties.h>
 #include <alex/AID.h>
+#include <alex/ADebug.h>
 
 namespace alex {
 
 
-  class AParticle : public AProperties, public AID {
+  class AParticle : public AProperties, public AID, public ADebug {
     
   public:
     

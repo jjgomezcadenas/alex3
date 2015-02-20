@@ -10,8 +10,6 @@
 #include <alex/GDefs.h>
 #include <alex/SingletonTemplate.h>
 #include <alex/LogUtil.h>
-//#include <alex/AEvent.h>
-//#include <alex/AlexRootWriter.h>
 #include <alex/AParticle.h>
 #include <alex/ATTrack.h>
 #include <alex/ARTrack.h>
@@ -55,9 +53,6 @@ class AlexService {
 		alex::ARTrack* GetRTrack(int id) const;
 		const std::vector <alex::ARTrack*> GetRTracks() const {return fRTracks;}
 
-		// AEvent* GetEvent() {return fEvent;}
-  //   AlexRootWriter& GetAlexRootWriter() {return fWriter;}
-
 
 	private:
 	  std::string fDebugLevel;
@@ -73,9 +68,7 @@ class AlexService {
 		std::vector <alex::ARTrack*> fRTracks;
 
 
-		// AEvent* fEvent; ///< event to be accessed
-  //   AlexRootWriter fWriter; ///< instance of the class that writes the ROOT file
-
+	
 	};
 
 	typedef SingletonTemplate<AlexService> ASvc;   // Global declaration

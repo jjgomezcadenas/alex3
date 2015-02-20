@@ -18,7 +18,7 @@ namespace alex {
     void FillHits(const irene::Track* iTrack, ABTrack* track);
   protected:
     // You can add here functions and variables to be used by derived algos
-    int fTracks, fParticles;
+    int fTracks, fParticles; 
   };
 }
 #endif 

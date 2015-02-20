@@ -29,7 +29,7 @@ namespace alex {
   ATTrack::~ATTrack() 
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::INFO << "ATTrack::~ATTrack()";
+    klog << log4cpp::Priority::DEBUG << "ATTrack::~ATTrack()";
   }
 
 
