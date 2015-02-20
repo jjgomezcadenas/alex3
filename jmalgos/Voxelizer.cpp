@@ -3,6 +3,7 @@
 #include <alex/PSvc.h>
 #include <alex/ASvc.h>
 #include <alex/ARTrack.h>
+#include <alex/AHit.h>
 
 
 namespace alex {
@@ -75,8 +76,7 @@ namespace alex {
       ARTrack* arTrk = new ARTrack(t);
       paolina::Track* pTrk = tracks[t];
 
-      std::cout << "True Energy from Paolina Particle: "
-                << pTrk->GetParticle()->GetEnergy() - pTrk->GetParticle()->GetMass() << std::endl;
+      std::cout << "True Energy from Paolina Track: " << pTrk->GetEDep() << std::endl;
 
       // Converting from Paolina Voxels to AHits
       for (int v=0; v<pTrk->NVoxels(); v++) {

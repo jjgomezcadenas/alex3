@@ -20,50 +20,50 @@
 -->
 
  <!-- NEXT100 bb0nu -->
-<!--
+ <!--
   <DST>
     <path>/Users/Javi/Development/alex3/data</path>
-    <name>Next100.Xe136_bb0nu.ACTIVE.0.next</name>
+    <name>Next100.Xe136_bb0nu.ACTIVE.*.next</name>
   </DST>
 
   <HistoFile>
     <path>/Users/Javi/Development/alex3/histos</path>
-    <name>Next100.Xe136_bb0nu.ACTIVE.0.histos.root</name>
+    <name>Next100.Xe136_bb0nu.ACTIVE.histos.root</name>
   </HistoFile>
 -->
 
  <!-- NEXT100 ICS Tl208 -->
- <!--
-  <DST>
+<!--
+   <DST>
     <path>/Users/Javi/Development/alex3/data</path>
-    <name>Next100.Tl208.ICS.0.next</name>
+    <name>Next100.Tl208.ICS.*.next</name>
   </DST>
 
   <HistoFile>
     <path>/Users/Javi/Development/alex3/histos</path>
-    <name>Next100.Tl208.ICS.0.histos.root</name>
+    <name>Next100.Tl208.ICS.histos.root</name>
   </HistoFile>
 -->
 
  <!-- NEXT100 FIELD_CAGE Bi214 -->
   <DST>
     <path>/Users/Javi/Development/alex3/data</path>
-    <name>Next100.Bi214.FIELD_CAGE.0.next</name>
+    <name>Next100.Bi214.FIELD_CAGE.*.next</name>
   </DST>
 
   <HistoFile>
     <path>/Users/Javi/Development/alex3/histos</path>
-    <name>Next100.Bi214.FIELD_CAGE.0.histos.root</name>
+    <name>Next100.Bi214.FIELD_CAGE.histos.root</name>
   </HistoFile>
 
 
   <Events>
-    <runMax>10000000</runMax>
-    <runDebug>1000</runDebug>
+    <runMax>1</runMax>
+    <runDebug>1</runDebug>
   </Events>
 
   <Debug>
-    <level>DEBUG</level>
+    <level>INFO</level>
   </Debug>
 
 </AlexConfig>

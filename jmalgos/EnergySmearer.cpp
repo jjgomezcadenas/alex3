@@ -1,6 +1,7 @@
 #include "EnergySmearer.hh"
 #include <alex/ASvc.h>
 #include <alex/ARTrack.h>
+#include <alex/AHit.h>
 
 
 namespace alex {

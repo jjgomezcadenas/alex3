@@ -6,6 +6,7 @@
     <path>/Users/Javi/Development/alex3/src/jmalgos</path>
   </Algo>
 
+<!--
   <Algo>
     <name>TrueEnergyFilter</name>
     <path>/Users/Javi/Development/alex3/src/jmalgos</path>
@@ -16,14 +17,32 @@
     <path>/Users/Javi/Development/alex3/src/jmalgos</path>
   </Algo>
 
-
- <!--
   <Algo>
-    <name>Paolinize</name>
+    <name>Voxelizer</name>
     <path>/Users/Javi/Development/alex3/src/jmalgos</path>
   </Algo>
 
-   <Algo>
+  <Algo>
+    <name>RoadStudy</name>
+    <path>/Users/Javi/Development/alex3/src/jmalgos</path>
+  </Algo>
+
+  <Algo>
+    <name>RoadFilter</name>
+    <path>/Users/Javi/Development/alex3/src/jmalgos</path>
+  </Algo>
+
+  <Algo>
+    <name>EnergySmearer</name>
+    <path>/Users/Javi/Development/alex3/src/jmalgos</path>
+  </Algo>
+
+  <Algo>
+    <name>SmearedEnergyFilter</name>
+    <path>/Users/Javi/Development/alex3/src/jmalgos</path>
+  </Algo>
+
+  <Algo>
     <name>DrawHits</name>
     <path>/Users/Javi/Development/alex3/src/jmalgos</path>
   </Algo>

@@ -1,6 +1,7 @@
 #include "Next100FiducialFilter.hh"
 #include <alex/ASvc.h>
 #include <alex/ATTrack.h>
+#include <alex/AHit.h>
 
 namespace alex {
 

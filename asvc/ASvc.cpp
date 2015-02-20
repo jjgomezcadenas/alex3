@@ -47,7 +47,7 @@ namespace alex {
   //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::INFO << "AlexService::Clear()" ;
+    klog << log4cpp::Priority::DEBUG << "AlexService::Clear()" ;
     SetDebugLevel(fDebugLevel);
 
     fTrueEventEnergy = 0.;

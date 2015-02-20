@@ -7,6 +7,12 @@
     <value>IreneLoader</value>
   </Param>
 
+  <Param>
+    <name>fDebug</name>
+    <dataType>string</dataType>
+    <value>INFO</value>
+  </Param>
+
   <!-- Histogram with the number of particles per event -->
   <H1D>
     <name>fIreneLoader_NumParts_H1</name>

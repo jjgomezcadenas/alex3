@@ -3,6 +3,8 @@
 #include <alex/PSvc.h>
 #include <alex/ASvc.h>
 #include <alex/ARTrack.h>
+#include <alex/AHit.h>
+
 
 #include <TVector.h>
 #include <TMatrix.h>
