@@ -49,19 +49,27 @@
   <Param>
     <name>fVoxelX</name>
     <dataType>double</dataType>
-    <value>3.</value>
+    <value>2.</value>
   </Param>
 
   <Param>
     <name>fVoxelY</name>
     <dataType>double</dataType>
-    <value>3.</value>
+    <value>2.</value>
   </Param>
 
   <Param>
     <name>fVoxelZ</name>
     <dataType>double</dataType>
     <value>2.</value>
+  </Param>
+
+
+  <!-- Minimum Energy for an RTrack to be visible -->
+  <Param>
+    <name>fEmin</name>
+    <dataType>double</dataType>
+    <value>10.</value>
   </Param>
 
 

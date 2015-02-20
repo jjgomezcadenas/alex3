@@ -20,6 +20,7 @@ namespace alex {
     klog << log4cpp::Priority::INFO << "Voxelizer::Detector Y Size = " << fMinDetY << " , " << fMaxDetY;
     klog << log4cpp::Priority::INFO << "Voxelizer::Detector Z Size = " << fMinDetZ << " , " << fMaxDetZ;
     klog << log4cpp::Priority::INFO << "Voxelizer::Voxel Size  = " << fVoxelX << " , " << fVoxelY << " , " << fVoxelZ;
+    klog << log4cpp::Priority::INFO << "Voxelizer::Mimimum Energy  = " << fEmin;
 
     fVoxelSize.push_back(fVoxelX);
     fVoxelSize.push_back(fVoxelY);
@@ -73,6 +74,10 @@ namespace alex {
     for (int t=0; t<tracks.size(); t++) {
       ARTrack* arTrk = new ARTrack(t);
       paolina::Track* pTrk = tracks[t];
+
+      std::cout << "True Energy from Paolina Particle: "
+                << pTrk->GetParticle()->GetEnergy() - pTrk->GetParticle()->GetMass() << std::endl;
+
       // Converting from Paolina Voxels to AHits
       for (int v=0; v<pTrk->NVoxels(); v++) {
         AHit* ahit = new AHit();
@@ -100,7 +105,7 @@ namespace alex {
       arTrk->SetExtreme1(new AHit(*hit1));
       arTrk->SetExtreme2(new AHit(*hit2));
 
-      // Adding Ordered hits (It takes long time)
+      // Adding Ordered hits
       for (int v=0; v<pTrk->NMainPathVoxels(); v++) {
         const paolina::Voxel* pVxl = pTrk->GetMainPathVoxel(v);
         for (auto hit: arTrk->GetHits()) {
@@ -128,8 +133,6 @@ namespace alex {
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "Voxelizer::End()";
-    //klog << log4cpp::Priority::INFO << "Voxelizer::Number of events with 1 Track: " 
-    //  << fVoxelizer_NumTracks_H1->GetBinContent(2);
 
     return true;
   }
