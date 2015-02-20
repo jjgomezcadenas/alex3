@@ -55,7 +55,7 @@
   <Param>
     <name>fMaxWidth</name>
     <dataType>int</dataType>
-    <value>20</value>
+    <value>30</value>
   </Param>
 
 
@@ -64,9 +64,9 @@
   <H1D>
     <name>fRoadStudy_Evts1Road_H1</name>
     <title>Number of Events with One Road</title>
-    <nbinsx>25</nbinsx>
+    <nbinsx>35</nbinsx>
     <xlow>0.0</xlow>
-    <xup>25.0</xup>
+    <xup>35.0</xup>
   </H1D>
 
 

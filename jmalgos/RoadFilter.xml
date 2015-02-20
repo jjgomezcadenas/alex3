@@ -49,7 +49,7 @@
   <Param>
     <name>fRoadWidth</name>
     <dataType>double</dataType>
-    <value>10.</value>
+    <value>30.</value>
   </Param>
 
 

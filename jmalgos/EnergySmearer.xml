@@ -11,7 +11,7 @@
   <Param>
     <name>fFWHM</name>
     <dataType>double</dataType>
-    <value>0.8</value>
+    <value>0.7</value>
   </Param>
 
   <!-- Histogram with True Event Edep -->

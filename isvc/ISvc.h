@@ -44,6 +44,7 @@ class IreneManager {
 		IHits GetTrueHits() const {return fTrueHits;}
 
 		void PrintHits();
+		void PrintTrueEvent();
 
 
 		// IParticles GetElectrons() const {return fElectrons;}

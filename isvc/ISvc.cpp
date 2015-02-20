@@ -11,6 +11,7 @@
 #include <TStopwatch.h>
 #include <alex/ISvc.h>
 #include <alex/LogUtil.h>
+#include <alex/VectorOperations.h>
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
@@ -26,9 +27,9 @@ using std::vector;
 
 namespace alex {
 
-//--------------------------------------------------------------------
-void IreneManager::Init(std::string debugLevel)
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
+  void IreneManager::Init(std::string debugLevel)
+  //--------------------------------------------------------------------
   {
     fDebugLevel = debugLevel;
     SetDebugLevel(debugLevel);
@@ -64,9 +65,9 @@ void IreneManager::Init(std::string debugLevel)
 //   }
 
 
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
   void IreneManager::LoadEvent(const irene::Event* ievt)
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "***** IreneManager::LoadEvent " << ievt->GetID();
@@ -112,16 +113,17 @@ void IreneManager::Init(std::string debugLevel)
   }
 
 
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
   const irene::Event& IreneManager::GetEvent()
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
   {
     return *fIevt;
   }
 
-//--------------------------------------------------------------------
+
+  //--------------------------------------------------------------------
   void IreneManager::GetTrueVertex()
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
   { 
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog.debug("In IreneManager::GetTrueVertex(): Fill true vertex");
@@ -154,9 +156,9 @@ void IreneManager::Init(std::string debugLevel)
   }
 
 
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
   void IreneManager::PrintHits()
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
   {
     std::cout << " Irene Hits: " << std::endl;
 
@@ -171,6 +173,8 @@ void IreneManager::Init(std::string debugLevel)
            << " edep (MeV) = " << e << std::endl;    
     }
   }
+
+
 // //--------------------------------------------------------------------
 //   void IreneManager::FetchElectrons() 
 // //--------------------------------------------------------------------
@@ -237,6 +241,46 @@ void IreneManager::Init(std::string debugLevel)
 //     }
 //   }
 
+
+  //--------------------------------------------------------------------
+  void IreneManager::PrintTrueEvent()
+  //--------------------------------------------------------------------
+  {
+    std::cout << "***** TRUE EVENT " << fIevt->GetID() << " *****" << std::endl;
+
+    int numParts = fIreneTracks.size();
+    for (size_t it = 0; it < numParts; it++) { 
+      const irene::Track* itrk = fIreneTracks.at(it) ; 
+      const irene::Particle* ipart= itrk->GetParticle();
+
+      std::cout << "* Particle " << ipart->GetParticleID();
+      if (ipart->IsPrimary()) std::cout << ": Primary " << ipart->Name() << std::endl;
+      else {
+        std::cout << ": Secondary " << ipart->Name()
+                  << "     from Particle " << ipart->GetMother()->GetParticleID()
+                  << std::endl;
+      }
+
+      TLorentzVector fIniP = ipart->GetInitialMomentum();
+      std::cout << "  Init:  Vertex: " << PrintTVector3(ipart->GetInitialVertex().Vect())
+                << "  Process: " << ipart->GetCreatorProcess()
+                << "  EKin: " << fIniP.Energy() - fIniP.M() << std::endl;
+
+      TLorentzVector fDecP = ipart->GetDecayMomentum();
+      std::cout << "  Decay: Vertex: " << PrintTVector3(ipart->GetDecayVertex().Vect())
+                << "  EKin: " << fDecP.Energy() - fDecP.M() << std::endl;
+
+      const TRefArray& daughters = ipart->GetDaughters();
+      std::cout << "  Daughters: ";
+      for (int d=0; d<daughters.GetLast()+1; d++) {
+        irene::Particle* daughter = (irene::Particle*) daughters.At(d);
+        std::cout << daughter->GetParticleID() << ", ";
+      }
+      std::cout << std::endl;
+
+      std::cout << std::endl;
+    }
+  }
 
 
 }
