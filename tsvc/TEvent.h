@@ -9,41 +9,38 @@
 ///  Copyright (c) 2013 NEXT Collaboration
 // ----------------------------------------------------------------------------
 
-#ifndef AEVENT_H_
-#define AEVENT_H_
+#ifndef TEVENT_H_
+#define TEVENT_H_
 
-#include <iostream>
+#include <alex/TDefs.h>
 #include <TObject.h>
 #include <TObjArray.h>
 
 
 namespace alex {
+  class TParticle;
   class AParticle;
-  class ATTrack;
-  class ARTrack;
+  //class ATTrack;
+  //class ARTrack;
 
   /// Persistent class
   
-  class AEvent : public TObject {
+  class TEvent : public TObject {
     
   public: 
     /// Constructor
-    AEvent();
+    TEvent();
     //AEvent(int id);
     /// Copy Constructor
     //AEvent(const AEvent& right);
     /// Destructor
-    ~AEvent();
+    virtual ~TEvent();
 
   private:
 
-    //std::vector <alex::AParticle*> fParticles;
-    //std::vector <alex::ATTrack*> fTTracks;
-    //std::vector <alex::ARTrack*> fRTracks;
-
     TObjArray* fParticles; ///< particles
-    TObjArray* fTTracks; ///< true tracks
-    TObjArray* fRTracks; ///< reconstructed tracks
+    //TObjArray* fTTracks; ///< true tracks
+    //TObjArray* fRTracks; ///< reconstructed tracks
     int fEventID; ///< unique identificative number
 
     double fTrueEventEnergy;
@@ -52,16 +49,16 @@ namespace alex {
 
   public:
 
-    AEvent& operator=(const AEvent& right);
+    //TEvent& operator=(const TEvent& right);
     
     void AddParticle(const AParticle* apart);
-    std::vector <AParticle*> GetParticles() const;
+    //std::vector <AParticle*> GetParticles() const;
 
-    void AddTTrack(const ATTrack* att);
-    std::vector <ATTrack*> GetTTracks() const;
+    // void AddTTrack(const ATTrack* att);
+    // std::vector <ATTrack*> GetTTracks() const;
 
-    void AddRTrack(const ARTrack* art);
-    std::vector <ARTrack*> GetRTracks() const;
+    // void AddRTrack(const ARTrack* art);
+    // std::vector <ARTrack*> GetRTracks() const;
 
     //const TObjArray* GetSensorHits() const;
 
@@ -73,13 +70,10 @@ namespace alex {
     void SetRecEventEnergy(double e) {fRecEventEnergy=e;}
     void SetTrueEventEnergy(double e) {fTrueEventEnergy=e;}
 
-    void AClear();
-
-    void AInfo(std::ostream& s) const;
-
+    void ClearEvent();
 
    
-    ClassDef(AEvent,1);
+    ClassDef(TEvent,1);
     
   };
 
@@ -87,6 +81,5 @@ namespace alex {
 
 } // end namespace irene
 
-std::ostream& operator << (std::ostream& s, const alex::AEvent& ev);
 
 #endif // EVENT_H_

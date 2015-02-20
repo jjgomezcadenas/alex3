@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<WriteAlexDST>
+  <Param>
+    <name>fName</name>
+    <dataType>string</dataType>
+    <value>WriteAlexDST</value>
+  </Param>
+  <Param>
+    <name>fDstPath</name>
+    <dataType>string</dataType>
+    <value>/Users/jjgomezcadenas/Development/devnext/DATA</value>
+  </Param>
+  <Param>
+    <name>fDstName</name>
+    <dataType>string</dataType>
+    <value>MagBox_Xe_10atm_00tesla.Xe136_bb0nu.alex.root</value>
+  </Param>
+
+  <Param>
+    <name>fDebug</name>
+    <dataType>string</dataType>
+    <value>DEBUG</value>
+  </Param>
+
+</WriteAlexDST>

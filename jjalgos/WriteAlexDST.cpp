@@ -1,25 +1,26 @@
-#include "WriteDST.hh"
+#include "WriteAlexDST.hh"
 #include <alex/ASvc.h>
-#include <alex/AEvent.h>
+#include <alex/TEvent.h>
 
 namespace alex {
 
   //--------------------------------------------------------------------
-  bool WriteDST::Init()
+  bool WriteAlexDST::Init()
   //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot(); 
-    klog << log4cpp::Priority::DEBUG << " WriteDST::Init";
+    klog << log4cpp::Priority::DEBUG << " WriteAlexDST::Init";
+    SetDebugLevel(fDebug);
 
-    klog << log4cpp::Priority::DEBUG << " Inst. AEvent";
+    klog << log4cpp::Priority::DEBUG << " Inst. TEvent";
 
-    fAevent = new AEvent();
+    fAevent = new TEvent();
     std::stringstream s;
 
     s << fDstPath << "/" << fDstName;
     std::string filename = s.str();
 
-    klog << log4cpp::Priority::DEBUG << " Alex DST file " 
+    klog << log4cpp::Priority::INFO << " Alex DST file " 
     << filename;
 
     klog << log4cpp::Priority::DEBUG << " new TFile " ;
@@ -38,13 +39,15 @@ namespace alex {
     return true;
   }
   //--------------------------------------------------------------------
-  bool WriteDST::Execute()
+  bool WriteAlexDST::Execute()
   //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << " WriteDST::Execute";
+    SetDebugLevel(fDebug);
+
+    klog << log4cpp::Priority::DEBUG << " WriteAlexDST::Execute";
     klog << log4cpp::Priority::DEBUG 
-    << " Instantiate AEevent for event number " 
+    << " Instantiate TEvent for event number " 
     << ASvc::Instance().GetEvtNum();
 
     fAevent->SetID(ASvc::Instance().GetEvtNum());
@@ -75,32 +78,32 @@ namespace alex {
     {
       fAevent->AddParticle(apart);
     }
-    // ATTracks
+    // // ATTracks
 
-    klog << log4cpp::Priority::DEBUG 
-    << " TTracks ";
+    // klog << log4cpp::Priority::DEBUG 
+    // << " TTracks ";
 
-    const std::vector <alex::ATTrack*> atts = 
-    ASvc::Instance().GetTTracks();
+    // const std::vector <alex::ATTrack*> atts = 
+    // ASvc::Instance().GetTTracks();
 
-    for (auto att : atts)
-    {
-      fAevent->AddTTrack(att);
-    }
+    // for (auto att : atts)
+    // {
+    //   fAevent->AddTTrack(att);
+    // }
 
 
-    // ARTracks
+    // // ARTracks
     
-    klog << log4cpp::Priority::DEBUG 
-    << " RTracks ";
+    // klog << log4cpp::Priority::DEBUG 
+    // << " RTracks ";
 
-    const std::vector <alex::ARTrack*> arts = 
-    ASvc::Instance().GetRTracks();
+    // const std::vector <alex::ARTrack*> arts = 
+    // ASvc::Instance().GetRTracks();
 
-    for (auto art : arts)
-    {
-      fAevent->AddRTrack(art);
-    }
+    // for (auto art : arts)
+    // {
+    //   fAevent->AddRTrack(art);
+    // }
 
 
 // Fill Tree
@@ -112,15 +115,17 @@ namespace alex {
 
     klog << log4cpp::Priority::DEBUG << " Clear event " ;
 
-    fAevent->AClear();
+    fAevent->ClearEvent();
 
     return true;
   }
   //--------------------------------------------------------------------
-  bool WriteDST::End()
+  bool WriteAlexDST::End()
   //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
+    SetDebugLevel(fDebug);
+
     klog << log4cpp::Priority::DEBUG << " WriteDST::END";
 
     klog << log4cpp::Priority::DEBUG << " Write and close";
@@ -128,7 +133,7 @@ namespace alex {
     fFile->Write();
     fFile->Close();
 
-    klog << log4cpp::Priority::DEBUG << " delete AEvent";
+    klog << log4cpp::Priority::DEBUG << " delete TEvent";
     delete fAevent;
 
     return true;
