@@ -97,13 +97,15 @@ MESSAGE("Generate TSVC dictionary")
 SET(TSVC_HEADERS ${TSVC}/THit.h ${TSVC}/TParticle.h ${TSVC}/TTTrack.h 
   ${TSVC}/TRTrack.h ${TSVC}/TEvent.h)
 
+SET(TSVC_INCLUDES ${TSVC} ${LOG4CPP_INCLUDE_DIR} )
+
 # SET(ASVC_HEADERS ${CMAKE_SOURCE_DIR}/asvc/AHit.h ${CMAKE_SOURCE_DIR}/asvc/ATTrack.h
 #   ${CMAKE_SOURCE_DIR}/asvc/ARTrack.h ${CMAKE_SOURCE_DIR}/asvc/AParticle.h
 #   ${CMAKE_SOURCE_DIR}/asvc/AEvent.h)
 
 ROOT_GENERATE_DICTIONARY(
            "${TSVC_DICTIONARY}"            # path to dictionary to generate
-           "${TSVC}"  # list of includes
+           "${TSVC_INCLUDES}"  # list of includes
            "${TSVC_HEADERS}" 
            "${TSVC}/TSvcLinkDef.h"   # ROOT linkDef file
          )
