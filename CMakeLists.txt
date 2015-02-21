@@ -94,7 +94,8 @@ set(TSVC_DICTIONARY ${CMAKE_BINARY_DIR}/tsvcDict.cxx)  # set dictionary path
 
 MESSAGE("Generate TSVC dictionary")
 
-SET(TSVC_HEADERS ${TSVC}/THit.h ${TSVC}/TParticle.h ${TSVC}/TEvent.h)
+SET(TSVC_HEADERS ${TSVC}/THit.h ${TSVC}/TParticle.h ${TSVC}/TTTrack.h 
+  ${TSVC}/TRTrack.h ${TSVC}/TEvent.h)
 
 # SET(ASVC_HEADERS ${CMAKE_SOURCE_DIR}/asvc/AHit.h ${CMAKE_SOURCE_DIR}/asvc/ATTrack.h
 #   ${CMAKE_SOURCE_DIR}/asvc/ARTrack.h ${CMAKE_SOURCE_DIR}/asvc/AParticle.h

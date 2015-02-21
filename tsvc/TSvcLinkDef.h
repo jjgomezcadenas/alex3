@@ -16,13 +16,9 @@
 #pragma link C++ namespace alex+;
 #pragma link C++ class alex::THit+;
 #pragma link C++ class alex::TParticle+;
+#pragma link C++ class alex::TTTrack+;
+#pragma link C++ class alex::TRTrack+;
 #pragma link C++ class alex::TEvent+;
-// #pragma link C++ class alex::AID+;
-// #pragma link C++ class alex::AProperties+;
-// #pragma link C++ class alex::ABTrack+;
-// #pragma link C++ class alex::ATTrack+;
-// #pragma link C++ class alex::ARTrack+;
-// #pragma link C++ class alex::AParticle+;
 
 // #pragma link C++ class std::pair<alex::AHit*,alex::AHit*>+;
 

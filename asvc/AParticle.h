@@ -21,7 +21,7 @@ namespace alex {
     AParticle(const AParticle& apart);
 
     // Destructor
-    //~AParticle() {};
+    virtual ~AParticle() {};
 
     // Name
     std::string GetParticleName() const

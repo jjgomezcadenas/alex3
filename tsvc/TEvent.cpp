@@ -13,8 +13,10 @@
 #include <alex/TEvent.h>
 #include <alex/TParticle.h>
 #include <alex/AParticle.h>
-// #include <alex/ATTrack.h>
-// #include <alex/ARTrack.h>
+#include <alex/ATTrack.h>
+#include <alex/ARTrack.h>
+#include <alex/TTTrack.h>
+#include <alex/TRTrack.h>
 
 
 ClassImp(alex::TEvent)
@@ -32,8 +34,8 @@ namespace alex {
   TEvent::TEvent() : fEventID(0), fTrueEventEnergy(0),fRecEventEnergy(0)
   { 
     fParticles = new TObjArray(); ///< particles
-    // fTTracks = new TObjArray(); ///< true tracks
-    // fRTracks = new TObjArray();
+    fTTracks = new TObjArray(); ///< true tracks
+    fRTracks = new TObjArray();
   }
 
   // AEvent::AEvent(const AEvent& right)
@@ -61,22 +63,22 @@ namespace alex {
   {
     ClearEvent();  
     delete fParticles;
-    // delete fTTracks;
-    // delete fRTracks;	
+    delete fTTracks;
+    delete fRTracks;	
   }
   void TEvent::AddParticle(const AParticle* apart)
   {
     fParticles->AddLast(new TParticle(*apart));
   }
-  // void AEvent::AddTTrack(const ATTrack* att)
-  // {
-  //   fTTracks->AddLast(new ATTrack(*att));
-  // }
+  void TEvent::AddTTrack(const ATTrack* att)
+  {
+    fTTracks->AddLast(new TTTrack(*att));
+  }
 
-  // void AEvent::AddRTrack(const ARTrack* art)
-  // {
-  //   fRTracks->AddLast(new ARTrack(*art));
-  // }
+  void TEvent::AddRTrack(const ARTrack* art)
+  {
+    fRTracks->AddLast(new TRTrack(*art));
+  }
 
   // std::vector <AParticle*> AEvent::GetParticles() const
   // {
@@ -125,11 +127,11 @@ namespace alex {
     if (fParticles) 
       fParticles->Delete();
      	
-    // if (fTTracks) 
-    //   fTTracks->Delete(); 
+    if (fTTracks) 
+      fTTracks->Delete(); 
      
-    // if (fRTracks)   
-    //   fRTracks->Delete();
+    if (fRTracks)   
+      fRTracks->Delete();
    
   }
 

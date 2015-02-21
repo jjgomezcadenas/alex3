@@ -9,6 +9,7 @@
 // ---------------------------------------------------------------------------- 
 
 #include <alex/TParticle.h>
+#include <alex/AParticle.h>
 
 ClassImp(alex::TParticle)
 
@@ -31,18 +32,19 @@ namespace alex {
  //  }
 
 
-  TParticle::TParticle(const AParticle& apart)
+  TParticle::TParticle(const AParticle& apart) : AParticle(apart)
   {
-  	SetID(apart.GetID());
-  	SetParticleName(apart.GetParticleName());
-  	SetIsPrimary(apart.GetIsPrimary());
-  	SetCharge(apart.GetCharge());
-  	SetVertex(apart.GetVertex());
-  	SetP4(apart.GetP4());
-    SetMotherID(apart.GetMotherId());
+    //AParticle::AParticle(apart);
+  	// SetID(apart.GetID());
+  	// SetParticleName(apart.GetParticleName());
+  	// SetIsPrimary(apart.GetIsPrimary());
+  	// SetCharge(apart.GetCharge());
+  	// SetVertex(apart.GetVertex());
+  	// SetP4(apart.GetP4());
+   //  SetMotherID(apart.GetMotherId());
 
-    std::map <std::string, std::string> props = apart.GetProperties();
-    for (auto prop : props) SetProperty(prop.first, prop.second);
+   //  std::map <std::string, std::string> props = apart.GetProperties();
+   //  for (auto prop : props) SetProperty(prop.first, prop.second);
   }
 
 }

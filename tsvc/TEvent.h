@@ -20,8 +20,8 @@
 namespace alex {
   class TParticle;
   class AParticle;
-  //class ATTrack;
-  //class ARTrack;
+  class ATTrack;
+  class ARTrack;
 
   /// Persistent class
   
@@ -36,28 +36,17 @@ namespace alex {
     /// Destructor
     virtual ~TEvent();
 
-  private:
-
-    TObjArray* fParticles; ///< particles
-    //TObjArray* fTTracks; ///< true tracks
-    //TObjArray* fRTracks; ///< reconstructed tracks
-    int fEventID; ///< unique identificative number
-
-    double fTrueEventEnergy;
-    double fRecEventEnergy;
-
-
-  public:
+  
 
     //TEvent& operator=(const TEvent& right);
     
     void AddParticle(const AParticle* apart);
     //std::vector <AParticle*> GetParticles() const;
 
-    // void AddTTrack(const ATTrack* att);
+    void AddTTrack(const ATTrack* att);
     // std::vector <ATTrack*> GetTTracks() const;
 
-    // void AddRTrack(const ARTrack* art);
+    void AddRTrack(const ARTrack* art);
     // std::vector <ARTrack*> GetRTracks() const;
 
     //const TObjArray* GetSensorHits() const;
@@ -73,6 +62,17 @@ namespace alex {
     void ClearEvent();
 
    
+   private:
+
+    TObjArray* fParticles; ///< particles
+    TObjArray* fTTracks; ///< true tracks
+    TObjArray* fRTracks; ///< reconstructed tracks
+    int fEventID; ///< unique identificative number
+
+    double fTrueEventEnergy;
+    double fRecEventEnergy;
+
+
     ClassDef(TEvent,1);
     
   };
