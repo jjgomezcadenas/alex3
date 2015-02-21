@@ -105,7 +105,7 @@ SET(TSVC_INCLUDES ${TSVC} ${LOG4CPP_INCLUDE_DIR} )
 
 ROOT_GENERATE_DICTIONARY(
            "${TSVC_DICTIONARY}"            # path to dictionary to generate
-           "${TSVC_INCLUDES}"  # list of includes
+           "${TSVC}"  # list of includes
            "${TSVC_HEADERS}" 
            "${TSVC}/TSvcLinkDef.h"   # ROOT linkDef file
          )
