@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<DrawEffHits>
+<DrawHits>
   <Param>
     <name>fName</name>
     <dataType>string</dataType>
     <value>DrawHits</value>
   </Param>
   <Param>
-    <name>fDraw</name>
-    <dataType>int</dataType>
-    <value>1</value>
+    <name>fDebug</name>
+    <dataType>string</dataType>
+    <value>DEBUG</value>
   </Param>
 
-</DrawEffHits>
+</DrawHits>
