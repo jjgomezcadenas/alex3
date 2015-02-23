@@ -37,7 +37,6 @@ namespace alex {
     fTrueEventEnergy = 0.;
     fRecEventEnergy = 0.;
 
-    
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "AlexManager Initialized" ;
   }
@@ -46,9 +45,10 @@ namespace alex {
   void AlexService::Clear()
   //--------------------------------------------------------------------
   {
+    SetDebugLevel(fDebugLevel);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "AlexService::Clear()" ;
-    SetDebugLevel(fDebugLevel);
 
     fTrueEventEnergy = 0.;
     fRecEventEnergy = 0.;
@@ -93,7 +93,6 @@ namespace alex {
     << fParticles.size();
 
     klog << log4cpp::Priority::DEBUG << "+++All vectors cleared+++ " ;
-    
 
   }
 
@@ -103,9 +102,7 @@ namespace alex {
   //--------------------------------------------------------------------
   {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    SetDebugLevel(fDebugLevel);
     klog << log4cpp::Priority::DEBUG << "In AlexService::AddParticle() " ;
-
     
     fParticles.push_back(part);
   }
@@ -132,6 +129,9 @@ namespace alex {
   void AlexService::AddTTrack(alex::ATTrack* ttrack)
   //--------------------------------------------------------------------
   {
+    log4cpp::Category& klog = log4cpp::Category::getRoot();
+    klog << log4cpp::Priority::DEBUG << "In AlexService::AddTTrack() " ;
+    
     fTrueEventEnergy += ttrack->GetEdep();
     fTTracks.push_back(ttrack);
   }
@@ -158,6 +158,9 @@ namespace alex {
   void AlexService::AddRTrack(alex::ARTrack* rtrack)
   //--------------------------------------------------------------------
   {
+    log4cpp::Category& klog = log4cpp::Category::getRoot();
+    klog << log4cpp::Priority::DEBUG << "In AlexService::AddRTrack() " ;
+    
     fRecEventEnergy += rtrack->GetEdep();
     fRTracks.push_back(rtrack);
   }
@@ -177,6 +180,33 @@ namespace alex {
     << id << " does NOT EXIST !!" ;
 
     exit(-1);
+  }
+
+
+  //--------------------------------------------------------------------
+  double AlexService::GetHitsDist(alex::AHit* hit1, alex::AHit* hit2) const
+  //--------------------------------------------------------------------
+  {
+    TVector3 pos1 = hit1->GetPosition();
+    TVector3 pos2 = hit2->GetPosition();
+    TVector3 distV = pos1 - pos2;
+    return distV.Mag();
+  }
+
+
+  //--------------------------------------------------------------------
+  double AlexService::GetTracksDist(alex::ABTrack* trk1, alex::ABTrack* trk2) const
+  //--------------------------------------------------------------------
+  {
+    double trksDist = 1000.;
+    for (auto hit1 : trk1->GetHits()) {
+      for (auto hit2 : trk2->GetHits()) {
+        double hitsDist = GetHitsDist(hit1, hit2);
+        if (hitsDist < trksDist) trksDist = hitsDist;
+      }
+    }
+
+    return trksDist;
   }
 
 }

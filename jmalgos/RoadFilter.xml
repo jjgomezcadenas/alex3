@@ -13,44 +13,6 @@
     <value>INFO</value>
   </Param>
 
-  <!-- Detector size -->
-  <Param>
-    <name>fMinDetX</name>
-    <dataType>double</dataType>
-    <value>-550.</value>
-  </Param>
-
-  <Param>
-    <name>fMaxDetX</name>
-    <dataType>double</dataType>
-    <value>550.</value>
-  </Param>
-
-  <Param>
-    <name>fMinDetY</name>
-    <dataType>double</dataType>
-    <value>-550.</value>
-  </Param>
-
-  <Param>
-    <name>fMaxDetY</name>
-    <dataType>double</dataType>
-    <value>550.</value>
-  </Param>
-
-  <Param>
-    <name>fMinDetZ</name>
-    <dataType>double</dataType>
-    <value>-700.</value>
-  </Param>
-
-  <Param>
-    <name>fMaxDetZ</name>
-    <dataType>double</dataType>
-    <value>700.</value>
-  </Param>
-
-
   <!-- Road Width -->
   <Param>
     <name>fRoadWidth</name>

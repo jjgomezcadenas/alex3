@@ -5,6 +5,8 @@
 #include <alex/ARTrack.h>
 #include <alex/AHit.h>
 
+#include <alex/VectorOperations.h>
+
 
 #include <TVector.h>
 #include <TMatrix.h>
@@ -92,11 +94,12 @@ namespace alex {
     TMatrix distMatrix = TMatrix(numTracks, numTracks);
     for (int i=0; i<numTracks-1; i++) {
       for (int j=i+1; j<numTracks; j++) {
-        double trkDist = GetMinDistance(tracks[i], tracks[j]);
+        double trkDist = ASvc::Instance().GetTracksDist(tracks[i], tracks[j]);
         distMatrix(i,j) = distMatrix(j,i) = trkDist;
         //std::cout << "Dist (" << i << " , " << j << "): " << trkDist << std::endl;
       }
     }
+
     // Generating the Minimum Distance Vector
     TVector minDistVector(numTracks);
     for (int i=0; i<numTracks; i++) {
@@ -113,7 +116,7 @@ namespace alex {
     for (int width=fMinWidth; width<fMaxWidth+1; width++) {
       //std::cout << "Study of Width: " << width << std::endl;
 
-      // First Check: Some RTrack Too Far From the Rest
+      // First Check: Some RTrack Too Far From the Rest ??
       bool firstCheck = true;
       for (int i=0; i<numTracks; i++) {
         if (minDistVector(i) > width) {
@@ -123,7 +126,7 @@ namespace alex {
         }
       }
 
-      // Second Check: All RTracks connected
+      // Second Check: All RTracks connected ??
       if (firstCheck == true) {
         // If there are only 2, they are connected
         if (numTracks == 2) fRoadStudy_Evts1Road_H1->AddBinContent(width+1);
@@ -134,8 +137,6 @@ namespace alex {
           connected.push_back(0);
           std::vector<int> notConnected;
           for (int i=1; i<numTracks; i++) notConnected.push_back(i);
-
-          //std::cout << "Sizes: " << connected.size() << " " << notConnected.size() << std::endl;
 
           // Checking connections
           bool gotConnection;
@@ -193,25 +194,6 @@ namespace alex {
            << width << " -> " << fRoadStudy_Evts1Road_H1->GetBinContent(width+1);
 
     return true;
-  }
-
-
-  //--------------------------------------------------------------------
-  double PRoadStudy::GetMinDistance(ARTrack* trk1, ARTrack* trk2)
-  //--------------------------------------------------------------------
-  {
-    double trksDist = 1000.;
-
-    for (auto hit1 : trk1->GetHits()) {
-      TVector3 pos1 = hit1->GetPosition();
-      for (auto hit2 : trk2->GetHits()) {
-        TVector3 pos2 = hit2->GetPosition();
-        TVector3 distV = pos1 - pos2;
-        double hitsDist = distV.Mag();
-        if (hitsDist < trksDist) trksDist = hitsDist;
-      }
-    }
-    return trksDist;
   }
 
 }

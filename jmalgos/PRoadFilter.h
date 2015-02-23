@@ -12,8 +12,6 @@ namespace alex {
     // Counters
 	  int fNumInputEvents;    
 	  int fNumOutputEvents;
-
-    std::vector<double> fVoxelSize;
     
   };
 }

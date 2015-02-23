@@ -10,6 +10,7 @@
 #include <alex/GDefs.h>
 #include <alex/SingletonTemplate.h>
 #include <alex/LogUtil.h>
+#include <alex/AHit.h>
 #include <alex/AParticle.h>
 #include <alex/ATTrack.h>
 #include <alex/ARTrack.h>
@@ -53,6 +54,9 @@ class AlexService {
 		alex::ARTrack* GetRTrack(int id) const;
 		const std::vector <alex::ARTrack*> GetRTracks() const {return fRTracks;}
 
+		// Distances
+		double GetHitsDist(alex::AHit* hit1, alex::AHit* hit2) const;
+		double GetTracksDist(alex::ABTrack* trk1, alex::ABTrack* trk2) const;
 
 	private:
 	  std::string fDebugLevel;

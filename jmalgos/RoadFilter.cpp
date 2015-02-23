@@ -3,7 +3,10 @@
 #include <alex/PSvc.h>
 #include <alex/ASvc.h>
 #include <alex/ARTrack.h>
+#include <alex/VectorOperations.h>
 
+#include <TVector.h>
+#include <TMatrix.h>
 
 namespace alex {
 
@@ -16,34 +19,9 @@ namespace alex {
     
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "RoadFilter::Init()";
-    klog << log4cpp::Priority::INFO << "RoadFilter::Detector X Size = " << fMinDetX << " , " << fMaxDetX;
-    klog << log4cpp::Priority::INFO << "RoadFilter::Detector Y Size = " << fMinDetY << " , " << fMaxDetY;
-    klog << log4cpp::Priority::INFO << "RoadFilter::Detector Z Size = " << fMinDetZ << " , " << fMaxDetZ;
     klog << log4cpp::Priority::INFO << "RoadFilter::Road Width = " << fRoadWidth;
 
     fNumInputEvents = fNumOutputEvents = 0;
-
-    fVoxelSize.push_back(fRoadWidth);
-    fVoxelSize.push_back(fRoadWidth);
-    fVoxelSize.push_back(fRoadWidth);
-
-    std::pair<double,double> xRange;
-    std::pair<double,double> yRange;
-    std::pair<double,double> zRange;
-    xRange.first  = fMinDetX;
-    xRange.second = fMaxDetX;
-    yRange.first  = fMinDetY;
-    yRange.second = fMaxDetY;
-    zRange.first  = fMinDetZ;
-    zRange.second = fMaxDetZ;
-
-    std::vector< std::pair<double,double> > detSize;
-    detSize.push_back(xRange);
-    detSize.push_back(yRange);
-    detSize.push_back(zRange);
-
-    // Init Paolina Stuff
-    PSvc::Instance().Init("INFO", detSize);
 
     return true;
   }
@@ -61,21 +39,92 @@ namespace alex {
 
     fNumInputEvents += 1;
 
-    std::vector<std::pair<TVector3,double> >  voxels;
-    voxels = PSvc::Instance().ComputePaolinaVoxels(ISvc::Instance().GetTrueHits(), fVoxelSize);
-    std::vector<paolina::Track*> tracks;
-    int numTracks = 0;
-    if (voxels.size() > 0) {
-      tracks = PSvc::Instance().ComputePaolinaTracks();
-      numTracks = tracks.size();
-      fRoadFilter_NumRoads_H1->Fill(numTracks);
-      klog << log4cpp::Priority::DEBUG << "RoadFilter::Num Roads: " << numTracks;
-    }
-
-
+    /// If only one RTrack, No computing needed
+    std::vector <ARTrack*> tracks = ASvc::Instance().GetRTracks();
+    int numTracks = tracks.size();
     if (numTracks == 1) {
+      klog << log4cpp::Priority::DEBUG << "RoadFilter::Passed -> Just One RTrack";
       fNumOutputEvents += 1;
       return true;
+    }
+
+    /// Generating the Distance Matrix
+    TMatrix distMatrix = TMatrix(numTracks, numTracks);
+    for (int i=0; i<numTracks-1; i++) {
+      for (int j=i+1; j<numTracks; j++) {
+        double trkDist = ASvc::Instance().GetTracksDist(tracks[i], tracks[j]);
+        distMatrix(i,j) = distMatrix(j,i) = trkDist;
+        klog << log4cpp::Priority::DEBUG << "Dist (" << i << " , " << j << "): "
+                                         << trkDist;
+      }
+    }
+
+    /// Generating the Minimum Distance Vector
+    TVector minDistVector(numTracks);
+    for (int i=0; i<numTracks; i++) {
+      double minDist = 1000.;
+      for (int j=0; j<numTracks; j++) {
+        if (i != j) 
+          if (distMatrix(i,j) < minDist) minDist = distMatrix(i,j);
+      }
+      minDistVector(i) = minDist;
+      klog << log4cpp::Priority::DEBUG << "Min Dist " << i << ": " << minDist;
+    }
+
+    /// First Check: Some RTrack Too Far From the Rest ??
+    for (int i=0; i<numTracks; i++) {
+      if (minDistVector(i) > fRoadWidth) {
+        klog << log4cpp::Priority::DEBUG << "RoadFilter::Failed -> RTrack: " << i
+             << " too far from the rest";
+        return false;
+      }
+    }
+
+    /// At this point, If there are only 2 RTracks, they are connected
+    if (numTracks == 2) {
+      klog << log4cpp::Priority::DEBUG << "RoadFilter::Passed -> 2 RTracks connected";
+      fNumOutputEvents += 1;
+      return true;
+    }
+
+    /// Second Check: All RTracks connected ??
+    // Initializing vectors
+    std::vector<int> connected;
+    connected.push_back(0);
+    std::vector<int> notConnected;
+    for (int i=1; i<numTracks; i++) notConnected.push_back(i);
+
+    // Checking connections
+    bool gotConnection;
+    do {
+      gotConnection = false;
+      for (int i=0; i<notConnected.size(); i++) {
+        for (int j=0; j<connected.size(); j++) {
+          double dist = distMatrix(notConnected[i], connected[j]);
+          if (dist < fRoadWidth) {
+            gotConnection = true;
+            klog << log4cpp::Priority::DEBUG << "  Connection of "
+                 << notConnected[i];
+            connected.push_back(notConnected[i]);
+            notConnected.erase(notConnected.begin()+i);
+            break;
+          }
+        }
+        if (gotConnection) break;
+      }
+    } while (gotConnection and (notConnected.size()>0));
+
+    // If every RTrack is connected -> Evt OK
+    int ncSize = notConnected.size();
+    if (ncSize==0) {
+      klog << log4cpp::Priority::DEBUG << "RoadFilter::Passed -> All RTracks Connected Among Them";
+      fNumOutputEvents += 1;
+      return true;
+    }
+    else {
+      klog << log4cpp::Priority::DEBUG << "RoadFilter::Failed -> RTracks not Connected With The Others: "
+           << VPrint(notConnected);
+      return false;
     }
 
     return false;
