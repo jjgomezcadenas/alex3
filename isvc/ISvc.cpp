@@ -262,13 +262,15 @@ namespace alex {
       }
 
       TLorentzVector fIniP = ipart->GetInitialMomentum();
-      std::cout << "  Init:  Vertex: " << PrintTVector3(ipart->GetInitialVertex().Vect())
-                << "  Process: " << ipart->GetCreatorProcess()
-                << "  EKin: " << fIniP.Energy() - fIniP.M() << std::endl;
+      TVector3 fIniPos = ipart->GetInitialVertex().Vect();
+      std::cout << "  Init:  Vertex: (" << fIniPos.x() << " , " << fIniPos.y() << " , " << fIniPos.z() << ")" 
+                << "   Process: " << ipart->GetCreatorProcess()
+                << "   EKin: " << fIniP.Energy() - fIniP.M() << std::endl;
 
       TLorentzVector fDecP = ipart->GetDecayMomentum();
-      std::cout << "  Decay: Vertex: " << PrintTVector3(ipart->GetDecayVertex().Vect())
-                << "  EKin: " << fDecP.Energy() - fDecP.M() << std::endl;
+      TVector3 fDecPos = ipart->GetDecayVertex().Vect();
+      std::cout << "  Decay:  Vertex: (" << fDecPos.x() << " , " << fDecPos.y() << " , " << fDecPos.z() << ")" 
+                << "   EKin: " << fDecP.Energy() - fDecP.M() << std::endl;
 
       const TRefArray& daughters = ipart->GetDaughters();
       std::cout << "  Daughters: ";
