@@ -12,7 +12,7 @@ namespace alex {
   //--------------------------------------------------------------------
   {
     // Set the Debug Level
-    SetDebugLevel("INFO");
+    SetDebugLevel(fDebug);
     
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "RoadFilter::Init()";
@@ -53,6 +53,9 @@ namespace alex {
   bool RoadFilter::Execute()
   //--------------------------------------------------------------------
   {
+    // Set the Debug Level
+    SetDebugLevel(fDebug);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "RoadFilter::Execute()";
 
@@ -83,6 +86,9 @@ namespace alex {
   bool RoadFilter::End()
   //--------------------------------------------------------------------
   {
+    // Set the Debug Level
+    SetDebugLevel(fDebug);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "RoadFilter::End()";
     klog << log4cpp::Priority::INFO << "RoadFilter::fNumInputEvents:  " << fNumInputEvents;

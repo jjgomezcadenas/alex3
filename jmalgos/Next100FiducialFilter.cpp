@@ -10,7 +10,7 @@ namespace alex {
   //--------------------------------------------------------------------
   {
     // Set the Debug Level
-    SetDebugLevel("INFO");
+    SetDebugLevel(fDebug);
     
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "Next100FiducialFilter::Init()";
@@ -31,6 +31,9 @@ namespace alex {
   bool Next100FiducialFilter::Execute()
   //--------------------------------------------------------------------
   {
+    // Set the Debug Level
+    SetDebugLevel(fDebug);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "Next100FiducialFilter::Execute()";
 
@@ -74,6 +77,9 @@ namespace alex {
   bool Next100FiducialFilter::End()
   //--------------------------------------------------------------------
   {
+    // Set the Debug Level
+    SetDebugLevel(fDebug);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "Next100FiducialFilter::End()";
     klog << log4cpp::Priority::INFO << "Next100FiducialFilter::fNumInputEvents:  " << fNumInputEvents;

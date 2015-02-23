@@ -7,6 +7,12 @@
     <value>EnergySmearer</value>
   </Param>
   
+  <Param>
+    <name>fDebug</name>
+    <dataType>string</dataType>
+    <value>INFO</value>
+  </Param>
+
   <!-- FWHM(%) @ Qbb -->
   <Param>
     <name>fFWHM</name>

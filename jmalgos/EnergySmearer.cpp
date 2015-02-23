@@ -11,7 +11,7 @@ namespace alex {
   //--------------------------------------------------------------------
   {
     // Set the Debug Level
-    SetDebugLevel("INFO");
+    SetDebugLevel(fDebug);
     
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "EnergySmearer::Init()";
@@ -27,6 +27,9 @@ namespace alex {
   bool EnergySmearer::Execute()
   //--------------------------------------------------------------------
   {
+    // Set the Debug Level
+    SetDebugLevel(fDebug);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "EnergySmearer::Execute()";
 
@@ -80,6 +83,9 @@ namespace alex {
   bool EnergySmearer::End()
   //--------------------------------------------------------------------
   {
+    // Set the Debug Level
+    SetDebugLevel(fDebug);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "EnergySmearer::End()";
 

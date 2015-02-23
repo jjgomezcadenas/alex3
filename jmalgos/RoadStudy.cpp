@@ -16,8 +16,8 @@ namespace alex {
   //--------------------------------------------------------------------
   {
     // Set the Debug Level
-    SetDebugLevel("INFO");
-    
+    SetDebugLevel(fDebug);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "RoadStudy::Init()";
     klog << log4cpp::Priority::INFO << "RoadStudy::Detector X Size = " << fMinDetX << " , " << fMaxDetX;
@@ -55,6 +55,9 @@ namespace alex {
   bool RoadStudy::Execute()
   //--------------------------------------------------------------------
   {
+    // Set the Debug Level
+    SetDebugLevel(fDebug);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "RoadStudy::Execute()";
 
@@ -179,6 +182,9 @@ namespace alex {
   bool RoadStudy::End()
   //--------------------------------------------------------------------
   {
+    // Set the Debug Level
+    SetDebugLevel(fDebug);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "RoadStudy::End()";
     klog << log4cpp::Priority::INFO << "RoadStudy::Number of events with just One Road:";

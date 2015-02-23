@@ -7,6 +7,12 @@
     <value>SmearedEnergyFilter</value>
   </Param>
   
+  <Param>
+    <name>fDebug</name>
+    <dataType>string</dataType>
+    <value>INFO</value>
+  </Param>
+
   <!-- Set to the minimum energy in an event -->
   <Param>
     <name>fMinEnergy</name>

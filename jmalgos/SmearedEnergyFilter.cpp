@@ -9,7 +9,7 @@ namespace alex {
   //--------------------------------------------------------------------
   {
     // Set the Debug Level
-    SetDebugLevel("INFO");
+    SetDebugLevel(fDebug);
     
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "SmearedEnergyFilter::Init()" ;
@@ -26,6 +26,9 @@ namespace alex {
   bool SmearedEnergyFilter::Execute()
   //--------------------------------------------------------------------
   {
+    // Set the Debug Level
+    SetDebugLevel(fDebug);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "SmearedEnergyFilter::Execute()";
 
@@ -56,6 +59,9 @@ namespace alex {
   bool SmearedEnergyFilter::End()
   //--------------------------------------------------------------------
   {
+    // Set the Debug Level
+    SetDebugLevel(fDebug);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "SmearedEnergyFilter::End()";
     klog << log4cpp::Priority::INFO << "SmearedEnergyFilter::fNumInputEvents:  " << fNumInputEvents;

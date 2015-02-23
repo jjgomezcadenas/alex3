@@ -13,7 +13,7 @@ namespace alex {
   //--------------------------------------------------------------------
   {
     // Set the Debug Level
-    SetDebugLevel("INFO");
+    SetDebugLevel(fDebug);
     
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "Voxelizer::Init()";
@@ -54,6 +54,9 @@ namespace alex {
   bool Voxelizer::Execute()
   //--------------------------------------------------------------------
   {
+    // Set the Debug Level
+    SetDebugLevel(fDebug);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::DEBUG << "Voxelizer::Execute()";
 
@@ -76,7 +79,7 @@ namespace alex {
       ARTrack* arTrk = new ARTrack(t);
       paolina::Track* pTrk = tracks[t];
 
-      std::cout << "True Energy from Paolina Track: " << pTrk->GetEDep() << std::endl;
+      //std::cout << "True Energy from Paolina Track: " << pTrk->GetEDep() << std::endl;
 
       // Converting from Paolina Voxels to AHits
       for (int v=0; v<pTrk->NVoxels(); v++) {
@@ -131,6 +134,9 @@ namespace alex {
   bool Voxelizer::End()
   //--------------------------------------------------------------------
   {
+    // Set the Debug Level
+    SetDebugLevel(fDebug);
+
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "Voxelizer::End()";
 
