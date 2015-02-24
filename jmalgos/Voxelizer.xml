@@ -75,7 +75,7 @@
   <Param>
     <name>fEmin</name>
     <dataType>double</dataType>
-    <value>10.</value>
+    <value>.01</value>
   </Param>
 
 
@@ -95,6 +95,15 @@
     <nbinsx>15</nbinsx>
     <xlow>0.0</xlow>
     <xup>15.0</xup>
+  </H1D>
+
+  <!-- Histogram with number of invisible tracks -->
+  <H1D>
+    <name>fVoxelizer_NumInvTracks_H1</name>
+    <title>Number of Invisible Paolina Tracks</title>
+    <nbinsx>5</nbinsx>
+    <xlow>0.0</xlow>
+    <xup>5.0</xup>
   </H1D>
 
 </Voxelizer>
