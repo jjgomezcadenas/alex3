@@ -36,11 +36,11 @@
     <xup>4.0</xup>
   </H1D>
 
-  <!-- Histogram with Event Edep before filter -->
+  <!-- Histogram with Event Edep after filter -->
   <H1D>
     <name>fTrueEnergyFilter_EdepAfter_H1</name>
     <title>True Edep After Filter</title>
-    <nbinsx>40</nbinsx>
+    <nbinsx>70</nbinsx>
     <xlow>2.3</xlow>
     <xup>3.0</xup>
   </H1D>

@@ -31,4 +31,13 @@
     <xup>30.0</xup>
   </H1D>
   
+  <!-- Histogram of true tracks Energy -->
+  <H1D>
+    <name>fIreneLoader_TTrackEnergy_H1</name>
+    <title>True Tracks Energy</title>
+    <nbinsx>25</nbinsx>
+    <xlow>0.0</xlow>
+    <xup>2500.0</xup>
+  </H1D>
+  
 </IreneLoader>

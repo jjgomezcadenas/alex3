@@ -36,5 +36,14 @@
     <xup>0.50</xup>
   </H1D>
 
+  <!-- Histogram with Event True Edep after filter -->
+  <H1D>
+    <name>fNext100FiducialFilter_EdepAfter_H1</name>
+    <title>Event True Edep After Filter</title>
+    <nbinsx>70</nbinsx>
+    <xlow>2.3</xlow>
+    <xup>3.0</xup>
+  </H1D>
+
 
 </Next100FiducialFilter>

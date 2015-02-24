@@ -38,13 +38,13 @@ namespace alex {
     fTrueEnergyFilter_EdepBefore_H1->Fill(etot);
 
     if( (etot < fMinEnergy) || (etot > fMaxEnergy) ) {
-      klog << log4cpp::Priority::DEBUG << "TrueEnergyFilter::Event Energy: "
-           << etot << " MeV. --> Cut Failed";
+      klog << log4cpp::Priority::DEBUG << "TrueEnergyFilter::Failed -> Event Energy: "
+           << etot << " MeV.";
       return false;
     }
 
     else {
-      klog << log4cpp::Priority::DEBUG << "TrueEnergyFilter::Event Energy: "
+      klog << log4cpp::Priority::DEBUG << "TrueEnergyFilter::Passed -> Event Energy: "
               << etot << " MeV. --> Cut Passed";
       fTrueEnergyFilter_EdepAfter_H1->Fill(etot);
     } 

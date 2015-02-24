@@ -58,16 +58,17 @@ namespace alex {
     if (vetoE > 0.) fNext100FiducialFilter_VetoEdep_H1->Fill(vetoE);
 
     if(vetoE > fMinEnergy) {
-      klog << log4cpp::Priority::DEBUG << "Next100FiducialFilter::Veto Energy: "
-           << vetoE << " MeV. --> Cut Failed";
+      klog << log4cpp::Priority::DEBUG << "Next100FiducialFilter::Failed -> Veto Energy: "
+           << vetoE << " MeV.";
       return false;
     }
 
-    else klog << log4cpp::Priority::DEBUG << "Next100FiducialFilter::Veto Energy: "
-              << vetoE << " MeV. --> Cut Passed";
-
+    klog << log4cpp::Priority::DEBUG << "Next100FiducialFilter::Passed -> Veto Energy: "
+         << vetoE << " MeV.";
 
   fNumOutputEvents += 1;
+
+  fNext100FiducialFilter_EdepAfter_H1->Fill(ASvc::Instance().GetTrueEventEnergy());
 
   return true;
   }
