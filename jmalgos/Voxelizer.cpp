@@ -170,7 +170,7 @@ namespace alex {
 
     // Arreglar verbosity y añadir el proceso dentro del proceso de crear RTracks
 
-    //ISvc::Instance().PrintTrueEvent();
+    ISvc::Instance().PrintTrueEvent();
     //for (auto tTrk: ASvc::Instance().GetTTracks()) std::cout << tTrk->PrintInfo();
     //for (auto rTrk: ASvc::Instance().GetRTracks()) std::cout << rTrk->PrintInfo();
 

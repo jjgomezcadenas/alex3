@@ -250,29 +250,30 @@ namespace alex {
 
     int numParts = fIreneTracks.size();
     for (size_t it = 0; it < numParts; it++) { 
-      const irene::Track* itrk = fIreneTracks.at(it) ; 
-      const irene::Particle* ipart= itrk->GetParticle();
+      const irene::Track* iTrk = fIreneTracks.at(it) ; 
+      const irene::Particle* iPart= iTrk->GetParticle();
 
-      std::cout << "* Particle " << ipart->GetParticleID();
-      if (ipart->IsPrimary()) std::cout << ": Primary " << ipart->Name() << std::endl;
+      std::cout << "* Particle " << iPart->GetParticleID();
+      if (iPart->IsPrimary()) std::cout << ": Primary " << iPart->Name() << std::endl;
       else {
-        std::cout << ": Secondary " << ipart->Name()
-                  << "     from Particle " << ipart->GetMother()->GetParticleID()
+        std::cout << ": Secondary " << iPart->Name()
+                  << "     from Particle " << iPart->GetMother()->GetParticleID()
                   << std::endl;
       }
 
-      TLorentzVector fIniP = ipart->GetInitialMomentum();
-      TVector3 fIniPos = ipart->GetInitialVertex().Vect();
+      TLorentzVector fIniP = iPart->GetInitialMomentum();
+      TVector3 fIniPos = iPart->GetInitialVertex().Vect();
       std::cout << "  Init:  Vertex: (" << fIniPos.x() << " , " << fIniPos.y() << " , " << fIniPos.z() << ")" 
-                << "   Process: " << ipart->GetCreatorProcess()
+                << "   Process: " << iPart->GetCreatorProcess()
                 << "   EKin: " << fIniP.Energy() - fIniP.M() << std::endl;
 
-      TLorentzVector fDecP = ipart->GetDecayMomentum();
-      TVector3 fDecPos = ipart->GetDecayVertex().Vect();
+      double eDep = 0.;
+      for (auto iHit: iTrk->GetHits()) eDep += iHit.second;
+      TVector3 fDecPos = iPart->GetDecayVertex().Vect();
       std::cout << "  Decay:  Vertex: (" << fDecPos.x() << " , " << fDecPos.y() << " , " << fDecPos.z() << ")" 
-                << "   EKin: " << fDecP.Energy() - fDecP.M() << std::endl;
+                << "   Energy Dep: " << eDep << std::endl;
 
-      const TRefArray& daughters = ipart->GetDaughters();
+      const TRefArray& daughters = iPart->GetDaughters();
       std::cout << "  Daughters: ";
       for (int d=0; d<daughters.GetLast()+1; d++) {
         irene::Particle* daughter = (irene::Particle*) daughters.At(d);
