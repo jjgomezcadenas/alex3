@@ -106,8 +106,6 @@ namespace alex {
 
   void ABTrack::DisplayInfo(std::ostream& s) const
   {
-    s << std::endl;
-   	s << "*** Track ID: " << GetID() << std::endl;
     s << "* EnergyDep: " << GetEdep() << std::endl;
 
     if (fSetExtreme1 ==true) {

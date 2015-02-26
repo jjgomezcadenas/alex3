@@ -41,8 +41,12 @@ namespace alex {
 	  
   void ATTrack::DisplayInfo(std::ostream& s) const
   {
+    s << std::endl;
+    s << "*** TTrack ID: " << GetID() << std::endl;
+
     ABTrack::DisplayInfo(s);
-   	s << "* Origin: Particle ID " << GetParticleID() << std::endl;
+   	
+    s << "* Origin: Particle ID " << GetParticleID() << std::endl;
   }
 
 

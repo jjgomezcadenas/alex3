@@ -77,6 +77,9 @@ namespace alex {
 	  
   void ARTrack::DisplayInfo(std::ostream& s) const
   {
+    s << std::endl;
+    s << "*** RTrack ID: " << GetID() << std::endl;
+
     ABTrack::DisplayInfo(s);
 
     s << "* " << GetOrdHits().size() << " main Path Hits: ";
