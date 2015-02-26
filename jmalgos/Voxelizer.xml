@@ -10,7 +10,7 @@
   <Param>
     <name>fDebug</name>
     <dataType>string</dataType>
-    <value>INFO</value>
+    <value>DEBUG</value>
   </Param>
 
   <!-- Detector size -->

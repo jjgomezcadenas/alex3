@@ -4,6 +4,7 @@
 #include <alex/ASvc.h>
 #include <alex/ARTrack.h>
 #include <alex/AHit.h>
+#include <alex/VectorOperations.h>
 
 
 namespace alex {
@@ -81,13 +82,16 @@ namespace alex {
       paolina::Track* pTrk = tracks[t];
 
       // Discarding Invisible PTracks
-      if (pTrk->GetEDep() < fEmin) {
+      double trkEdep = pTrk->GetEDep();
+      if (trkEdep < fEmin) {
         numInvTrks += 1;
-        klog << log4cpp::Priority::DEBUG << "Voxelizer::Invisible Track of "
-             << pTrk->GetEDep() << " MeV";
+        klog << log4cpp::Priority::DEBUG << "Voxelizer::Invisible RTrack of "
+             << trkEdep << " MeV";
       }
       // Processing Visible PTracks
       else {
+        klog << log4cpp::Priority::DEBUG << "Voxelizer::New RTrack of "
+             << trkEdep << " MeV";
         // Converting from Paolina Voxels to AHits
         for (int v=0; v<pTrk->NVoxels(); v++) {
           AHit* ahit = new AHit();
@@ -101,9 +105,6 @@ namespace alex {
           ahit->SetEdep(pVxl->GetEDep());
           arTrk->AddHit(ahit);
         }
-
-        // As origin True Tracks are unknown, set to -1
-        arTrk->AddTTrackID(-1);
 
         // Setting Spatial Energy
         arTrk->SetSpatialRes(TVector3(fVoxelX, fVoxelY, fVoxelZ));
@@ -129,12 +130,50 @@ namespace alex {
           } 
         }
 
-        //arTrk->DisplayInfo(std::cout);
+        //klog << log4cpp::Priority::DEBUG << arTrk->PrintInfo();
+
         ASvc::Instance().AddRTrack(arTrk);
       }      
     }
 
     if (numInvTrks>0) fVoxelizer_NumInvTracks_H1->Fill(numInvTrks);
+
+ 
+    // Assigning TTrackIDs to RTracks
+    const std::vector <ARTrack*> rTrks = ASvc::Instance().GetRTracks();
+    const std::vector <ATTrack*> tTrks = ASvc::Instance().GetTTracks();
+
+    for (auto rTrk: rTrks) {
+      //for (int i=0; i<tTrks.size(); i++) {
+      for (int i=0; i<tTrks.size(); i++) {
+        bool connected = false;
+        //Checking distances between first hit of TTracks to all from the RTrack
+        TVector3 tHitPos = tTrks[i]->GetHit(0)->GetPosition();
+        for (auto rHit: rTrk->GetHits()) {
+          TVector3 rHitPos = rHit->GetPosition();
+          if ( (abs(tHitPos.x()-rHitPos.x()) < fVoxelX) &&
+               (abs(tHitPos.y()-rHitPos.y()) < fVoxelY) &&
+               (abs(tHitPos.z()-rHitPos.z()) < fVoxelZ) ) {
+            connected = true;
+            rTrk->AddTTrackID(tTrks[i]->GetID());
+            klog << log4cpp::Priority::DEBUG << "Voxelizer::TTrack " << tTrks[i]->GetID()
+                 << " connected to RTrack " << rTrk->GetID();
+            break;
+          }
+        }
+
+      }
+
+      klog << log4cpp::Priority::DEBUG << "Voxelizer::RTrack "
+           << rTrk->GetID() << rTrk->PrintInfo();
+    }
+
+    // Arreglar verbosity y añadir el proceso dentro del proceso de crear RTracks
+
+    //ISvc::Instance().PrintTrueEvent();
+    //for (auto tTrk: ASvc::Instance().GetTTracks()) std::cout << tTrk->PrintInfo();
+    //for (auto rTrk: ASvc::Instance().GetRTracks()) std::cout << rTrk->PrintInfo();
+
 
     return true;
   }
