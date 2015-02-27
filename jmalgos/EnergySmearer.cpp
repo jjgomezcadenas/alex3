@@ -46,34 +46,36 @@ namespace alex {
 
     // Updating Energy of Voxels from Reconstructed Tracks
     double voxelFactor = smE / trueE;
-    const std::vector <ARTrack*> rtracks = ASvc::Instance().GetRTracks();
-    for (auto track : rtracks) {
-      for (auto hit : track->GetHits()) {
+    const std::vector <ARTrack*> rTracks = ASvc::Instance().GetRTracks();
+    for (auto rTrack : rTracks) {
+      for (auto hit : rTrack->GetHits()) {
         hit->SetEdep(hit->GetEdep() * voxelFactor);
       }
     }
 */
 
     double smE = 0.;
-    for (auto track : ASvc::Instance().GetRTracks()) {
-      track->SetEnergyRes(fFWHM);
-      double trueTrkE = track->GetEdep();
+    for (auto rTrack : ASvc::Instance().GetRTracks()) {
+      rTrack->SetEnergyRes(fFWHM);
+      double trueTrkE = rTrack->GetEdep();
       // Scaling FWHM at Qbb to Sigma at True Energy
       double sigmaE = ((fFWHM/100.) * sqrt(fQbb) * sqrt(trueTrkE)) / fFWHM2Sigma;
       double smTrkE = trueTrkE + fRand->Gaus(0., 1.) * sigmaE;
       smE += smTrkE;
       //std::cout << "RTrack Smered Energy: " << smTrkE << std::endl;
+      klog << log4cpp::Priority::DEBUG << "EnergySmearer::RTrack "
+           << rTrack->GetID() << " Smeared Energy: " << smTrkE;
 
       // Updating Energy of Voxels from Reconstructed Tracks
       double voxelFactor = smTrkE / trueTrkE;
-      for (auto hit : track->GetHits()) hit->SetEdep(hit->GetEdep() * voxelFactor);
+      for (auto hit : rTrack->GetHits()) hit->SetEdep(hit->GetEdep() * voxelFactor);
 
-      //track->DisplayInfo(std::cout);
+      //rTrack->DisplayInfo(std::cout);
     }
 
     ASvc::Instance().SetRecEventEnergy(smE);
     fEnergySmearer_SmEdep_H1->Fill(smE);
-    klog << log4cpp::Priority::DEBUG << "EnergySmearer::Smeared Energy: " << smE;
+    klog << log4cpp::Priority::DEBUG << "EnergySmearer:: Event Smeared Energy: " << smE;
 
     return true;
   }
