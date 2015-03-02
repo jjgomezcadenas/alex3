@@ -25,9 +25,9 @@
   <H1D>
     <name>fRoadWidthFilter_NumRoads_H1</name>
     <title>Number of Roads</title>
-    <nbinsx>10</nbinsx>
+    <nbinsx>4</nbinsx>
     <xlow>0.0</xlow>
-    <xup>10.0</xup>
+    <xup>4.0</xup>
   </H1D>
 
 

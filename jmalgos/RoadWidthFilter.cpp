@@ -23,6 +23,10 @@ namespace alex {
 
     fNumInputEvents = fNumOutputEvents = 0;
 
+    // Setting Histogram Bin Names
+    fRoadWidthFilter_NumRoads_H1->GetXaxis()->SetBinLabel(2, "One");
+    fRoadWidthFilter_NumRoads_H1->GetXaxis()->SetBinLabel(3, "More than One");
+
     return true;
   }
 
@@ -45,6 +49,7 @@ namespace alex {
     if (numTracks == 1) {
       klog << log4cpp::Priority::DEBUG << "RoadWidthFilter::Passed -> Just One RTrack";
       fNumOutputEvents += 1;
+      fRoadWidthFilter_NumRoads_H1->Fill(1);
       return true;
     }
 
@@ -76,6 +81,7 @@ namespace alex {
       if (minDistVector(i) > fRoadWidth) {
         klog << log4cpp::Priority::DEBUG << "RoadWidthFilter::Failed -> RTrack: " << i
              << " too far from the rest";
+        fRoadWidthFilter_NumRoads_H1->Fill(2);
         return false;
       }
     }
@@ -84,6 +90,7 @@ namespace alex {
     if (numTracks == 2) {
       klog << log4cpp::Priority::DEBUG << "RoadWidthFilter::Passed -> 2 RTracks connected";
       fNumOutputEvents += 1;
+      fRoadWidthFilter_NumRoads_H1->Fill(1);
       return true;
     }
 
@@ -119,14 +126,17 @@ namespace alex {
     if (ncSize==0) {
       klog << log4cpp::Priority::DEBUG << "RoadWidthFilter::Passed -> All RTracks Connected Among Them";
       fNumOutputEvents += 1;
+      fRoadWidthFilter_NumRoads_H1->Fill(1);
       return true;
     }
     else {
       klog << log4cpp::Priority::DEBUG << "RoadWidthFilter::Failed -> RTracks not Connected With The Others: "
            << VPrint(notConnected);
+      fRoadWidthFilter_NumRoads_H1->Fill(2);
       return false;
     }
 
+    fRoadWidthFilter_NumRoads_H1->Fill(2);
     return false;
   }
 
