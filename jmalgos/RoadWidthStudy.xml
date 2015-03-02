@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<RoadStudy>
+<RoadWidthStudy>
   
   <Param>
     <name>fName</name>
     <dataType>string</dataType>
-    <value>RoadStudy</value>
+    <value>RoadWidthStudy</value>
   </Param>
   
   <Param>
@@ -61,14 +61,14 @@
   <Param>
     <name>fMaxWidth</name>
     <dataType>int</dataType>
-    <value>30</value>
+    <value>33</value>
   </Param>
 
 
 
   <!-- Histogram with number of voxels -->
   <H1D>
-    <name>fRoadStudy_Evts1Road_H1</name>
+    <name>fRoadWidthStudy_Evts1Road_H1</name>
     <title>Number of Events with One Road</title>
     <nbinsx>35</nbinsx>
     <xlow>0.0</xlow>
@@ -76,4 +76,4 @@
   </H1D>
 
 
-</RoadStudy>
+</RoadWidthStudy>

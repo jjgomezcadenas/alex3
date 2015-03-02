@@ -1,4 +1,4 @@
-#include "RoadStudy.hh"
+#include "RoadWidthStudy.hh"
 #include <alex/ISvc.h>
 #include <alex/PSvc.h>
 #include <alex/ASvc.h>
@@ -14,18 +14,18 @@
 namespace alex {
 
   //--------------------------------------------------------------------
-  bool RoadStudy::Init()
+  bool RoadWidthStudy::Init()
   //--------------------------------------------------------------------
   {
     // Set the Debug Level
     SetDebugLevel(fDebug);
 
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::INFO << "RoadStudy::Init()";
-    klog << log4cpp::Priority::INFO << "RoadStudy::Detector X Size = " << fMinDetX << " , " << fMaxDetX;
-    klog << log4cpp::Priority::INFO << "RoadStudy::Detector Y Size = " << fMinDetY << " , " << fMaxDetY;
-    klog << log4cpp::Priority::INFO << "RoadStudy::Detector Z Size = " << fMinDetZ << " , " << fMaxDetZ;
-    klog << log4cpp::Priority::INFO << "RoadStudy::Studying Widths from "
+    klog << log4cpp::Priority::INFO << "RoadWidthStudy::Init()";
+    klog << log4cpp::Priority::INFO << "RoadWidthStudy::Detector X Size = " << fMinDetX << " , " << fMaxDetX;
+    klog << log4cpp::Priority::INFO << "RoadWidthStudy::Detector Y Size = " << fMinDetY << " , " << fMaxDetY;
+    klog << log4cpp::Priority::INFO << "RoadWidthStudy::Detector Z Size = " << fMinDetZ << " , " << fMaxDetZ;
+    klog << log4cpp::Priority::INFO << "RoadWidthStudy::Studying Widths from "
          << fMinWidth << " to " << fMaxWidth << " mm";
 
     std::pair<double,double> xRange;
@@ -47,28 +47,28 @@ namespace alex {
     PSvc::Instance().Init("INFO", detSize);
 
     // Setting Titles to Histogram Axis
-    fRoadStudy_Evts1Road_H1->SetXTitle("Road Width [mm]");
+    fRoadWidthStudy_Evts1Road_H1->SetXTitle("Road Width [mm]");
 
     return true;
   }
 
   
   //--------------------------------------------------------------------
-  bool RoadStudy::Execute()
+  bool RoadWidthStudy::Execute()
   //--------------------------------------------------------------------
   {
     // Set the Debug Level
     SetDebugLevel(fDebug);
 
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::DEBUG << "RoadStudy::Execute()";
+    klog << log4cpp::Priority::DEBUG << "RoadWidthStudy::Execute()";
 
     // If only one RTrack, No computing needed
     std::vector <ARTrack*> tracks = ASvc::Instance().GetRTracks();
     int numTracks = tracks.size();
     if (numTracks == 1) {
       for (int width=fMinWidth; width<fMaxWidth+1; width++)
-        fRoadStudy_Evts1Road_H1->AddBinContent(width+1);
+        fRoadWidthStudy_Evts1Road_H1->AddBinContent(width+1);
       return true;
     }
 
@@ -84,7 +84,7 @@ namespace alex {
       voxels = PSvc::Instance().ComputePaolinaVoxels(ISvc::Instance().GetTrueHits(), fVoxelSize);
       if (voxels.size() > 0) {
         std::vector<paolina::Track*> tracks = PSvc::Instance().ComputePaolinaTracks();
-        if (tracks.size() == 1) fRoadStudy_Evts1Road_H1->AddBinContent(width+1);
+        if (tracks.size() == 1) fRoadWidthStudy_Evts1Road_H1->AddBinContent(width+1);
       }
     }
 */
@@ -129,7 +129,7 @@ namespace alex {
       // Second Check: All RTracks connected ??
       if (firstCheck == true) {
         // If there are only 2, they are connected
-        if (numTracks == 2) fRoadStudy_Evts1Road_H1->AddBinContent(width+1);
+        if (numTracks == 2) fRoadWidthStudy_Evts1Road_H1->AddBinContent(width+1);
 
         else {
           // Initializing vectors
@@ -161,7 +161,7 @@ namespace alex {
           // If every RTrack is connected -> Evt OK
           int nons = notConnected.size();
           if (nons==0) {
-            fRoadStudy_Evts1Road_H1->AddBinContent(width+1);
+            fRoadWidthStudy_Evts1Road_H1->AddBinContent(width+1);
             //std::cout << "All RTracks Connected Among Them" << std::endl;
           }
           //else {
@@ -180,18 +180,18 @@ namespace alex {
 
   
   //--------------------------------------------------------------------
-  bool RoadStudy::End()
+  bool RoadWidthStudy::End()
   //--------------------------------------------------------------------
   {
     // Set the Debug Level
     SetDebugLevel(fDebug);
 
     log4cpp::Category& klog = log4cpp::Category::getRoot();
-    klog << log4cpp::Priority::INFO << "RoadStudy::End()";
-    klog << log4cpp::Priority::INFO << "RoadStudy::Number of events with just One Road:";
+    klog << log4cpp::Priority::INFO << "RoadWidthStudy::End()";
+    klog << log4cpp::Priority::INFO << "RoadWidthStudy::Number of events with just One Road:";
     for (int width=fMinWidth; width<fMaxWidth+1; width++)
       klog << log4cpp::Priority::INFO << "           Width: "
-           << width << " -> " << fRoadStudy_Evts1Road_H1->GetBinContent(width+1);
+           << width << " -> " << fRoadWidthStudy_Evts1Road_H1->GetBinContent(width+1);
 
     return true;
   }

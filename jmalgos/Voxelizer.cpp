@@ -168,6 +168,8 @@ namespace alex {
            << rTrk->GetID() << rTrk->PrintInfo();
     }
 
+    //ISvc::Instance().PrintTrueEvent();
+
     return true;
   }
 

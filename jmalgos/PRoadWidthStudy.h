@@ -1,12 +1,12 @@
 
-#ifndef PRoadStudy_
-#define PRoadStudy_
+#ifndef PRoadWidthStudy_
+#define PRoadWidthStudy_
 
 #include <alex/ARTrack.h>
 
 
 namespace alex {
-  class PRoadStudy {
+  class PRoadWidthStudy {
 
   public:
     // You can add here public functions and variables to be used by derived algos
