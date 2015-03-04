@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<RoadCharacterizer>
+  
+  <Param>
+    <name>fName</name>
+    <dataType>string</dataType>
+    <value>RoadCharacterizer</value>
+  </Param>
+  
+  <Param>
+    <name>fDebug</name>
+    <dataType>string</dataType>
+    <value>INFO</value>
+  </Param>
+
+
+  <!-- Histogram with number of RTracks -->
+  <H1D>
+    <name>fRoadCharacterizer_NumRTracks_H1</name>
+    <title>Number of RTracks</title>
+    <nbinsx>10</nbinsx>
+    <xlow>0.0</xlow>
+    <xup>10.0</xup>
+  </H1D>
+
+  <!-- Energy of the Hottest (== Most Energetic) RTrack -->
+  <H1D>
+    <name>fRoadCharacterizer_EnergyHRTrack_H1</name>
+    <title>Energy of Hottest RTrack</title>
+    <nbinsx>50</nbinsx>
+    <xlow>2.0</xlow>
+    <xup>2.5</xup>
+  </H1D>
+
+  <!-- Voxels of the Hottest (== Most Energetic) RTrack -->
+  <H1D>
+    <name>fRoadCharacterizer_VoxelsHRTrack_H1</name>
+    <title>Voxels of Hottest RTrack</title>
+    <nbinsx>100</nbinsx>
+    <xlow>0.0</xlow>
+    <xup>200.0</xup>
+  </H1D>
+
+  <!-- Main Path Voxels of the Hottest (== Most Energetic) RTrack -->
+  <H1D>
+    <name>fRoadCharacterizer_MPVoxelsHRTrack_H1</name>
+    <title>Main Path Voxels of Hottest RTrack</title>
+    <nbinsx>75</nbinsx>
+    <xlow>0.0</xlow>
+    <xup>150.0</xup>
+  </H1D>
+
+  <!-- Energy of the 2nd Hottest (== 2ndMost Energetic) RTrack -->
+  <H1D>
+    <name>fRoadCharacterizer_EnergyHRTrack2_H1</name>
+    <title>Energy of 2nd Hottest RTrack</title>
+    <nbinsx>60</nbinsx>
+    <xlow>0.0</xlow>
+    <xup>0.6</xup>
+  </H1D>
+
+  <!-- Energy of the Hottest RTrack vs 2nd Hottest -->
+  <H2D>
+    <name>fRoadCharacterizer_EnergyHRTracks_H2</name>
+    <title>Energy of Hottest RTrack vs 2nd Hottest RTrack</title>
+    <nbinsx>50</nbinsx>
+    <xlow>2.0</xlow>
+    <xup>2.5</xup>
+    <nbinsy>60</nbinsy>
+    <ylow>0.0</ylow>
+    <yup>0.6</yup>
+  </H2D>
+
+
+
+</RoadCharacterizer>
