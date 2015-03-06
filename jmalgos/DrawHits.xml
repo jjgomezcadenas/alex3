@@ -5,10 +5,18 @@
     <dataType>string</dataType>
     <value>DrawHits</value>
   </Param>
+  
   <Param>
     <name>fDebug</name>
     <dataType>string</dataType>
     <value>DEBUG</value>
   </Param>
 
+  <!-- Possible Values: "True", "Rec"-->
+  <Param>
+    <name>fType</name>
+    <dataType>string</dataType>
+    <value>Rec</value>
+  </Param>
+  
 </DrawHits>
