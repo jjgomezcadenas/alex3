@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ExtremesCharacterizer>
+  
+  <Param>
+    <name>fName</name>
+    <dataType>string</dataType>
+    <value>ExtremesCharacterizer</value>
+  </Param>
+  
+  <Param>
+    <name>fDebug</name>
+    <dataType>string</dataType>
+    <value>INFO</value>
+  </Param>
+
+
+  <!-- Energy of the Hottest RTrack vs 2nd Hottest -->
+  <H2D>
+    <name>fExtremesCharacterizer_BlobRad_Blob2E_H2</name>
+    <title>Blob Radius vs Blob2 Energy</title>
+    <nbinsx>20</nbinsx>
+    <xlow>0.0</xlow>
+    <xup>20.0</xup>
+    <nbinsy>25</nbinsy>
+    <ylow>0.0</ylow>
+    <yup>0.5</yup>
+  </H2D>
+
+  <!-- Distance Between True & Rec Extremes -->
+  <H1D>
+    <name>fExtremesCharacterizer_DistTrueRec_H1</name>
+    <title>Extreme1 - Distance (Rec, True)</title>
+    <nbinsx>25</nbinsx>
+    <xlow>0.0</xlow>
+    <xup>50.0</xup>
+  </H1D>
+
+  <!-- Distance Between True & Rec Extreme2
+  <H1D>
+    <name>fExtremesCharacterizer_DistTrueRec2_H1</name>
+    <title>Extreme2 - Distance (Rec, True)</title>
+    <nbinsx>20</nbinsx>
+    <xlow>0.0</xlow>
+    <xup>20.0</xup>
+  </H1D>
+-->
+
+</ExtremesCharacterizer>

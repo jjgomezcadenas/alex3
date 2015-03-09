@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<GoodRoadFilter>
+  
+  <Param>
+    <name>fName</name>
+    <dataType>string</dataType>
+    <value>GoodRoadFilter</value>
+  </Param>
+  
+  <Param>
+    <name>fDebug</name>
+    <dataType>string</dataType>
+    <value>INFO</value>
+  </Param>
+
+  <!-- Minimum Energy of Hottest RTrack -->
+  <Param>
+    <name>fEmin</name>
+    <dataType>double</dataType>
+    <value>2.39</value>
+  </Param>
+
+  <!-- Histogram with number of roads -->
+  <H1D>
+    <name>fGoodRoadFilter_EnergyHRTrack_H1</name>
+    <title>Energy of Hottest RTrack</title>
+    <nbinsx>50</nbinsx>
+    <xlow>2.0</xlow>
+    <xup>2.5</xup>
+  </H1D>
+
+
+</GoodRoadFilter>

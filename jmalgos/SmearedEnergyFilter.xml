@@ -17,14 +17,14 @@
   <Param>
     <name>fMinEnergy</name>
     <dataType>double</dataType>
-    <value>2.4</value>
+    <value>2.44</value>
   </Param>
 
   <!-- Set to the maximum energy in an event -->
   <Param>
     <name>fMaxEnergy</name>
     <dataType>double</dataType>
-    <value>2.5</value>
+    <value>2.48</value>
   </Param>
 
   <!-- Histogram with Event Edep before filter -->

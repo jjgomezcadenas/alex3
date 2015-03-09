@@ -23,6 +23,8 @@ namespace alex {
     log4cpp::Category& klog = log4cpp::Category::getRoot();
     klog << log4cpp::Priority::INFO << "RoadCharacterizer::Init()";
 
+    fRoadCharacterizer_EnergyHRTracks_H2->SetOption("COLZ");
+
     return true;
   }
 
