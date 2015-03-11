@@ -109,8 +109,8 @@ namespace alex {
 
       // Getting the True Extremes Positions
       const std::pair<AHit*, AHit*> tExtremes = hTTrack->GetExtremes();
-      TVector3 tPos1 = tExtremes.first->GetPosition();
-      TVector3 tPos2 = tExtremes.second->GetPosition();
+      tPos1 = tExtremes.first->GetPosition();
+      tPos2 = tExtremes.second->GetPosition();
 
       klog << log4cpp::Priority::DEBUG << "ExtremesCharacterizer::Hottest TTrack ID: " << hTTrack->GetID()
            << "  Extreme1: (" << tPos1.x() << " , " << tPos1.y() << " , " << tPos1.z()

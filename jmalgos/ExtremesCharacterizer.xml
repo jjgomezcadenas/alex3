@@ -10,7 +10,7 @@
   <Param>
     <name>fDebug</name>
     <dataType>string</dataType>
-    <value>INFO</value>
+    <value>DEBUG</value>
   </Param>
 
 
@@ -29,7 +29,7 @@
   <!-- Distance Between True & Rec Extremes -->
   <H1D>
     <name>fExtremesCharacterizer_DistTrueRec_H1</name>
-    <title>Extreme1 - Distance (Rec, True)</title>
+    <title>Distance ExtremeRec - ExtremeTrue</title>
     <nbinsx>25</nbinsx>
     <xlow>0.0</xlow>
     <xup>50.0</xup>
